@@ -1,4 +1,9 @@
-mdc.ripple.MDCRipple.attachTo(document.querySelector(".mdc-button"))
+import * as mdc from "material-components-web"
+// import { ripple, MDCRipple } from "@material/ripple"
+// mdc.ripple.MDCRipple.attachTo(document.querySelector(".mdc-button"))
+
+import { db } from "../App"
+import { collection, doc, setDoc, addDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore"
 
 const configuration = {
 	iceServers: [
@@ -15,19 +20,15 @@ let remoteStream = null
 let roomDialog = null
 let roomId = null
 
-function init() {
-	// document.querySelector("#cameraBtn").addEventListener("click", openUserMedia)
-	// document.querySelector("#hangupBtn").addEventListener("click", hangUp)
-	// document.querySelector("#createBtn").addEventListener("click", createRoom)
-	// document.querySelector("#joinBtn").addEventListener("click", joinRoom)
-	roomDialog = new mdc.dialog.MDCDialog(document.querySelector("#room-dialog"))
+export function init() {
+	roomDialog = document.querySelector("#room-dialog")
 }
 
-async function createRoom() {
+export async function createRoom() {
 	document.querySelector("#createBtn").disabled = true
 	document.querySelector("#joinBtn").disabled = true
-	const db = firebase.firestore()
-	const roomRef = await db.collection("rooms").doc()
+	const roomsRef = collection(db, "rooms")
+	const roomRef = doc(roomsRef)
 
 	console.log("Create PeerConnection with configuration: ", configuration)
 	peerConnection = new RTCPeerConnection(configuration)
@@ -39,15 +40,15 @@ async function createRoom() {
 	})
 
 	// Code for collecting ICE candidates below
-	const callerCandidatesCollection = roomRef.collection("callerCandidates")
+	const callerCandidatesCollection = collection(roomRef, "callerCandidates")
 
-	peerConnection.addEventListener("icecandidate", (event) => {
+	peerConnection.addEventListener("icecandidate", async (event) => {
 		if (!event.candidate) {
 			console.log("Got final candidate!")
 			return
 		}
 		console.log("Got candidate: ", event.candidate)
-		callerCandidatesCollection.add(event.candidate.toJSON())
+		await addDoc(callerCandidatesCollection, event.candidate.toJSON())
 	})
 	// Code for collecting ICE candidates above
 
@@ -62,7 +63,7 @@ async function createRoom() {
 			sdp: offer.sdp,
 		},
 	}
-	await roomRef.set(roomWithOffer)
+	await setDoc(roomRef, roomWithOffer)
 	roomId = roomRef.id
 	console.log(`New room created with SDP offer. Room ID: ${roomRef.id}`)
 	document.querySelector("#currentRoom").innerText = `Current room is ${roomRef.id} - You are the caller!`
@@ -77,7 +78,7 @@ async function createRoom() {
 	})
 
 	// Listening for remote session description below
-	roomRef.onSnapshot(async (snapshot) => {
+	onSnapshot(roomRef, async (snapshot) => {
 		const data = snapshot.data()
 		if (!peerConnection.currentRemoteDescription && data && data.answer) {
 			console.log("Got remote description: ", data.answer)
@@ -88,7 +89,7 @@ async function createRoom() {
 	// Listening for remote session description above
 
 	// Listen for remote ICE candidates below
-	roomRef.collection("calleeCandidates").onSnapshot((snapshot) => {
+	onSnapshot(collection(roomRef, "calleeCandidates"), (snapshot) => {
 		snapshot.docChanges().forEach(async (change) => {
 			if (change.type === "added") {
 				let data = change.doc.data()
@@ -100,10 +101,9 @@ async function createRoom() {
 	// Listen for remote ICE candidates above
 }
 
-function joinRoom() {
+export function joinRoom() {
 	document.querySelector("#createBtn").disabled = true
 	document.querySelector("#joinBtn").disabled = true
-
 	document.querySelector("#confirmJoinBtn").addEventListener(
 		"click",
 		async () => {
@@ -114,14 +114,13 @@ function joinRoom() {
 		},
 		{ once: true }
 	)
-	roomDialog.open()
+	// roomDialog.open()
 }
 
-async function joinRoomById(roomId) {
-	const db = firebase.firestore()
-	const roomRef = db.collection("rooms").doc(`${roomId}`)
-	const roomSnapshot = await roomRef.get()
-	console.log("Got room:", roomSnapshot.exists)
+export async function joinRoomById(roomId) {
+	const roomRef = doc(db, "rooms", `${roomId}`)
+	const roomSnapshot = await getDoc(roomRef)
+	console.log("Got room:", roomSnapshot.exists())
 
 	if (roomSnapshot.exists) {
 		console.log("Create PeerConnection with configuration: ", configuration)
@@ -132,7 +131,7 @@ async function joinRoomById(roomId) {
 		})
 
 		// Code for collecting ICE candidates below
-		const calleeCandidatesCollection = roomRef.collection("calleeCandidates")
+		const calleeCandidatesCollection = collection(roomRef, "calleeCandidates")
 		peerConnection.addEventListener("icecandidate", (event) => {
 			if (!event.candidate) {
 				console.log("Got final candidate!")
@@ -165,11 +164,11 @@ async function joinRoomById(roomId) {
 				sdp: answer.sdp,
 			},
 		}
-		await roomRef.update(roomWithAnswer)
+		await updateDoc(roomRef, roomWithAnswer)
 		// Code for creating SDP answer above
 
 		// Listening for remote ICE candidates below
-		roomRef.collection("callerCandidates").onSnapshot((snapshot) => {
+		onSnapshot(collection(roomRef, "callerCandidates"), (snapshot) => {
 			snapshot.docChanges().forEach(async (change) => {
 				if (change.type === "added") {
 					let data = change.doc.data()
@@ -182,7 +181,7 @@ async function joinRoomById(roomId) {
 	}
 }
 
-async function openUserMedia(e) {
+export async function openUserMedia(e) {
 	const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 	document.querySelector("#localVideo").srcObject = stream
 	localStream = stream
@@ -196,7 +195,7 @@ async function openUserMedia(e) {
 	document.querySelector("#hangupBtn").disabled = false
 }
 
-async function hangUp(e) {
+export async function hangUp(e) {
 	const tracks = document.querySelector("#localVideo").srcObject.getTracks()
 	tracks.forEach((track) => {
 		track.stop()
@@ -220,13 +219,12 @@ async function hangUp(e) {
 
 	// Delete room on hangup
 	if (roomId) {
-		const db = firebase.firestore()
-		const roomRef = db.collection("rooms").doc(roomId)
-		const calleeCandidates = await roomRef.collection("calleeCandidates").get()
+		const roomRef = doc(db, "rooms", `${roomId}`)
+		const calleeCandidates = collection(roomRef, "calleeCandidates")
 		calleeCandidates.forEach(async (candidate) => {
 			await candidate.ref.delete()
 		})
-		const callerCandidates = await roomRef.collection("callerCandidates").get()
+		const callerCandidates = collection(roomRef, "callerCandidates")
 		callerCandidates.forEach(async (candidate) => {
 			await candidate.ref.delete()
 		})
@@ -236,7 +234,7 @@ async function hangUp(e) {
 	document.location.reload(true)
 }
 
-function registerPeerConnectionListeners() {
+export function registerPeerConnectionListeners() {
 	peerConnection.addEventListener("icegatheringstatechange", () => {
 		console.log(`ICE gathering state changed: ${peerConnection.iceGatheringState}`)
 	})
