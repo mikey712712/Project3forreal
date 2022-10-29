@@ -1,18 +1,19 @@
 import "./App.css"
 // COMPONENTS
-import Button from "./components/Button"
+import VideoButton from "./components/VideoButton"
 import CurrentRoom from "./components/CurrentRoom"
 import Dialog from "./components/Dialog"
 import Videos from "./components/Videos"
 
 // FUNCTION/LIBRARY IMPORTS
-import { createRoom } from "./functions/FirebaseRTC1"
-import { openUserMedia } from "./functions/FirebaseRTC1"
-import { joinRoom } from "./functions/FirebaseRTC1"
-import { hangUp } from "./functions/FirebaseRTC1"
-import { init } from "./functions/FirebaseRTC1"
+import { createRoom } from "./functions/FirebaseRTC"
+import { openUserMedia } from "./functions/FirebaseRTC"
+import { joinRoom } from "./functions/FirebaseRTC"
+import { hangUp } from "./functions/FirebaseRTC"
+import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
+import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
@@ -23,21 +24,25 @@ const firebaseConfig = {
 	appId: "1:702523758220:web:bfc9b98b6929a472be4da9",
 }
 
-const app = initializeApp(firebaseConfig)
-export const db = getFirestore(app)
+const firebaseApp = initializeApp(firebaseConfig)
+export const db = getFirestore(firebaseApp)
 function App() {
 	init()
 	return (
-		<div className="App">
-			<h1>Welcome to Bruh moment!</h1>
-			<Button btnId={"cameraBtn"} iElement={"perm_camera_mic"} spanText={"Open camera & microphone"} btnOnClick={openUserMedia} />
-			<Button btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} btnOnClick={createRoom} />
-			<Button btnId={"joinBtn"} iElement={"group"} spanText={"Join room"} btnOnClick={joinRoom} />
-			<Button btnId={"hangupBtn"} iElement={"close"} spanText={"Hangup"} btnOnClick={hangUp} />
-			<CurrentRoom />
-			<Videos />
-			<Dialog />
-		</div>
+		<ChakraProvider>
+			<div className="App">
+				<Heading m="20px auto">Welcome!</Heading>
+				<ButtonGroup>
+					<VideoButton btnId={"cameraBtn"} iElement={"perm_camera_mic"} spanText={"Open camera & microphone"} btnOnClick={openUserMedia} />
+					<VideoButton btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} btnOnClick={createRoom} />
+					<VideoButton btnId={"joinBtn"} iElement={"group"} spanText={"Join room"} btnOnClick={joinRoom} />
+					<VideoButton btnId={"hangupBtn"} iElement={"close"} spanText={"Hangup"} btnOnClick={hangUp} />
+				</ButtonGroup>
+				<CurrentRoom />
+				<Videos />
+				<Dialog />
+			</div>
+		</ChakraProvider>
 	)
 }
 
