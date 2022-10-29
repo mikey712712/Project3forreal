@@ -1,7 +1,3 @@
-import * as mdc from "material-components-web"
-// import { ripple, MDCRipple } from "@material/ripple"
-// mdc.ripple.MDCRipple.attachTo(document.querySelector(".mdc-button"))
-
 import { db } from "../App"
 import { collection, doc, setDoc, addDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore"
 
