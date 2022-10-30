@@ -1,7 +1,7 @@
-export default function Message(message) {
-    const {text, uid} = message
+export default function Message({message,id}) {
+    
     return (
-        <p>{text}</p>
+        <p>{message}</p>
     )
 
     } 

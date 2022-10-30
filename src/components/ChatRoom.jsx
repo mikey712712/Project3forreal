@@ -1,16 +1,9 @@
-import Message from "./Message"
-import SubmitChatButtonq from "./SubmitChatButton"
-import {useRef} from 'react' 
-
-export default function ChatRoom({messages}) {
-
-	
-	const renderedMessages = messages.map(msg=> <Message key = {msg.id} message = {msg.message}/>)
-	
+import SubmitChatButton from "./SubmitChatButton"
+import MessageList from "./MessageList"
+export default function ChatRoom({roomNumber}) {
 	return (
 	<div className = "chatroom">
-		{renderedMessages}
-		{/* <div ref = {divForScrolling}></div>  <- we will use this to auto scroll later on*/}
+		<MessageList roomNumber = {roomNumber}/>
 		<SubmitChatButton />
 	</div>
 

@@ -13,10 +13,9 @@ import { hangUp } from "./functions/FirebaseRTC"
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import {getDatabase,ref,set} from "firebase/database"
+import {getDatabase,ref,set,onChildAdded} from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
-import {useState,useEffect} from 'react'
-import {useList} from 'react-firebase-hooks/database'
+
 const firebaseConfig = {
 	***REMOVED***
 	***REMOVED***
@@ -32,11 +31,9 @@ export const db = getFirestore(firebaseApp)
 export const RealTimeDB = getDatabase(firebaseApp)
 
 function App() {
-	const [messages,SetMessages] = useState([])
-	useEffect(()=> {
-		const [snapshots,loading,error] = useList(ref(RealTimeDB,"chat/1234")) // hardcoded reference to chat/1234 for now
-		console.log(snapshots)
-	},[])
+	
+	
+	
 	init()
 	return (
 		<ChakraProvider>
@@ -51,7 +48,7 @@ function App() {
 				<CurrentRoom />
 				<Videos />
 				<Dialog />
-				<ChatRoom/>
+				<ChatRoom roomNumber = "1234"/>
 			</div>
 		</ChakraProvider>
 	)
