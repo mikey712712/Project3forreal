@@ -13,6 +13,7 @@ import { hangUp } from "./functions/FirebaseRTC"
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
+import {getDatabase,ref,set} from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 
 const firebaseConfig = {
@@ -22,10 +23,23 @@ const firebaseConfig = {
 	***REMOVED***
 	***REMOVED***
 	***REMOVED***
+	databaseURL:"https://project-3---the-boys-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }
 
 const firebaseApp = initializeApp(firebaseConfig)
 export const db = getFirestore(firebaseApp)
+export const RealTimeDB = getDatabase(firebaseApp)
+// console.log(RealTimeDB)
+// function writeUserData(userId, name, email, imageUrl) {
+	
+// 	set(ref(RealTimeDB, 'users/' + userId), {
+// 	  username: name,
+// 	  email: email,
+// 	  profile_picture : imageUrl
+// 	});
+//   }
+
+// writeUserData("1234","Dylan","bob@123.com","www.google.com")
 function App() {
 	init()
 	return (
