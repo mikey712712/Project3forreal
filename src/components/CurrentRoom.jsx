@@ -1,12 +1,7 @@
-import Message from "./Message"
-
-
-export default function CurrentRoom({messages}) {
-	const renderedMessages = messages.map(msg=> <Message />)
-	
+export default function CurrentRoom() {
 	return (
-		<div className = "chatroom">
-			{renderedMessages}
+		<div>
+			<span id="currentRoom"></span>
 		</div>
 	)
 }
