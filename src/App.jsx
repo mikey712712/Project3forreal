@@ -1,6 +1,8 @@
 import "./App.css"
 // COMPONENTS
 import Header from "./components/Header"
+import Register from "./components/Register"
+import Login from "./components/Login"
 import VideoPage from "./components/VideoPage"
 import Register from "./components/Register"
 // FUNCTION/LIBRARY IMPORTS
@@ -36,7 +38,8 @@ function App() {
 					<Header />
 					<Routes>
 						<Route path="/" element={<VideoPage />} />
-						<Route path="/login" element={<Register />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/login" element={<Login />} />
 					</Routes>
 				</div>
 			</BrowserRouter>
