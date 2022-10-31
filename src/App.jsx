@@ -1,11 +1,8 @@
 import "./App.css"
 // COMPONENTS
-import VideoButton from "./components/VideoButton"
-import CurrentRoom from "./components/CurrentRoom"
-import Dialog from "./components/Dialog"
-import Videos from "./components/Videos"
-import ChatRoom from "./components/ChatRoom"
 import Header from "./components/Header"
+import Register from "./components/Register"
+import Login from "./components/Login"
 import VideoPage from "./components/VideoPage"
 // FUNCTION/LIBRARY IMPORTS
 import { init } from "./functions/FirebaseRTC"
@@ -15,7 +12,7 @@ import { getDatabase, ref, set, onChildAdded } from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
-import {getAuth} from 'firebase/auth'
+import { getAuth } from "firebase/auth"
 const firebaseConfig = {
 	***REMOVED***
 	***REMOVED***
@@ -40,6 +37,8 @@ function App() {
 					<Header />
 					<Routes>
 						<Route path="/" element={<VideoPage />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/login" element={<Login />} />
 					</Routes>
 				</div>
 			</BrowserRouter>
