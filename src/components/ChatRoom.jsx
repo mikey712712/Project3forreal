@@ -1,14 +1,11 @@
 import SubmitChatButton from "./SubmitChatButton"
 import MessageList from "./MessageList"
-export default function ChatRoom({roomNumber}) {
+import { Box } from "@chakra-ui/react"
+export default function ChatRoom({ roomNumber }) {
 	return (
-	<div className = "chatroom">
-		<MessageList roomNumber = {roomNumber}/>
-		<SubmitChatButton />
-	</div>
-
-	
-	)	
+		<Box w="60%" m="0 auto" border="1px solid black" p="20px" className="chatroom">
+			<MessageList roomNumber={roomNumber} />
+			<SubmitChatButton />
+		</Box>
+	)
 }
-
-
