@@ -9,7 +9,7 @@ export default function Contacts({ user }) {
 	useEffect(() => {
 		console.log("useEffectTriggered")
 		const query = ref(RealTimeDB, "Users/" + user?.uid)
-		return onValue(query, (snapshot) => {
+		let turnOff = onValue(query, (snapshot) => {
 			const data = snapshot.val()
 
 			if (snapshot.exists()) {
