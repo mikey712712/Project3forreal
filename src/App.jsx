@@ -13,8 +13,9 @@ import { getDatabase, ref, set, onChildAdded } from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
-import { getAuth } from "firebase/auth"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import UserSettings from "./components/UserSettings"
+import { useState } from "react"
 const firebaseConfig = {
 	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
 	authDomain: "project-3---the-boys.firebaseapp.com",
@@ -31,12 +32,22 @@ export const RealTimeDB = getDatabase(firebaseApp)
 export const auth = getAuth(firebaseApp)
 
 function App() {
+	const [user, setUser] = useState(null)
+	onAuthStateChanged(auth, (currUser) => {
+		if (currUser) {
+			// User is signed in.
+			setUser(currUser)
+		} else {
+			// No user is signed in.
+			setUser(null)
+		}
+	})
 	init()
 	return (
 		<ChakraProvider>
 			<BrowserRouter>
 				<div className="App">
-					<Header />
+					<Header auth={auth} user={user} />
 					<Routes>
 						<Route path="/" element={<VideoPage />} />
 						<Route path="/register" element={<Register />} />
