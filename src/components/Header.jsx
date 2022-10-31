@@ -13,10 +13,11 @@ export default function Header() {
 			fontWeight="bold"
 			h="36px"
 		>
-			<a href="">Home</a>
+			<Link to="/">Home</Link>
 			<a href="">Teams</a>
 			<a href="">Contacts</a>
 			<a href="">Account</a>
+			<Link to="/register">Register</Link>
 			<Link to="/login">Login</Link>
 		</Flex>
 	)
