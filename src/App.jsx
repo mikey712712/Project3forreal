@@ -15,6 +15,7 @@ import { getDatabase, ref, set, onChildAdded } from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
+import {getAuth} from 'firebase/auth'
 const firebaseConfig = {
 	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
 	authDomain: "project-3---the-boys.firebaseapp.com",
@@ -28,6 +29,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig)
 export const db = getFirestore(firebaseApp)
 export const RealTimeDB = getDatabase(firebaseApp)
+export const auth = getAuth(firebaseApp)
 
 function App() {
 	init()
