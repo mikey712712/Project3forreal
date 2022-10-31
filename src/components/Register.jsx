@@ -16,7 +16,8 @@ import {
 } from "@chakra-ui/react"
 import { FaUserAlt, FaLock } from "react-icons/fa"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../App"
+import { createUserRealTimeDB } from "../functions/FirebaseRTDB"
+import { auth, RealTimeDB } from "../App"
 import { useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
@@ -37,7 +38,9 @@ export default function Register() {
 			.then((userCredential) => {
 				// Signed in
 				const user = userCredential.user
-				console.log("signedIn", user)
+				// create record in RTDB
+				createUserRealTimeDB(user.uid)
+
 				navigate("/")
 			})
 			.catch((error) => {

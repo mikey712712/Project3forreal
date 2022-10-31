@@ -5,12 +5,12 @@ import Register from "./components/Register"
 import Login from "./components/Login"
 import VideoPage from "./components/VideoPage"
 import Account from "./components/Account"
-
+import Contacts from "./components/Contacts"
 // FUNCTION/LIBRARY IMPORTS
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { getDatabase, ref, set, onChildAdded } from "firebase/database"
+import { getDatabase, ref, set, onChildAdded, onValue } from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
@@ -34,13 +34,16 @@ export const auth = getAuth(firebaseApp)
 
 function App() {
 	const [user, setUser] = useState(null)
+
 	onAuthStateChanged(auth, (currUser) => {
 		if (currUser) {
 			// User is signed in.
 			setUser(currUser)
+			console.log("userSignedIN", currUser)
 		} else {
 			// No user is signed in.
 			setUser(null)
+			console.log("loggedout")
 		}
 	})
 	init()
@@ -49,6 +52,7 @@ function App() {
 			<BrowserRouter>
 				<div className="App">
 					<Header auth={auth} user={user} />
+					<Contacts user={user}></Contacts>
 					<Routes>
 						<Route path="/" element={<VideoPage />} />
 						<Route path="/register" element={<Register />} />
