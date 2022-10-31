@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 const navigate = useNavigate()
+
 export default function Register() {
 	const [showPassword, setShowPassword] = useState(false)
 	const [formValue, setFormValue] = useState({})
@@ -34,7 +35,7 @@ export default function Register() {
 	const onSignup = (event) => {
 		event.preventDefault()
 		setFormValue(fields)
-		createUserWithEmailAndPassword(auth, fields.email, fields.password)
+		signInWithEmailAndPassword(auth, fields.email, fields.password)
 			.then((userCredential) => {
 				// Signed in
 				const user = userCredential.user
@@ -77,16 +78,16 @@ export default function Register() {
 								</FormHelperText>
 							</FormControl>
 							<Button borderRadius={0} type="submit" variant="solid" colorScheme="teal" width="full">
-								Sign Up
+								Login
 							</Button>
 						</Stack>
 					</form>
 				</Box>
 			</Stack>
 			<Box>
-				Return to login?{" "}
-				<Link to="/login" color="teal.500" href="#">
-					Log In
+				New to us?{" "}
+				<Link to="/register" color="teal.500" href="#">
+					Sign Up
 				</Link>
 			</Box>
 		</Flex>
