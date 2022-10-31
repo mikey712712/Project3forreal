@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/react"
 
 export default function Videos() {
 	return (
-		<Box id="video-container" w="80%" m="0 auto" boxSizing="border-box" p="20px">
+		<Box id="video-container" w="80%" m="0 auto" h="fit-content">
 			<Box id="videos" w="100%" backgroundColor="black" textAlign="center">
 				<Box h="fit-content" position="relative" w="fit-content" m="0 auto">
 					<video id="remoteVideo" muted autoPlay playsInline></video>
