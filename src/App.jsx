@@ -14,6 +14,7 @@ import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
 import { getAuth } from "firebase/auth"
+import UserSettings from "./components/UserSettings"
 const firebaseConfig = {
 	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
 	authDomain: "project-3---the-boys.firebaseapp.com",
@@ -40,6 +41,7 @@ function App() {
 						<Route path="/" element={<VideoPage />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/login" element={<Login />} />
+						<Route path="/userSettings" element={<UserSettings />} />
 					</Routes>
 				</div>
 			</BrowserRouter>
