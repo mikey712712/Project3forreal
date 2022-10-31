@@ -5,9 +5,9 @@ import { onAuthStateChanged } from "firebase/auth"
 export default function SubmitChatButton() {
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			console.log(user)
+			// console.log(user)
 		} else {
-			console.log("nope")
+			// console.log("nope")
 		}
 	})
 	const user = auth.currentUser
@@ -15,7 +15,7 @@ export default function SubmitChatButton() {
 	const [formValue, setFormValue] = useState("")
 	const sendMessage = async (e) => {
 		e.preventDefault()
-		console.log(user)
+		// console.log(user)
 		writeChatMessage(user.providerData[0].displayName, formValue, "1234")
 		setFormValue("")
 	}
