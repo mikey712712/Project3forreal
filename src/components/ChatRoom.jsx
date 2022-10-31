@@ -1,5 +1,6 @@
 import SubmitChatButton from "./SubmitChatButton"
 import MessageList from "./MessageList"
+import ChatRoomHeader from "./ChatRoomHeader"
 import VideoButton from "./VideoButton"
 import { Box, Flex } from "@chakra-ui/react"
 import Dialog from "./Dialog"
@@ -12,7 +13,8 @@ import { useState } from "react"
 export default function ChatRoom({ roomNumber, videoOn, setVideoOn }) {
 	const [joinMode, setJoinMode] = useState(false)
 	return (
-		<Box w="60%" m="0 auto" border="1px solid black" p="20px" className="chatroom">
+		<Box w="60%" m="0 auto" border="1px solid black" className="chatroom">
+			<ChatRoomHeader roomNumber={roomNumber} />
 			<MessageList roomNumber={roomNumber} />
 			<Flex p="5px" justifyContent="center">
 				<SubmitChatButton />
