@@ -1,7 +1,7 @@
-export default function Message({message,id}) {
-    
-    return (
-        <p>{message}</p>
-    )
-
-    } 
+export default function Message({ message, author }) {
+	return (
+		<p>
+			{author} : {message}
+		</p>
+	)
+}

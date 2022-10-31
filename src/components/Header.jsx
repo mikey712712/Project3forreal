@@ -16,7 +16,7 @@ export default function Header() {
 			<Link to="/">Home</Link>
 			<a href="">Teams</a>
 			<a href="">Contacts</a>
-			<a href="">Account</a>
+			<Link to="/userSettings">Account</Link>
 			<Link to="/register">Register</Link>
 			<Link to="/login">Login</Link>
 		</Flex>
