@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Register from "./components/Register"
 import Login from "./components/Login"
 import VideoPage from "./components/VideoPage"
+import Account from "./components/Account"
 
 // FUNCTION/LIBRARY IMPORTS
 import { init } from "./functions/FirebaseRTC"
@@ -53,6 +54,7 @@ function App() {
 						<Route path="/register" element={<Register />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/userSettings" element={<UserSettings />} />
+						<Route path="/account" element={<Account user={user} />} />
 					</Routes>
 				</div>
 			</BrowserRouter>

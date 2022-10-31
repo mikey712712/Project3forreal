@@ -51,32 +51,26 @@ export default function UserSettings() {
 	}
 
 	return (
-		<Flex flexDirection="column" width="100wh" height="100vh" backgroundColor="gray.200" justifyContent="center" alignItems="center">
-			<Stack flexDir="column" mb="2" justifyContent="center" alignItems="center">
-				<Avatar bg="teal.500" />
-				<Heading color="teal.400">Welcome</Heading>
-				<Box minW={{ base: "90%", md: "468px" }}>
-					<form onSubmit={onProfileUpdate}>
-						<Stack spacing={4} p="1rem" backgroundColor="whiteAlpha.900" boxShadow="md">
-							<FormControl>
-								<InputGroup>
-									<InputLeftElement pointerEvents="none" children={<CFaUserAlt color="gray.300" />} />
-									<Input type="text" name="displayName" placeholder="Your DisplayName Here" onChange={onType} />
-								</InputGroup>
-							</FormControl>
-							<FormControl>
-								<InputGroup>
-									<InputLeftElement pointerEvents="none" color="gray.300" children={<CFaLock color="gray.300" />} />
-									<Input type="text" name="photoURL" placeholder="Your Photo Link Here" onChange={onType} />
-								</InputGroup>
-							</FormControl>
-							<Button borderRadius={0} type="submit" variant="solid" colorScheme="teal" width="full">
-								Submit
-							</Button>
-						</Stack>
-					</form>
-				</Box>
-			</Stack>
-		</Flex>
+		<Box minW={{ base: "90%", md: "468px" }}>
+			<form onSubmit={onProfileUpdate}>
+				<Stack spacing={4} p="1rem" backgroundColor="whiteAlpha.900" boxShadow="md">
+					<FormControl>
+						<InputGroup>
+							<InputLeftElement pointerEvents="none" children={<CFaUserAlt color="gray.300" />} />
+							<Input type="text" name="displayName" placeholder="Display Name" onChange={onType} />
+						</InputGroup>
+					</FormControl>
+					<FormControl>
+						<InputGroup>
+							<InputLeftElement pointerEvents="none" color="gray.300" children={<CFaLock color="gray.300" />} />
+							<Input type="text" name="photoURL" placeholder="Your Photo Link Here" onChange={onType} />
+						</InputGroup>
+					</FormControl>
+					<Button borderRadius={0} type="submit" variant="solid" colorScheme="teal" width="full">
+						Submit
+					</Button>
+				</Stack>
+			</form>
+		</Box>
 	)
 }
