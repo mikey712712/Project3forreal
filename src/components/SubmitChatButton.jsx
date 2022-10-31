@@ -11,15 +11,17 @@ export default function SubmitChatButton() {
 		}
 	})
 	const user = auth.currentUser
+
 	const [formValue, setFormValue] = useState("")
 	const sendMessage = async (e) => {
 		e.preventDefault()
+		console.log(user)
 		writeChatMessage(user.providerData[0].displayName, formValue, "1234")
 		setFormValue("")
 	}
 	return (
 		<form onSubmit={sendMessage}>
-			<input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
+			<input value={formValue} placeholder="Type a message" onChange={(e) => setFormValue(e.target.value)} />
 			<button type="submit">Chat </button>
 		</form>
 	)
