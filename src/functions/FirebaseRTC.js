@@ -100,16 +100,7 @@ export async function createRoom() {
 export function joinRoom() {
 	document.querySelector("#createBtn").disabled = true
 	document.querySelector("#joinBtn").disabled = true
-	document.querySelector("#confirmJoinBtn").addEventListener(
-		"click",
-		async () => {
-			roomId = document.querySelector("#room-id").value
-			console.log("Join room: ", roomId)
-			document.querySelector("#currentRoom").innerText = `Current room is ${roomId} - You are the callee!`
-			await joinRoomById(roomId)
-		},
-		{ once: true }
-	)
+
 	// roomDialog.open()
 }
 
@@ -177,7 +168,7 @@ export async function joinRoomById(roomId) {
 	}
 }
 
-export async function openUserMedia(e) {
+export async function openUserMedia() {
 	const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 	document.querySelector("#localVideo").srcObject = stream
 	localStream = stream
