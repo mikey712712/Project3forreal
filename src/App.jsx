@@ -5,16 +5,16 @@ import CurrentRoom from "./components/CurrentRoom"
 import Dialog from "./components/Dialog"
 import Videos from "./components/Videos"
 import ChatRoom from "./components/ChatRoom"
+import Header from "./components/Header"
+import VideoPage from "./components/VideoPage"
 // FUNCTION/LIBRARY IMPORTS
-import { createRoom } from "./functions/FirebaseRTC"
-import { openUserMedia } from "./functions/FirebaseRTC"
-import { joinRoom } from "./functions/FirebaseRTC"
-import { hangUp } from "./functions/FirebaseRTC"
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import {getDatabase,ref,set,onChildAdded} from "firebase/database"
+import { getDatabase, ref, set, onChildAdded } from "firebase/database"
 import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
+import { Routes, Route, BrowserRouter } from "react-router-dom"
+
 import {getAuth} from 'firebase/auth'
 const firebaseConfig = {
 	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
@@ -23,7 +23,7 @@ const firebaseConfig = {
 	storageBucket: "project-3---the-boys.appspot.com",
 	messagingSenderId: "702523758220",
 	appId: "1:702523758220:web:bfc9b98b6929a472be4da9",
-	databaseURL:"https://project-3---the-boys-default-rtdb.asia-southeast1.firebasedatabase.app/"
+	databaseURL: "https://project-3---the-boys-default-rtdb.asia-southeast1.firebasedatabase.app/",
 }
 
 const firebaseApp = initializeApp(firebaseConfig)
@@ -32,25 +32,17 @@ export const RealTimeDB = getDatabase(firebaseApp)
 export const auth = getAuth(firebaseApp)
 
 function App() {
-	
-	
-	
 	init()
 	return (
 		<ChakraProvider>
-			<div className="App">
-				<Heading m="20px auto">Welcome!</Heading>
-				<ButtonGroup>
-					<VideoButton btnId={"cameraBtn"} iElement={"perm_camera_mic"} spanText={"Open camera & microphone"} btnOnClick={openUserMedia} />
-					<VideoButton btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} btnOnClick={createRoom} />
-					<VideoButton btnId={"joinBtn"} iElement={"group"} spanText={"Join room"} btnOnClick={joinRoom} />
-					<VideoButton btnId={"hangupBtn"} iElement={"close"} spanText={"Hangup"} btnOnClick={hangUp} />
-				</ButtonGroup>
-				<CurrentRoom />
-				<Videos />
-				<Dialog />
-				<ChatRoom roomNumber = "1234"/>
-			</div>
+			<BrowserRouter>
+				<div className="App">
+					<Header />
+					<Routes>
+						<Route path="/" element={<VideoPage />} />
+					</Routes>
+				</div>
+			</BrowserRouter>
 		</ChakraProvider>
 	)
 }
