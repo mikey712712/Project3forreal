@@ -1,8 +1,9 @@
 import { Flex, Stack } from "@chakra-ui/react"
 import { signOut } from "firebase/auth"
 import { Link, useNavigate } from "react-router-dom"
+import { auth } from "../App"
 
-export default function Header({ user, auth }) {
+export default function Header({ user }) {
 	const navigate = useNavigate()
 	const handleLogout = () => {
 		auth.signOut()
@@ -23,7 +24,7 @@ export default function Header({ user, auth }) {
 			<Link to="/">Home</Link>
 			<a href="">Teams</a>
 			<a href="">Contacts</a>
-			<Link to="/userSettings">Account</Link>
+			<Link to="/account">Account</Link>
 			{user ? <a onClick={handleLogout}>Logout</a> : <Link to="/login">Login</Link>}
 		</Flex>
 	)
