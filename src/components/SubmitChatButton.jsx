@@ -2,6 +2,7 @@ import { useState } from "react"
 import { writeChatMessage } from "../functions/FirebaseRTDB"
 import { auth } from "../App"
 import { onAuthStateChanged } from "firebase/auth"
+import { Button, Input, Flex } from "@chakra-ui/react"
 export default function SubmitChatButton() {
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
@@ -21,8 +22,12 @@ export default function SubmitChatButton() {
 	}
 	return (
 		<form onSubmit={sendMessage}>
-			<input value={formValue} placeholder="Type a message" onChange={(e) => setFormValue(e.target.value)} />
-			<button type="submit">Chat </button>
+			<Flex>
+				<Input h="30px" value={formValue} placeholder="Type a message" onChange={(e) => setFormValue(e.target.value)} />
+				<Button h="30px" m="0 50px 0 0" color="white" backgroundColor="#1B4965" type="submit">
+					Chat
+				</Button>
+			</Flex>
 		</form>
 	)
 }
