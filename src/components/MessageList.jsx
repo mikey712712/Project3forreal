@@ -18,7 +18,7 @@ export default function MessageList({ roomNumber }) {
 				for (let prop in data) {
 					newMessageList.push({ key: prop, message: data[prop].message, userName: data[prop].username })
 				}
-				console.log(newMessageList)
+				// console.log(newMessageList)
 				setMessages(newMessageList)
 			}
 		})
@@ -34,6 +34,6 @@ export default function MessageList({ roomNumber }) {
 			></Message>
 		)
 	})
-	console.log("messages", messagesToRender)
+	// console.log("messages", messagesToRender)
 	return <div className="MessageList">{messagesToRender}</div>
 }
