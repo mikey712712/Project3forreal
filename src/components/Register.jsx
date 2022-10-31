@@ -21,8 +21,8 @@ import { auth } from "../App"
 import { useNavigate } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
-const navigate = useNavigate()
 export default function Register() {
+	const navigate = useNavigate()
 	const [showPassword, setShowPassword] = useState(false)
 	const [formValue, setFormValue] = useState({})
 	const [fields, setFields] = useState({})
