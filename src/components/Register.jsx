@@ -9,7 +9,6 @@ import {
 	InputLeftElement,
 	chakra,
 	Box,
-	Link,
 	Avatar,
 	FormControl,
 	FormHelperText,
@@ -18,7 +17,7 @@ import {
 import { FaUserAlt, FaLock } from "react-icons/fa"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../App"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 export default function Register() {
