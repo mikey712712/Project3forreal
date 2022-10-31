@@ -1,4 +1,5 @@
-import { Avatar, Box, Heading, Image, Text } from "@chakra-ui/react"
+import { Avatar, Box, Heading, Image, Text, Button } from "@chakra-ui/react"
+import { Link } from "react-router-dom"
 
 export default function Account({ user }) {
 	if (user) {
@@ -8,6 +9,9 @@ export default function Account({ user }) {
 				<Heading>{user.displayName}</Heading>
 				<Text color="grey">User since {new Date(user.metadata.creationTime).toDateString()}</Text>
 				<Text>Email: {user.email}</Text>
+				<Link to="/userSettings">
+					<Button>Edit Profile</Button>
+				</Link>
 			</Box>
 		)
 	}
