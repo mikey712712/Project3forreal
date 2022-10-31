@@ -4,7 +4,7 @@ import Header from "./components/Header"
 import Register from "./components/Register"
 import Login from "./components/Login"
 import VideoPage from "./components/VideoPage"
-import Register from "./components/Register"
+
 // FUNCTION/LIBRARY IMPORTS
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
