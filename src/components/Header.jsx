@@ -22,7 +22,7 @@ export default function Header({ user }) {
 			h="36px"
 		>
 			<Link to="/">Home</Link>
-			<a href="">Teams</a>
+			<Link to="/Users">Teams</Link>
 			<a href="">Contacts</a>
 			<Link to="/account">Account</Link>
 			{user ? <a onClick={handleLogout}>Logout</a> : <Link to="/login">Login</Link>}
