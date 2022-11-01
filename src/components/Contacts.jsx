@@ -158,7 +158,16 @@ export default function Contacts({ user, setRoomNumber }) {
 		)
 	})
 	let renderedContacts = currentFriendsList.map((friend) => {
-		return <Contact setRoomNumber={setRoomNumber} uid={friend.uid} photoURL={friend.photoURL} displayName={friend.displayName} me={user.uid} />
+		return (
+			<Contact
+				key={friend.uid}
+				setRoomNumber={setRoomNumber}
+				uid={friend.uid}
+				photoURL={friend.photoURL}
+				displayName={friend.displayName}
+				me={user.uid}
+			/>
+		)
 	})
 	// console.log(friendRequests)
 	return (
