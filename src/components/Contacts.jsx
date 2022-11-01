@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react"
 import { off, ref, onValue } from "firebase/database"
 import { useState, useEffect } from "react"
 import { auth, RealTimeDB } from "../App"
@@ -23,5 +24,9 @@ export default function Contacts({ user }) {
 		})
 	}, [user])
 
-	return <div>Contacts {currentFriendsList.length}</div>
+	return (
+		<Box position="relative" top="36px">
+			Contacts {currentFriendsList.length}
+		</Box>
+	)
 }

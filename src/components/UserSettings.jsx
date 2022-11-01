@@ -51,7 +51,7 @@ export default function UserSettings() {
 	}
 
 	return (
-		<Box minW={{ base: "90%", md: "468px" }}>
+		<Box minW={{ base: "90%", md: "468px" }} position="relative" top="36px">
 			<form onSubmit={onProfileUpdate}>
 				<Stack spacing={4} p="1rem" backgroundColor="whiteAlpha.900" boxShadow="md">
 					<FormControl>
