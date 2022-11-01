@@ -18,7 +18,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { createUserRealTimeDB } from "../functions/FirebaseRTDB"
 import { auth, RealTimeDB } from "../App"
-import { useNavigate, Link } from "react-router-dom"
+import { Navigate, useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 export default function Register() {
