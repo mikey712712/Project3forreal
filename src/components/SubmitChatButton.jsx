@@ -3,7 +3,7 @@ import { writeChatMessage } from "../functions/FirebaseRTDB"
 import { auth } from "../App"
 import { onAuthStateChanged } from "firebase/auth"
 import { Button, Input, Flex } from "@chakra-ui/react"
-export default function SubmitChatButton() {
+export default function SubmitChatButton({ roomNumber }) {
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
 			// console.log(user)
@@ -17,7 +17,7 @@ export default function SubmitChatButton() {
 	const sendMessage = async (e) => {
 		e.preventDefault()
 		// console.log(user)
-		writeChatMessage(user.providerData[0].displayName, formValue, "1234")
+		writeChatMessage(user.providerData[0].displayName, formValue, `${roomNumber}`)
 		setFormValue("")
 	}
 	return (
