@@ -1,4 +1,4 @@
-import { Box, Button, Text } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react"
 import { ref, onValue, set, push } from "firebase/database"
 import { RealTimeDB } from "../App"
 import { createNewChatRoom, writeChatMessage } from "../functions/FirebaseRTDB"
@@ -53,9 +53,18 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 		}
 	}
 	return (
-		<Box onClick={openAndOrCreateChat}>
-			<Text> {displayName}</Text>
-			<Button>call me</Button>
-		</Box>
+		<Flex
+			bgColor="rgba(255,255,255,0.6)"
+			alignItems="center"
+			borderRadius="6px"
+			border={"1px solid rgba(0,0,0,0.2)"}
+			m="4px"
+			p="4px"
+			boxSizing="border-box"
+			onClick={openAndOrCreateChat}
+		>
+			<Avatar marginRight="10px" />
+			<Text h="fit-content">{displayName}</Text>
+		</Flex>
 	)
 }
