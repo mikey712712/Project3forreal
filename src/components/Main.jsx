@@ -6,6 +6,7 @@ import Register from "./Register"
 import UserSettings from "./UserSettings"
 import Account from "./Account"
 import Videos from "./Videos"
+import UserList from "./UserList"
 import { useState } from "react"
 import { Box } from "@chakra-ui/react"
 
@@ -20,6 +21,7 @@ export default function Main({ user }) {
 				<Route path="/login" element={<Login />} />
 				<Route path="/userSettings" element={<UserSettings />} />
 				<Route path="/account" element={<Account user={user} />} />
+				<Route path="/Users" element={<UserList />} />
 			</Routes>
 			<>
 				{videoOn ? (
