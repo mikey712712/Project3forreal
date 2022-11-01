@@ -17,7 +17,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 					iElement={"perm_camera_mic"}
 					spanText={"Open camera & microphone"}
 					btnOnClick={() => {
-						setVideoOn(true)
+						setVideoOn("full")
 						openUserMedia()
 					}}
 				/>
