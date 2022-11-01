@@ -1,7 +1,8 @@
 import { Box, Button, Text } from "@chakra-ui/react"
 import { ref, onValue, set, push } from "firebase/database"
 import { RealTimeDB } from "../App"
-import { createNewChatRoom } from "../functions/FirebaseRTDB"
+import { createNewChatRoom, writeChatMessage } from "../functions/FirebaseRTDB"
+
 export default function Contact({ photoURL, displayName, uid, me, setRoomNumber }) {
 	const openAndOrCreateChat = () => {
 		let myRoomsList = []
@@ -46,7 +47,9 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			setRoomNumber(roomReference)
 		} else {
 			console.log("match found")
+			// console.log(match)
 			setRoomNumber(match)
+			// writeChatMessage("mikey1", "hi", match)
 		}
 	}
 	return (

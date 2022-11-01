@@ -77,9 +77,9 @@ export function createNewChatRoom(user1, user2) {
 		},
 		{ onlyOnce: true }
 	)
-	console.log(newChatRoomRef.key)
+
 	set(ref(RealTimeDB, `Users/${user1}/${user1Ref}/MyRooms`), [...user1MyRoom, newChatRoomRef.key])
-	console.log(`Users/${user2}/${user2Ref}/MyRooms`)
+
 	set(ref(RealTimeDB, `Users/${user2}/${user2Ref}/MyRooms`), [...user2MyRoom, newChatRoomRef.key])
 
 	return newChatRoomRef.key
