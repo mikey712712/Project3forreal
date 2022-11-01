@@ -14,7 +14,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 				<MessageList roomNumber={roomNumber} />
 			</Box>
 			<Flex p="5px" position="relative" justifyContent="center" bottom="0px" border="1px solid black" w="100%" backgroundColor="#62b6cb">
-				<SubmitChatButton />
+				<SubmitChatButton roomNumber={roomNumber} />
 				<VideoButton
 					btnId={"cameraBtn"}
 					iElement={"perm_camera_mic"}
