@@ -64,12 +64,12 @@ export function createNewChatRoom(user1, user2) {
 		{ onlyOnce: true }
 	)
 	onValue(
-		ref(RealTimeDB, "Users/" + user1),
+		ref(RealTimeDB, "Users/" + user2),
 		(snapshot) => {
 			const data = snapshot.val()
 			if (snapshot.exists()) {
 				user2Ref = Object.keys(data)[0]
-				let userObject = data[user1Ref]
+				let userObject = data[user2Ref]
 				if (userObject.MyRooms) {
 					user2MyRoom = userObject.MyRooms
 				}
