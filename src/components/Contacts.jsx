@@ -48,9 +48,9 @@ export default function Contacts({ user }) {
 	})
 	// console.log(friendRequests)
 	return (
-		<div>
+		<Box position="relative" top="36px">
 			<div>Contacts {currentFriendsList.length}</div>
 			{renderedFriendRequests}
-		</div>
+		</Box>
 	)
 }
