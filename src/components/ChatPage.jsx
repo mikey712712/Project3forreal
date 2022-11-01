@@ -3,7 +3,7 @@ import ChatRoom from "./ChatRoom"
 import CurrentRoom from "./CurrentRoom"
 import { Box } from "@chakra-ui/react"
 
-export default function VideoPage({ setVideoOn }) {
+export default function ChatPage({ setVideoOn }) {
 	return (
 		<Box w="100%" className="video-container" position="relative" top="36px">
 			<ChatRoom setVideoOn={setVideoOn} roomNumber="1234" />

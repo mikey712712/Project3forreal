@@ -119,13 +119,13 @@ export async function joinRoomById(roomId) {
 
 		// Code for collecting ICE candidates below
 		const calleeCandidatesCollection = collection(roomRef, "calleeCandidates")
-		peerConnection.addEventListener("icecandidate", (event) => {
+		peerConnection.addEventListener("icecandidate", async (event) => {
 			if (!event.candidate) {
 				console.log("Got final candidate!")
 				return
 			}
 			console.log("Got candidate: ", event.candidate)
-			calleeCandidatesCollection.add(event.candidate.toJSON())
+			await addDoc(calleeCandidatesCollection, event.candidate.toJSON())
 		})
 		// Code for collecting ICE candidates above
 
