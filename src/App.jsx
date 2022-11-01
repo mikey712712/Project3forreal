@@ -35,11 +35,11 @@ function App() {
 		if (currUser) {
 			// User is signed in.
 			setUser(currUser)
-			console.log("userSignedIN", currUser)
+			// console.log("userSignedIN", currUser)
 		} else {
 			// No user is signed in.
 			setUser(null)
-			console.log("loggedout")
+			// console.log("loggedout")
 		}
 	})
 	init()
