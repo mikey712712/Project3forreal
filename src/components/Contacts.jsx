@@ -9,7 +9,7 @@ export default function Contacts({ user }) {
 	const [friendRequests, setCurrentFriendRequests] = useState([])
 	let newFriendsList = []
 
-	const handleOnClick = (uid, me) => {
+	const handleOnClick = async (uid, me) => {
 		const query = ref(RealTimeDB, "Users/" + me)
 		let myUserRef = ""
 
@@ -42,20 +42,25 @@ export default function Contacts({ user }) {
 
 		// now time to add me to the requesters friends list
 
-		const requesterQuery = ref(RealTimeDB, "Users/" + uid)
+		const requesterQuery = ref(RealTimeDB, `Users/${uid}`)
 		let requesterUserRef = ""
-		onValue(
-			requesterQuery,
-			(snapshot) => {
-				const data = snapshot.val()
-				if (snapshot.exists()) {
-					requesterUserRef = Object.keys(data)[0]
-				}
-			},
-			{ onlyOnce: true }
-		)
 
+		const grabRequesterUserRef = new Promise((resolve, reject) => {
+			onValue(
+				requesterQuery,
+				(snapshot) => {
+					const data = snapshot.val()
+					if (snapshot.exists()) {
+						console.log(data)
+						resolve(Object.keys(data)[0])
+					}
+				},
+				{ onlyOnce: true }
+			)
+		})
+		requesterUserRef = await grabRequesterUserRef
 		const requesterfriendlink = `Users/${uid}/${requesterUserRef}/friends` // friends array
+		console.log(requesterfriendlink)
 		const requesterfriendQuery = ref(RealTimeDB, requesterfriendlink)
 		let requesterExistingFriends = []
 		onValue(
