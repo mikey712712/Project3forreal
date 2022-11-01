@@ -1,7 +1,7 @@
 import { Box, Button, Text } from "@chakra-ui/react"
 import { ref, onValue, set, push } from "firebase/database"
 import { RealTimeDB } from "../App"
-export default function Contact({ displayName, uid, me, setRoomNumber }) {
+export default function Contact({ photoURL, displayName, uid, me, setRoomNumber }) {
 	const openAndOrCreateChat = () => {
 		let myRoomsList = []
 		let friendsRoomsList = []
