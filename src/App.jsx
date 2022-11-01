@@ -7,18 +7,20 @@ import VideoPage from "./components/VideoPage"
 import Account from "./components/Account"
 import Contacts from "./components/Contacts"
 import UserList from "./components/UserList"
+import Videos from "./components/Videos"
 // FUNCTION/LIBRARY IMPORTS
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import { getDatabase, ref, set, onChildAdded, onValue } from "firebase/database"
-import { ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
+import { Box, ButtonGroup, ChakraProvider, Heading } from "@chakra-ui/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import UserSettings from "./components/UserSettings"
 import { useState } from "react"
 
+import Main from "./components/Main"
 const firebaseConfig = {
 	***REMOVED***
 	***REMOVED***
@@ -49,6 +51,7 @@ function App() {
 		}
 	})
 	init()
+
 	return (
 		<ChakraProvider>
 			<BrowserRouter>
@@ -63,6 +66,8 @@ function App() {
 						<Route path="/account" element={<Account user={user} />} />
 						<Route path="/Users" element={<UserList />} />
 					</Routes>
+
+					<Main user={user} />
 				</div>
 			</BrowserRouter>
 		</ChakraProvider>
