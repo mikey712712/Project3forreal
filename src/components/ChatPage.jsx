@@ -1,11 +1,9 @@
-import Videos from "./Videos"
 import ChatRoom from "./ChatRoom"
-import CurrentRoom from "./CurrentRoom"
 import { Box } from "@chakra-ui/react"
-import { useState } from "react"
+
 export default function ChatPage({ setVideoOn, roomNumber }) {
 	return (
-		<Box w="100%" className="video-container" position="relative" top="36px">
+		<Box position="relative" h="100%" w="100%" m="0 auto">
 			<ChatRoom setVideoOn={setVideoOn} roomNumber={roomNumber} />
 		</Box>
 	)

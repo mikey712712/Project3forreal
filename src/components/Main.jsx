@@ -15,17 +15,19 @@ export default function Main({ user }) {
 	const [videoOn, setVideoOn] = useState(null)
 	const [roomNumber, setRoomNumber] = useState("1234")
 	return (
-		<Box>
+		<Box w="100%" h="100%">
 			<Contacts user={user} setRoomNumber={setRoomNumber} />
-			<Routes>
-				<Route path="/" element={<Home user={user} />} />
-				<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/userSettings" element={<UserSettings />} />
-				<Route path="/account" element={<Account user={user} />} />
-				<Route path="/Users" element={<UserList />} />
-			</Routes>
+			<Box position="relative" top="36px" left="20%" w="80%" h="100%">
+				<Routes>
+					<Route path="/" element={<Home user={user} />} />
+					<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/userSettings" element={<UserSettings />} />
+					<Route path="/account" element={<Account user={user} />} />
+					<Route path="/Users" element={<UserList />} />
+				</Routes>
+			</Box>
 			<>
 				{videoOn ? (
 					<Box

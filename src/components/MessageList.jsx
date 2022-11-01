@@ -3,11 +3,15 @@ import { onValue, ref } from "firebase/database"
 import { RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { auth } from "../App"
+import { Box, Flex } from "@chakra-ui/react"
 export default function MessageList({ roomNumber }) {
 	let messagesToRender = []
 	const link = `chat/${roomNumber}`
 	const [messages, setMessages] = useState([])
 	const user = auth.currentUser
+	useEffect(() => {
+		document.querySelector(".scroll-chat").scrollTo(0, document.querySelector(".scroll-chat").scrollHeight)
+	}, [messages])
 	useEffect(() => {
 		const query = ref(RealTimeDB, link)
 		return onValue(query, (snapshot) => {
@@ -35,5 +39,5 @@ export default function MessageList({ roomNumber }) {
 		)
 	})
 	// console.log("messages", messagesToRender)
-	return <div className="MessageList">{messagesToRender}</div>
+	return <Box className="MessageList">{messagesToRender}</Box>
 }
