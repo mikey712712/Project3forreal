@@ -27,8 +27,15 @@ export default function Main({ user }) {
 			</Routes>
 			<>
 				{videoOn ? (
-					<Box position="fixed" w={"100%"} h="100%" top="36px" left="0">
-						<Videos setVideoOn={setVideoOn} />
+					<Box
+						position="fixed"
+						w={videoOn === "full" ? "100%" : "10%"}
+						h={videoOn === "full" ? "100%" : "20%"}
+						top={videoOn === "full" ? "36px" : "unset"}
+						bottom={videoOn === "full" ? "unset" : "6px"}
+						left={videoOn === "full" ? "0" : "6px"}
+					>
+						<Videos videoOn={videoOn} setVideoOn={setVideoOn} />
 					</Box>
 				) : null}
 			</>
