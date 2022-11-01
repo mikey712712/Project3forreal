@@ -42,9 +42,10 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 
 		if (match === "") {
 			const roomReference = createNewChatRoom(me, uid)
-			console.log(roomReference)
+			// console.log(roomReference)
 			setRoomNumber(roomReference)
 		} else {
+			console.log("match found")
 			setRoomNumber(match)
 		}
 	}
