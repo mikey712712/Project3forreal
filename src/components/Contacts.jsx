@@ -2,8 +2,8 @@ import { Box } from "@chakra-ui/react"
 import { off, ref, onValue, get, child, set, remove } from "firebase/database"
 import { useState, useEffect } from "react"
 import { auth, RealTimeDB } from "../App"
-
-export default function Contacts({ user }) {
+import Contact from "./Contact"
+export default function Contacts({ user, setRoomNumber }) {
 	// console.log("inContacts", user?.uid)
 	const [currentFriendsList, setCurrentFriendsList] = useState([])
 	const [friendRequests, setCurrentFriendRequests] = useState([])
@@ -103,15 +103,29 @@ export default function Contacts({ user }) {
 			const data = snapshot.val()
 
 			if (snapshot.exists()) {
+				let contactList = []
 				for (let prop in data) {
 					let friendsArray = data[prop].friends
 					if (friendsArray.length > 0) {
 						newFriendsList = [...friendsArray]
-						setCurrentFriendsList(newFriendsList)
+						onValue(ref(RealTimeDB, "Users"), (snapshot) => {
+							const data = snapshot.val()
+
+							let dataObjects = []
+							if (snapshot.exists()) {
+								for (let prop in data) {
+									dataObjects.push(data[prop][Object.keys(data[prop])[0]])
+								}
+								contactList = dataObjects.filter((user) => {
+									return newFriendsList.includes(user.uid)
+								})
+							}
+						})
 					}
+					setCurrentFriendsList(contactList)
 				}
-				// console.log("fl", newFriendsList)
 			}
+			// console.log("fl", newFriendsList)
 		})
 	}, [user])
 
@@ -141,11 +155,17 @@ export default function Contacts({ user }) {
 			</>
 		)
 	})
+
+	let renderedContacts = currentFriendsList.map((friend) => {
+		return <Contact setRoomNumber={setRoomNumber} uid={friend.uid} photoURL={friend.photoURL} displayName={friend.displayName} me={user.uid} />
+	})
 	// console.log(friendRequests)
 	return (
 		<Box position="relative" top="36px">
 			<div>Contacts {currentFriendsList.length}</div>
+
 			{renderedFriendRequests}
+			{renderedContacts}
 		</Box>
 	)
 }
