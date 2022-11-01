@@ -26,6 +26,8 @@ export default function Header({ user }) {
 			zIndex="100"
 		>
 			<Link to="/">Home</Link>
+			<Link to="/Users">Teams</Link>
+			<a href="">Contacts</a>
 			<Link to="/account">Account</Link>
 			{user ? (
 				<a
