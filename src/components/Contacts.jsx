@@ -105,10 +105,12 @@ export default function Contacts({ user }) {
 			if (snapshot.exists()) {
 				for (let prop in data) {
 					let friendsArray = data[prop].friends
-					newFriendsList.push(...friendsArray)
+					if (friendsArray.length > 0) {
+						newFriendsList = [...friendsArray]
+						setCurrentFriendsList(newFriendsList)
+					}
 				}
 				// console.log("fl", newFriendsList)
-				setCurrentFriendsList(newFriendsList)
 			}
 		})
 	}, [user])
