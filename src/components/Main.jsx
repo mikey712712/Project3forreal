@@ -13,12 +13,13 @@ import { Box } from "@chakra-ui/react"
 
 export default function Main({ user }) {
 	const [videoOn, setVideoOn] = useState(null)
+	const [roomNumber, setRoomNumber] = useState("1234")
 	return (
 		<Box>
-			<Contacts user={user} />
+			<Contacts user={user} setRoomNumber={setRoomNumber} />
 			<Routes>
 				<Route path="/" element={<Home user={user} />} />
-				<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} />} />
+				<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/userSettings" element={<UserSettings />} />
