@@ -21,7 +21,7 @@ import { useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
-export default function Register() {
+export default function Login() {
 	const navigate = useNavigate()
 	const [showPassword, setShowPassword] = useState(false)
 	const [formValue, setFormValue] = useState({})
