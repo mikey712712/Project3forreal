@@ -30,14 +30,7 @@ export default function MessageList({ roomNumber }) {
 	}, [roomNumber])
 
 	messagesToRender = messages.map((msg) => {
-		return (
-			<Message
-				key={msg.key}
-				message={msg.message}
-				author={msg.userName}
-				mine={msg.userName === user.providerData[0].displayName ? "yes" : "no"}
-			></Message>
-		)
+		return <Message key={msg.key} message={msg.message} author={msg.userName} mine={msg.userName === user.uid ? "yes" : "no"}></Message>
 	})
 	// console.log("messages", messagesToRender)
 	return (
