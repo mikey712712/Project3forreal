@@ -3,7 +3,7 @@ import { onValue, ref } from "firebase/database"
 import { RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { auth } from "../App"
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Flex, Text } from "@chakra-ui/react"
 export default function MessageList({ roomNumber }) {
 	let messagesToRender = []
 	const link = `chat/${roomNumber}`
@@ -22,11 +22,12 @@ export default function MessageList({ roomNumber }) {
 				for (let prop in data) {
 					newMessageList.push({ key: prop, message: data[prop].message, userName: data[prop].username })
 				}
+				console.log(newMessageList)
 				// console.log(newMessageList)
 				setMessages(newMessageList)
 			}
 		})
-	}, [])
+	}, [roomNumber])
 
 	messagesToRender = messages.map((msg) => {
 		return (
@@ -39,5 +40,10 @@ export default function MessageList({ roomNumber }) {
 		)
 	})
 	// console.log("messages", messagesToRender)
-	return <Box className="MessageList">{messagesToRender}</Box>
+	return (
+		<Box className="MessageList">
+			<Text>{roomNumber}</Text>
+			{messagesToRender}
+		</Box>
+	)
 }
