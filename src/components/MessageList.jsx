@@ -26,7 +26,7 @@ export default function MessageList({ roomNumber }) {
 				setMessages(newMessageList)
 			}
 		})
-	}, [])
+	}, [roomNumber])
 
 	messagesToRender = messages.map((msg) => {
 		return (
