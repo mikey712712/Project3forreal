@@ -1,4 +1,5 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Button } from "@chakra-ui/react"
+import { IoIosArrowDropdown } from "react-icons/io"
 import { off, ref, onValue, get, child, set, remove } from "firebase/database"
 import { useState, useEffect } from "react"
 import { auth, RealTimeDB } from "../App"
@@ -7,6 +8,7 @@ export default function Contacts({ user, setRoomNumber }) {
 	// console.log("inContacts", user?.uid)
 	const [currentFriendsList, setCurrentFriendsList] = useState([])
 	const [friendRequests, setCurrentFriendRequests] = useState([])
+	const [contactsOpen, setContactsOpen] = useState(true)
 	let newFriendsList = []
 
 	const handleOnClick = async (uid, me) => {
@@ -158,7 +160,7 @@ export default function Contacts({ user, setRoomNumber }) {
 	})
 	// console.log(friendRequests)
 	return (
-		<Box position="relative" top="36px">
+		<Box position="fixed" h="100%" top="36px" left="0" backgroundColor="#BEE9E8" w="20%" borderTop="1px solid black">
 			<div>Contacts {currentFriendsList.length}</div>
 
 			{renderedFriendRequests}
