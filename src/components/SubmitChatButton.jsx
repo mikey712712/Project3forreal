@@ -17,7 +17,7 @@ export default function SubmitChatButton({ roomNumber }) {
 	const sendMessage = async (e) => {
 		e.preventDefault()
 		// console.log(user)
-		writeChatMessage(user.providerData[0].displayName, formValue, `${roomNumber}`)
+		writeChatMessage(user.uid, formValue, `${roomNumber}`)
 		setFormValue("")
 	}
 	return (
