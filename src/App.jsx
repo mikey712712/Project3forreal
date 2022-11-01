@@ -6,6 +6,7 @@ import Login from "./components/Login"
 import VideoPage from "./components/VideoPage"
 import Account from "./components/Account"
 import Contacts from "./components/Contacts"
+import UserList from "./components/UserList"
 import Videos from "./components/Videos"
 // FUNCTION/LIBRARY IMPORTS
 import { init } from "./functions/FirebaseRTC"
@@ -18,6 +19,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import UserSettings from "./components/UserSettings"
 import { useState } from "react"
+
 import Main from "./components/Main"
 const firebaseConfig = {
 	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
@@ -55,6 +57,16 @@ function App() {
 			<BrowserRouter>
 				<div className="App">
 					<Header auth={auth} user={user} />
+					<Contacts user={user}></Contacts>
+					<Routes>
+						<Route path="/" element={<VideoPage />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/userSettings" element={<UserSettings />} />
+						<Route path="/account" element={<Account user={user} />} />
+						<Route path="/Users" element={<UserList />} />
+					</Routes>
+
 					<Main user={user} />
 				</div>
 			</BrowserRouter>

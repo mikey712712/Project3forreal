@@ -39,7 +39,7 @@ export default function Register() {
 				// Signed in
 				const user = userCredential.user
 				// create record in RTDB
-				createUserRealTimeDB(user.uid)
+				createUserRealTimeDB(user.uid, fields.displayName, fields.email)
 
 				navigate("/")
 			})
@@ -62,6 +62,12 @@ export default function Register() {
 								<InputGroup>
 									<InputLeftElement pointerEvents="none" children={<CFaUserAlt color="gray.300" />} />
 									<Input type="email" name="email" placeholder="email address" onChange={onType} />
+								</InputGroup>
+							</FormControl>
+							<FormControl>
+								<InputGroup>
+									<InputLeftElement pointerEvents="none" children={<CFaUserAlt color="gray.300" />} />
+									<Input type="text" name="displayName" placeholder="display name" onChange={onType} />
 								</InputGroup>
 							</FormControl>
 							<FormControl>
