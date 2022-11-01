@@ -16,16 +16,16 @@ export default function MessageList({ roomNumber }) {
 		const query = ref(RealTimeDB, link)
 		return onValue(query, (snapshot) => {
 			const data = snapshot.val()
+			let newMessageList = []
 
 			if (snapshot.exists()) {
-				let newMessageList = []
 				for (let prop in data) {
 					newMessageList.push({ key: prop, message: data[prop].message, userName: data[prop].username })
 				}
 				console.log(newMessageList)
 				// console.log(newMessageList)
-				setMessages(newMessageList)
 			}
+			setMessages(newMessageList)
 		})
 	}, [roomNumber])
 
