@@ -17,7 +17,7 @@ import {
 import { FaUserAlt, FaLock } from "react-icons/fa"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../App"
-import { useNavigate, Link } from "react-router-dom"
+import { Navigate, useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
