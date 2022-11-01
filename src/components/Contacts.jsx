@@ -101,7 +101,6 @@ export default function Contacts({ user, setRoomNumber }) {
 		const query = ref(RealTimeDB, "Users/" + user?.uid)
 		let turnOff = onValue(query, (snapshot) => {
 			const data = snapshot.val()
-
 			if (snapshot.exists()) {
 				let contactList = []
 				for (let prop in data) {
@@ -110,7 +109,6 @@ export default function Contacts({ user, setRoomNumber }) {
 						newFriendsList = [...friendsArray]
 						onValue(ref(RealTimeDB, "Users"), (snapshot) => {
 							const data = snapshot.val()
-
 							let dataObjects = []
 							if (snapshot.exists()) {
 								for (let prop in data) {
@@ -119,10 +117,10 @@ export default function Contacts({ user, setRoomNumber }) {
 								contactList = dataObjects.filter((user) => {
 									return newFriendsList.includes(user.uid)
 								})
+								setCurrentFriendsList(contactList)
 							}
 						})
 					}
-					setCurrentFriendsList(contactList)
 				}
 			}
 			// console.log("fl", newFriendsList)
@@ -155,7 +153,6 @@ export default function Contacts({ user, setRoomNumber }) {
 			</>
 		)
 	})
-
 	let renderedContacts = currentFriendsList.map((friend) => {
 		return <Contact setRoomNumber={setRoomNumber} uid={friend.uid} photoURL={friend.photoURL} displayName={friend.displayName} me={user.uid} />
 	})
