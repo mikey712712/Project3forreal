@@ -13,9 +13,9 @@ export default function Videos({ setVideoOn }) {
 		<Box id="videos" w="100%" h="100%" backgroundColor="rgba(0,0,0,0.8)" textAlign="center">
 			<Flex flexDirection="column" justify="center" h="100%" position="relative" w="fit-content" m="auto auto">
 				<Box position="relative">
-					<Box minH="80vh" maxW="80vw" as="video" id="remoteVideo" muted autoPlay playsInline></Box>
+					<Box minH="80vh" maxW="80vw" as="video" id="remoteVideo" autoPlay playsInline></Box>
 					<Box border="1px solid black" top="0" left="0" w="20%" position="absolute" m="4px 0 0 4px">
-						<Box as="video" id="localVideo" autoPlay playsInline></Box>
+						<Box as="video" id="localVideo" muted autoPlay playsInline></Box>
 					</Box>
 				</Box>
 
