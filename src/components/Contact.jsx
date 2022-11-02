@@ -43,6 +43,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 
 		if (match === "") {
 			const roomReference = createNewChatRoom(me, uid)
+
 			// console.log(roomReference)
 			setRoomNumber(roomReference)
 		} else {
@@ -59,12 +60,14 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			borderRadius="6px"
 			border={"1px solid rgba(0,0,0,0.2)"}
 			m="4px"
-			p="4px"
+			p="6px"
 			boxSizing="border-box"
 			onClick={openAndOrCreateChat}
 		>
 			<Avatar marginRight="10px" />
-			<Text h="fit-content">{displayName}</Text>
+			<Text fontWeight="bold" h="fit-content">
+				{displayName}
+			</Text>
 		</Flex>
 	)
 }
