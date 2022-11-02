@@ -13,7 +13,7 @@ import { Box } from "@chakra-ui/react"
 
 export default function Main({ user }) {
 	const [videoOn, setVideoOn] = useState(null)
-	const [roomNumber, setRoomNumber] = useState("-NFpNxjOGsz7LLMYvmFM")
+	const [roomNumber, setRoomNumber] = useState("")
 	return (
 		<Box w="100%" h="100%">
 			<Contacts user={user} setRoomNumber={setRoomNumber} />

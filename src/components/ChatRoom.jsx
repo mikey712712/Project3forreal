@@ -7,41 +7,43 @@ import { openUserMedia } from "../functions/FirebaseRTC"
 import { useEffect } from "react"
 
 export default function ChatRoom({ roomNumber, setVideoOn }) {
-	return (
-		<Flex flexFlow="column nowrap" boxSizing="border-box" h="100%" w="100%" p="10px" className="chatroom" zIndex="0">
-			<ChatRoomHeader roomNumber={roomNumber} />
-			<Box
-				className="scroll-chat"
-				position="relative"
-				overflow="scroll"
-				h="auto"
-				borderRight="1px solid rgba(0,0,0,0.6)"
-				borderLeft="1px solid rgba(0,0,0,0.6)"
-				flex="1 1 auto"
-			>
-				<MessageList roomNumber={roomNumber} />
-			</Box>
-			<Flex
-				p="5px"
-				position="relative"
-				justifyContent="center"
-				bottom="0px"
-				borderBottomRadius="10px"
-				border="1px solid rgba(0,0,0,0.6)"
-				w="100%"
-				backgroundColor="#62b6cb"
-			>
-				<SubmitChatButton roomNumber={roomNumber} />
-				<VideoButton
-					btnId={"cameraBtn"}
-					iElement={"perm_camera_mic"}
-					spanText={"Open camera & microphone"}
-					btnOnClick={() => {
-						setVideoOn("full")
-						openUserMedia()
-					}}
-				/>
+	if (roomNumber) {
+		return (
+			<Flex flexFlow="column nowrap" boxSizing="border-box" h="100%" w="100%" p="10px" className="chatroom" zIndex="0">
+				<ChatRoomHeader roomNumber={roomNumber} />
+				<Box
+					className="scroll-chat"
+					position="relative"
+					overflow="scroll"
+					h="auto"
+					borderRight="1px solid rgba(0,0,0,0.6)"
+					borderLeft="1px solid rgba(0,0,0,0.6)"
+					flex="1 1 auto"
+				>
+					<MessageList roomNumber={roomNumber} />
+				</Box>
+				<Flex
+					p="5px"
+					position="relative"
+					justifyContent="center"
+					bottom="0px"
+					borderBottomRadius="10px"
+					border="1px solid rgba(0,0,0,0.6)"
+					w="100%"
+					backgroundColor="#62b6cb"
+				>
+					<SubmitChatButton roomNumber={roomNumber} />
+					<VideoButton
+						btnId={"cameraBtn"}
+						iElement={"perm_camera_mic"}
+						spanText={"Open camera & microphone"}
+						btnOnClick={() => {
+							setVideoOn("full")
+							openUserMedia()
+						}}
+					/>
+				</Flex>
 			</Flex>
-		</Flex>
-	)
+		)
+	}
 }
