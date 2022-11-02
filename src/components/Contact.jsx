@@ -55,10 +55,12 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 	}
 	return (
 		<Flex
-			bgColor="rgba(255,255,255,0.8)"
 			alignItems="center"
 			borderRadius="6px"
 			border={"1px solid rgba(0,0,0,0.2)"}
+			bgColor="rgba(255,255,255,0.8)"
+			_hover={{ backgroundColor: "rgba(255,255,255,0.65)" }}
+			transition="0.2s"
 			color="#266E80"
 			m="4px"
 			p="6px"

@@ -39,7 +39,7 @@ export default function SubmitChatButton({ roomNumber }) {
 					rows="5"
 					onKeyUp={handleKeyPress}
 				></Textarea>
-				<Button h="30px" m="0 0 0 5px" color="white" backgroundColor="#1B4965" type="submit">
+				<Button h="30px" m="0 0 0 5px" bgColor="rgba(255,255,255,0.8)" color="#266E80" type="submit">
 					Chat
 				</Button>
 			</Flex>
