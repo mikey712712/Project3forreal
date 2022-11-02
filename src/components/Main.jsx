@@ -56,7 +56,7 @@ export default function Main({ user }) {
 					</Box>
 				) : null}
 			</>
-			<>{incomingCall ? <Call roomNumber={roomNumber} setVideoOn={setVideoOn} /> : null}</>
+			<>{incomingCall ? <Call incomingCall={incomingCall} setVideoOn={setVideoOn} /> : null}</>
 		</Box>
 	)
 }
