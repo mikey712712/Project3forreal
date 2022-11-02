@@ -1,5 +1,5 @@
 import { RealTimeDB } from "../App"
-import { ref, set, serverTimestamp, push, onValue } from "firebase/database"
+import { ref, set, serverTimestamp, push, onValue, remove } from "firebase/database"
 
 export function writeChatMessage(userId, message, roomID) {
 	const chatThreadRef = ref(RealTimeDB, "chat/" + roomID)
@@ -92,8 +92,9 @@ export function createCallRequest(roomNumber, user) {
 			if (snapshot.exists()) {
 				// Notify the caller they cant call
 			} else {
-				set(ref(RealTimeDB, `IncomingCalls/${user}`), `${roomNumber}`)
+				setTimeout(() => set(ref(RealTimeDB, `IncomingCalls/${user}`), `${roomNumber}`), 0)
 				setTimeout(() => {
+					console.log("timout")
 					remove(ref(RealTimeDB, `IncomingCalls/${user}`))
 				}, 30000)
 			}
