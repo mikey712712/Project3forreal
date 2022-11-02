@@ -55,17 +55,18 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 	}
 	return (
 		<Flex
-			bgColor="rgba(255,255,255,0.6)"
+			bgColor="rgba(255,255,255,0.8)"
 			alignItems="center"
 			borderRadius="6px"
 			border={"1px solid rgba(0,0,0,0.2)"}
+			color="#266E80"
 			m="4px"
 			p="6px"
 			boxSizing="border-box"
 			onClick={openAndOrCreateChat}
 		>
 			<Avatar marginRight="10px" />
-			<Text fontWeight="bold" h="fit-content">
+			<Text fontWeight="600" h="fit-content">
 				{displayName}
 			</Text>
 		</Flex>
