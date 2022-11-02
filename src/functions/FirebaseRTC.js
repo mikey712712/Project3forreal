@@ -21,11 +21,10 @@ export function init() {
 }
 
 export async function createRoom(newRoomId) {
-	roomId = newRoomId
-	document.querySelector("#createBtn").disabled = true
-	document.querySelector("#joinBtn").disabled = true
+	// document.querySelector("#createBtn").disabled = true
+	// document.querySelector("#joinBtn").disabled = true
 	const roomsRef = collection(db, "rooms")
-	const roomRef = doc(roomsRef, `${roomId}`)
+	const roomRef = doc(roomsRef, `${newRoomId}`)
 
 	console.log("Create PeerConnection with configuration: ", configuration)
 	peerConnection = new RTCPeerConnection(configuration)
@@ -61,6 +60,7 @@ export async function createRoom(newRoomId) {
 		},
 	}
 	await setDoc(roomRef, roomWithOffer)
+	roomId = roomRef.id
 	console.log(`New room created with SDP offer. Room ID: ${roomRef.id}`)
 	document.querySelector("#currentRoom").innerText = `Current room is ${roomRef.id} - You are the caller!`
 	// Code for creating a room above
@@ -105,8 +105,8 @@ export function joinRoom() {
 }
 
 export async function joinRoomById(roomId) {
-	const roomRef = doc(db, "rooms", `${roomId}`)
-	const roomSnapshot = await getDoc(roomRef)
+	const roomsRef = collection(db, "rooms")
+	const roomSnapshot = await getDoc(roomsRef, `${roomId}`)
 	console.log("Got room:", roomSnapshot.exists())
 
 	if (roomSnapshot.exists) {
