@@ -30,11 +30,11 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 		<Flex justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
 			<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
 			<Button
-				onClick={() => {
-					setTimeout(() => setVideoOn("full"), 0)
-					setTimeout(() => openUserMedia(), 100)
-					setTimeout(() => createRoom(roomNumber), 300)
-					setTimeout(() => createCallRequest(roomNumber, targetUser.uid), 400)
+				onClick={async () => {
+					setVideoOn("full")
+					await openUserMedia()
+					await createRoom(roomNumber)
+					createCallRequest(roomNumber, targetUser.uid)
 				}}
 				float="right"
 			>
