@@ -8,12 +8,28 @@ import Videos from "./Videos"
 import UserList from "./UserList"
 import ChatPage from "./ChatPage"
 import Home from "./Home"
-import { useState } from "react"
+import Call from "./Call"
+import { useEffect, useState } from "react"
 import { Box } from "@chakra-ui/react"
 
 export default function Main({ user }) {
 	const [videoOn, setVideoOn] = useState(null)
 	const [roomNumber, setRoomNumber] = useState("")
+	const [incomingCall, setIncomingCall] = useState("")
+	useEffect(() => {
+		return onValue(
+			ref(RealTimeDB, "IncomingCalls/" + user),
+			(snapshot) => {
+				if (snapshot.exists()) {
+					// Notify the caller they cant call
+					setIncomingCall(snapshot.val())
+				} else {
+					setIncomingCall("")
+				}
+			},
+			{ onlyOnce: true }
+		)
+	}, [user])
 	return (
 		<Box w="100%" h="100%">
 			<Contacts user={user} setRoomNumber={setRoomNumber} />
@@ -42,6 +58,7 @@ export default function Main({ user }) {
 					</Box>
 				) : null}
 			</>
+			<>{incomingCall ? <Call roomNumber={roomNumber} /> : null}</>
 		</Box>
 	)
 }
