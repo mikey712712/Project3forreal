@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Heading } from "@chakra-ui/react"
 import { auth, RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { ref, onValue } from "firebase/database"
@@ -28,7 +28,10 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	}, [roomNumber])
 	return (
 		<Flex bgColor="white" justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
-			<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
+			<Flex alignItems="center">
+				<Avatar m="0 5px 0 0" />
+				<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
+			</Flex>
 			<Button
 				onClick={async () => {
 					setVideoOn("full")
