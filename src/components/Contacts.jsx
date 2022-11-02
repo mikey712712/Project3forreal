@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react"
 import { IoIosArrowDropdown } from "react-icons/io"
 import { off, ref, onValue, get, child, set, remove } from "firebase/database"
 import { useState, useEffect } from "react"
@@ -149,13 +149,32 @@ export default function Contacts({ user, setRoomNumber }) {
 		})
 	}, [user])
 
-	let renderedFriendRequests = friendRequests.map((req) => {
+	const FriendRequest = ({ req }) => {
 		return (
-			<>
-				<div key={req.uid}> {req.displayName} has sent you a request to be your friend</div>
-				<button onClick={() => handleOnClick(req.uid, user?.uid)}>Accept</button>
-			</>
+			<Flex
+				bgColor="rgba(255,255,255,0.8)"
+				alignItems="center"
+				borderRadius="6px"
+				border={"1px solid rgba(0,0,0,0.2)"}
+				color="#266E80"
+				m="4px"
+				p="6px"
+				boxSizing="border-box"
+				fontSize="0.8em"
+			>
+				<Avatar marginRight="10px" />
+				<Text fontWeight="500" h="fit-content">
+					<strong>{req.displayName}</strong> has sent a friend request
+				</Text>
+				<Button fontSize="0.8em" h="fit-content" p="5px" onClick={() => handleOnClick(req.uid, user?.uid)}>
+					Accept
+				</Button>
+			</Flex>
 		)
+	}
+
+	let renderedFriendRequests = friendRequests.map((req, index) => {
+		return <FriendRequest key={index} req={req} />
 	})
 	let renderedContacts = currentFriendsList.map((friend) => {
 		return (
@@ -178,14 +197,15 @@ export default function Contacts({ user, setRoomNumber }) {
 			h="100%"
 			top="4vh"
 			left="0"
-			backgroundColor="#BEE9E8"
+			backgroundColor="#006680"
 			w="17%"
 			borderRight="2px solid #1B4965"
 			borderTop="2px solid #1B4965"
 			borderRightRadius="10px"
 		>
-			<div>Contacts {currentFriendsList.length}</div>
-
+			<Text fontSize="1.6em" color="white" paddingLeft="10px">
+				Contacts {currentFriendsList.length}
+			</Text>
 			{renderedFriendRequests}
 			{renderedContacts}
 		</Box>

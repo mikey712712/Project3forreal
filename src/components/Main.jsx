@@ -32,7 +32,7 @@ export default function Main({ user }) {
 	}, [user])
 	return (
 		<Box w="100%" h="100%">
-			<Contacts user={user} setRoomNumber={setRoomNumber} />
+			{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
 			<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
 				<Routes>
 					<Route path="/" element={<Home user={user} />} />

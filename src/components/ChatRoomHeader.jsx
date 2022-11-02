@@ -27,7 +27,7 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 		})
 	}, [roomNumber])
 	return (
-		<Flex justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
+		<Flex bgColor="white" justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
 			<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
 			<Button
 				onClick={async () => {
