@@ -17,7 +17,7 @@ export default function Main({ user }) {
 	return (
 		<Box w="100%" h="100%">
 			<Contacts user={user} setRoomNumber={setRoomNumber} />
-			<Box position="relative" top="36px" left="20%" w="80%" h="100%">
+			<Box position="fixed" top="4vh" left="17%" w="83%" h="96vh">
 				<Routes>
 					<Route path="/" element={<Home user={user} />} />
 					<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />

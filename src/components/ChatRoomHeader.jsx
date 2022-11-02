@@ -1,29 +1,29 @@
 import { Box } from "@chakra-ui/react"
 import { auth, RealTimeDB } from "../App"
+import { useEffect } from "react"
+import { ref, onValue } from "firebase/database"
 
 export default function ChatRoomHeader({ roomNumber }) {
-	const link = `chat/${roomNumber}`
+	const link = `Rooms/${roomNumber}`
 
 	const user = auth.currentUser
 
-	// useEffect(() => {
-	// 	const query = ref(RealTimeDB, link)
-	// 	return onValue(query, (snapshot) => {
-	// 		const data = snapshot.val()
+	useEffect(() => {
+		const query = ref(RealTimeDB, link)
+		return onValue(query, (snapshot) => {
+			const data = snapshot.val()
 
-	// 		if (snapshot.exists()) {
-	// 			let headerUsers = []
-	// 			for (let prop in data) {
-	// 				newMessageList.push({ key: prop, message: data[prop].message, userName: data[prop].username })
-	// 			}
-	// 			console.log(newMessageList)
-	// 			setMessages(newMessageList)
-	// 		}
-	// 	})
-	// }, [])
+			if (snapshot.exists()) {
+				let headerUsers = []
+				for (let prop in data) {
+					console.log(data)
+				}
+			}
+		})
+	}, [])
 	return (
-		<Box border="1px solid black" h="70px" p="5px">
-			HI
+		<Box borderTopRadius="10px" border="1px solid rgba(0,0,0,0.6)" h="7vh" p="5px">
+			{roomNumber}
 		</Box>
 	)
 }
