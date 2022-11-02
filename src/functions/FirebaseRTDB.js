@@ -81,6 +81,6 @@ export function createNewChatRoom(user1, user2) {
 	set(ref(RealTimeDB, `Users/${user1}/${user1Ref}/MyRooms`), [...user1MyRoom, newChatRoomRef.key])
 
 	set(ref(RealTimeDB, `Users/${user2}/${user2Ref}/MyRooms`), [...user2MyRoom, newChatRoomRef.key])
-
+	set(ref(RealTimeDB, `Rooms/${newChatRoomRef.key}`), [user1, user2])
 	return newChatRoomRef.key
 }
