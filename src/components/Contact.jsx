@@ -56,6 +56,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 	return (
 		<Flex
 			alignItems="center"
+			cursor="pointer"
 			borderRadius="6px"
 			border={"1px solid rgba(0,0,0,0.2)"}
 			bgColor="rgba(255,255,255,0.8)"
