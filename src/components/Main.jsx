@@ -17,7 +17,7 @@ export default function Main({ user }) {
 	return (
 		<Box w="100%" h="100%">
 			<Contacts user={user} setRoomNumber={setRoomNumber} />
-			<Box position="fixed" top="4vh" left="17%" w="83%" h="96vh">
+			<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
 				<Routes>
 					<Route path="/" element={<Home user={user} />} />
 					<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
@@ -38,7 +38,7 @@ export default function Main({ user }) {
 						bottom={videoOn === "full" ? "unset" : "6px"}
 						left={videoOn === "full" ? "0" : "6px"}
 					>
-						<Videos videoOn={videoOn} setVideoOn={setVideoOn} />
+						<Videos roomNumber={roomNumber} videoOn={videoOn} setVideoOn={setVideoOn} />
 					</Box>
 				) : null}
 			</>
