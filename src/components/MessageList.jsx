@@ -33,5 +33,9 @@ export default function MessageList({ roomNumber }) {
 		return <Message key={msg.key} message={msg.message} author={msg.userName} mine={msg.userName === user.uid ? "yes" : "no"}></Message>
 	})
 	// console.log("messages", messagesToRender)
-	return <Box className="MessageList">{messagesToRender}</Box>
+	return (
+		<Box className="MessageList" bgColor="white">
+			{messagesToRender}
+		</Box>
+	)
 }
