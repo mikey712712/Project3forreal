@@ -184,7 +184,7 @@ export async function openUserMedia() {
 }
 
 export async function hangUp() {
-	const tracks = document.querySelector("#localVideo").srcObject.getTracks()
+	const tracks = document.querySelector("#localVideo")?.srcObject.getTracks()
 	tracks.forEach((track) => {
 		track.stop()
 	})

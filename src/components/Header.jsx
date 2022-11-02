@@ -1,12 +1,13 @@
-import { Flex, Stack } from "@chakra-ui/react"
-import { signOut } from "firebase/auth"
+import { Flex } from "@chakra-ui/react"
+import { ref, remove } from "firebase/database"
 import { Link, useNavigate } from "react-router-dom"
-import { auth } from "../App"
+import { auth, RealTimeDB } from "../App"
 import { hangUp } from "../functions/FirebaseRTC"
 
 export default function Header({ user }) {
 	const navigate = useNavigate()
 	const handleLogout = () => {
+		remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
 		auth.signOut()
 		navigate("/login")
 	}
@@ -18,13 +19,13 @@ export default function Header({ user }) {
 			alignItems="center"
 			boxSizing="border-box"
 			p="5px 15px"
-			backgroundColor="#CAE9FF"
+			backgroundColor="white"
 			fontWeight="bold"
 			h="4vh"
 			position="fixed"
 			top="0"
 			zIndex="100"
-			borderBottom="1px solid black"
+			borderBottom="2px solid black"
 		>
 			<Link to="/">Home</Link>
 			<Link to="/Users">Teams</Link>
