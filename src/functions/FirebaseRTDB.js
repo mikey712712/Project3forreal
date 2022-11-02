@@ -96,7 +96,7 @@ export function createCallRequest(roomNumber, user) {
 				setTimeout(() => {
 					console.log("timout")
 					remove(ref(RealTimeDB, `IncomingCalls/${user}`))
-				}, 30000)
+				}, 12000)
 			}
 		},
 		{ onlyOnce: true }

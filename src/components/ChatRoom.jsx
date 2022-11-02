@@ -33,7 +33,6 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 					backgroundColor="#62b6cb"
 				>
 					<SubmitChatButton roomNumber={roomNumber} />
-					<VideoButton btnId={"cameraBtn"} iElement={"perm_camera_mic"} spanText={"Open camera & microphone"} btnOnClick={() => {}} />
 				</Flex>
 			</Flex>
 		)
