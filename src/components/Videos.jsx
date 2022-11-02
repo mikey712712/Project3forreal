@@ -8,7 +8,7 @@ import { hangUp } from "../functions/FirebaseRTC"
 import { useState } from "react"
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai"
 
-export default function Videos({ setVideoOn, videoOn }) {
+export default function Videos({ setVideoOn, videoOn, roomNumber }) {
 	const [joinMode, setJoinMode] = useState(false)
 	return (
 		<Box id="videos" w="100%" h="100%" backgroundColor="rgba(0,0,0,0.8)" textAlign="center">
@@ -31,7 +31,7 @@ export default function Videos({ setVideoOn, videoOn }) {
 						<>
 							<CurrentRoom />
 							<Flex p="5px" justifyContent="center">
-								<VideoButton btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} btnOnClick={createRoom} />
+								<VideoButton btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} btnOnClick={() => createRoom(roomNumber)} />
 								{joinMode ? (
 									<Dialog />
 								) : (
