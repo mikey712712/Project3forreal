@@ -171,7 +171,19 @@ export default function Contacts({ user, setRoomNumber }) {
 	})
 	// console.log(friendRequests)
 	return (
-		<Box position="fixed" h="100%" top="36px" left="0" backgroundColor="#BEE9E8" w="20%" borderTop="1px solid black">
+		<Box
+			boxSizing="border-box"
+			m="10px 0 0 0"
+			position="fixed"
+			h="100%"
+			top="4vh"
+			left="0"
+			backgroundColor="#BEE9E8"
+			w="17%"
+			borderRight="1px solid rgba(0,0,0,0.6)"
+			borderTop="1px solid rgba(0,0,0,0.6)"
+			borderRightRadius="10px"
+		>
 			<div>Contacts {currentFriendsList.length}</div>
 
 			{renderedFriendRequests}
