@@ -5,7 +5,7 @@ import Header from "./components/Header"
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { getDatabase } from "firebase/database"
+import { getDatabase, onValue, set, ref, remove } from "firebase/database"
 import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
 
@@ -33,11 +33,11 @@ function App() {
 
 	onAuthStateChanged(auth, (currUser) => {
 		if (currUser) {
-			// User is signed in.
+			set(ref(RealTimeDB, "OnlineStatus/" + currUser.uid), "I am here")
 			setUser(currUser)
 			// console.log("userSignedIN", currUser)
 		} else {
-			// No user is signed in.
+			remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
 			setUser(null)
 			// console.log("loggedout")
 		}
