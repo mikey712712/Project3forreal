@@ -32,9 +32,9 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 			<Button
 				onClick={() => {
 					setVideoOn("full")
-					openUserMedia()
-					createRoom(roomNumber)
-					createCallRequest(roomNumber, targetUser.uid)
+					setTimeout(() => openUserMedia(), 0)
+					setTimeout(() => createRoom(roomNumber), 200)
+					setTimeout(() => createCallRequest(roomNumber, targetUser.uid), 200)
 				}}
 				float="right"
 			>

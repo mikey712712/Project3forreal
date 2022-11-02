@@ -19,18 +19,14 @@ export default function Main({ user }) {
 	const [roomNumber, setRoomNumber] = useState("")
 	const [incomingCall, setIncomingCall] = useState("")
 	useEffect(() => {
-		return onValue(
-			ref(RealTimeDB, "IncomingCalls/" + user?.uid),
-			(snapshot) => {
-				if (snapshot.exists()) {
-					// Notify the caller they cant call
-					setIncomingCall(snapshot.val())
-				} else {
-					setIncomingCall("")
-				}
-			},
-			{ onlyOnce: true }
-		)
+		return onValue(ref(RealTimeDB, "IncomingCalls/" + user?.uid), (snapshot) => {
+			if (snapshot.exists()) {
+				// Notify the caller they cant call
+				setIncomingCall(snapshot.val())
+			} else {
+				setIncomingCall("")
+			}
+		})
 	}, [user])
 	return (
 		<Box w="100%" h="100%">
@@ -60,7 +56,7 @@ export default function Main({ user }) {
 					</Box>
 				) : null}
 			</>
-			<>{incomingCall ? <Call roomNumber={roomNumber} /> : null}</>
+			<>{incomingCall ? <Call roomNumber={roomNumber} setVideoOn={setVideoOn} /> : null}</>
 		</Box>
 	)
 }
