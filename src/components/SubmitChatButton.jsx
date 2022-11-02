@@ -2,7 +2,7 @@ import { useState } from "react"
 import { writeChatMessage } from "../functions/FirebaseRTDB"
 import { auth } from "../App"
 import { onAuthStateChanged } from "firebase/auth"
-import { Button, Input, Flex } from "@chakra-ui/react"
+import { Button, Input, Flex, Textarea } from "@chakra-ui/react"
 export default function SubmitChatButton({ roomNumber }) {
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
@@ -22,8 +22,15 @@ export default function SubmitChatButton({ roomNumber }) {
 	}
 	return (
 		<form onSubmit={sendMessage}>
-			<Flex>
-				<Input backgroundColor={"white"} h="30px" value={formValue} placeholder="Type a message" onChange={(e) => setFormValue(e.target.value)} />
+			<Flex w="100%">
+				<Textarea
+					backgroundColor={"white"}
+					h="30px"
+					value={formValue}
+					placeholder="Type a message"
+					onChange={(e) => setFormValue(e.target.value)}
+					w="100%"
+				></Textarea>
 				<Button h="30px" m="0 50px 0 0" color="white" backgroundColor="#1B4965" type="submit">
 					Chat
 				</Button>

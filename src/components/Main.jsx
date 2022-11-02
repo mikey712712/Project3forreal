@@ -22,7 +22,9 @@ export default function Main({ user }) {
 		return onValue(ref(RealTimeDB, "IncomingCalls/" + user?.uid), (snapshot) => {
 			if (snapshot.exists()) {
 				// Notify the caller they cant call
-				setIncomingCall(snapshot.val())
+				if (incomingCall !== "joined") {
+					setIncomingCall(snapshot.val())
+				}
 			} else {
 				setIncomingCall("")
 			}
@@ -56,7 +58,11 @@ export default function Main({ user }) {
 					</Box>
 				) : null}
 			</>
-			<>{incomingCall ? <Call incomingCall={incomingCall} setVideoOn={setVideoOn} /> : null}</>
+			<>
+				{incomingCall !== "" && incomingCall !== "joined" ? (
+					<Call setIncomingCall={setIncomingCall} incomingCall={incomingCall} setVideoOn={setVideoOn} />
+				) : null}
+			</>
 		</Box>
 	)
 }
