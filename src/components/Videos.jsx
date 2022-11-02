@@ -31,7 +31,7 @@ export default function Videos({ setVideoOn, videoOn, roomNumber }) {
 						<>
 							<CurrentRoom />
 							<Flex p="5px" justifyContent="center">
-								<VideoButton btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} btnOnClick={() => createRoom(roomNumber)} />
+								<VideoButton btnId={"createBtn"} iElement={"group_add"} spanText={"Create room"} />
 								{joinMode ? (
 									<Dialog />
 								) : (
