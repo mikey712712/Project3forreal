@@ -6,14 +6,10 @@ export default function Call({ incomingCall, setVideoOn }) {
 		<Flex zIndex="200" position="absolute" top="50%" left="50%">
 			<Text fontSize={"5em"}>You are getting a call</Text>
 			<Button
-				onClick={() => {
-					setTimeout(() => setVideoOn("full"), 0)
-					setTimeout(() => {
-						openUserMedia()
-					}, 100)
-					setTimeout(() => {
-						joinRoomById(incomingCall)
-					}, 200)
+				onClick={async () => {
+					setVideoOn("full")
+					await openUserMedia()
+					await joinRoomById(incomingCall)
 				}}
 			>
 				Accept
