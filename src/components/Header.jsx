@@ -20,10 +20,11 @@ export default function Header({ user }) {
 			p="5px 15px"
 			backgroundColor="#CAE9FF"
 			fontWeight="bold"
-			h="36px"
+			h="4vh"
 			position="fixed"
 			top="0"
 			zIndex="100"
+			borderBottom="1px solid black"
 		>
 			<Link to="/">Home</Link>
 			<Link to="/Users">Teams</Link>
