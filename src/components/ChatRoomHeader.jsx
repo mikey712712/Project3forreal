@@ -2,7 +2,8 @@ import { Box, Button, Flex, Heading } from "@chakra-ui/react"
 import { auth, RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { ref, onValue } from "firebase/database"
-import { openUserMedia } from "../functions/FirebaseRTC"
+import { createRoom, openUserMedia } from "../functions/FirebaseRTC"
+import { createCallRequest } from "../functions/FirebaseRTDB"
 
 export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	const link = `Rooms/${roomNumber}`
@@ -19,7 +20,7 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 
 				onValue(ref(RealTimeDB, `Users/${String(messageRecieverUID)}`), (snapshot) => {
 					const messageRecieverData = snapshot.val()[Object.keys(snapshot.val())[0]]
-					setTargetUser(messageRecieverData.displayName)
+					setTargetUser(messageRecieverData)
 				})
 				// setTargetUser()
 			}
@@ -27,12 +28,13 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	}, [roomNumber])
 	return (
 		<Flex justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
-			<Heading fontSize="1.7em">{targetUser}</Heading>
+			<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
 			<Button
 				onClick={() => {
 					setVideoOn("full")
 					openUserMedia()
 					createRoom(roomNumber)
+					createCallRequest(roomNumber, targetUser.uid)
 				}}
 				float="right"
 			>
