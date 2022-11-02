@@ -10,7 +10,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 	if (roomNumber) {
 		return (
 			<Flex bgColor="unset" flexFlow="column nowrap" boxSizing="border-box" h="100%" w="100%" p="10px" className="chatroom" zIndex="0">
-				<ChatRoomHeader roomNumber={roomNumber} />
+				<ChatRoomHeader roomNumber={roomNumber} setVideoOn={setVideoOn} />
 				<Box
 					className="scroll-chat"
 					position="relative"
@@ -33,15 +33,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 					backgroundColor="#62b6cb"
 				>
 					<SubmitChatButton roomNumber={roomNumber} />
-					<VideoButton
-						btnId={"cameraBtn"}
-						iElement={"perm_camera_mic"}
-						spanText={"Open camera & microphone"}
-						btnOnClick={() => {
-							setVideoOn("full")
-							openUserMedia()
-						}}
-					/>
+					<VideoButton btnId={"cameraBtn"} iElement={"perm_camera_mic"} spanText={"Open camera & microphone"} btnOnClick={() => {}} />
 				</Flex>
 			</Flex>
 		)
