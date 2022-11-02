@@ -14,6 +14,10 @@ body {
 	max-height: 100vh;
 }
 
+form.msg {
+	width: 100%;
+}
+
 video.remoteVideo {
 	max-width: 100%;
 	margin: auto auto;
