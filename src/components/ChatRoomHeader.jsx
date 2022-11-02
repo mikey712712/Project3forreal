@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading } from "@chakra-ui/react"
 import { auth, RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { ref, onValue } from "firebase/database"
@@ -25,8 +25,9 @@ export default function ChatRoomHeader({ roomNumber }) {
 		})
 	}, [roomNumber])
 	return (
-		<Flex alignItems="center" borderTopRadius="10px" border="1px solid rgba(0,0,0,0.6)" h="fit-content" p="10px">
+		<Flex justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
 			<Heading fontSize="1.7em">{targetUser}</Heading>
+			<Button float="right">Call</Button>
 		</Flex>
 	)
 }

@@ -180,8 +180,8 @@ export default function Contacts({ user, setRoomNumber }) {
 			left="0"
 			backgroundColor="#BEE9E8"
 			w="17%"
-			borderRight="1px solid rgba(0,0,0,0.6)"
-			borderTop="1px solid rgba(0,0,0,0.6)"
+			borderRight="2px solid #1B4965"
+			borderTop="2px solid #1B4965"
 			borderRightRadius="10px"
 		>
 			<div>Contacts {currentFriendsList.length}</div>
