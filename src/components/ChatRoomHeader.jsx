@@ -2,8 +2,9 @@ import { Box, Button, Flex, Heading } from "@chakra-ui/react"
 import { auth, RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { ref, onValue } from "firebase/database"
+import { openUserMedia } from "../functions/FirebaseRTC"
 
-export default function ChatRoomHeader({ roomNumber }) {
+export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	const link = `Rooms/${roomNumber}`
 	const [targetUser, setTargetUser] = useState("")
 	const user = auth.currentUser
@@ -27,7 +28,16 @@ export default function ChatRoomHeader({ roomNumber }) {
 	return (
 		<Flex justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
 			<Heading fontSize="1.7em">{targetUser}</Heading>
-			<Button float="right">Call</Button>
+			<Button
+				onClick={() => {
+					setVideoOn("full")
+					openUserMedia()
+					createRoom(roomNumber)
+				}}
+				float="right"
+			>
+				Call
+			</Button>
 		</Flex>
 	)
 }
