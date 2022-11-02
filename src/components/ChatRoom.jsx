@@ -9,15 +9,15 @@ import { useEffect } from "react"
 export default function ChatRoom({ roomNumber, setVideoOn }) {
 	if (roomNumber) {
 		return (
-			<Flex flexFlow="column nowrap" boxSizing="border-box" h="100%" w="100%" p="10px" className="chatroom" zIndex="0">
+			<Flex bgColor="unset" flexFlow="column nowrap" boxSizing="border-box" h="100%" w="100%" p="10px" className="chatroom" zIndex="0">
 				<ChatRoomHeader roomNumber={roomNumber} />
 				<Box
 					className="scroll-chat"
 					position="relative"
 					overflow="scroll"
 					h="auto"
-					borderRight="1px solid rgba(0,0,0,0.6)"
-					borderLeft="1px solid rgba(0,0,0,0.6)"
+					borderRight="2px solid #1B4965"
+					borderLeft="2px solid #1B4965"
 					flex="1 1 auto"
 				>
 					<MessageList roomNumber={roomNumber} />
@@ -28,7 +28,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 					justifyContent="center"
 					bottom="0px"
 					borderBottomRadius="10px"
-					border="1px solid rgba(0,0,0,0.6)"
+					border="2px solid #1B4965"
 					w="100%"
 					backgroundColor="#62b6cb"
 				>
