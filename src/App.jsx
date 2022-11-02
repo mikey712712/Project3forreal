@@ -48,7 +48,9 @@ function App() {
 			setUser(currUser)
 			// console.log("userSignedIN", currUser)
 		} else {
-			setUser(null)
+			if (user !== null) {
+				setUser(null)
+			}
 			// console.log("loggedout")
 		}
 	})
@@ -58,8 +60,7 @@ function App() {
 		<ChakraProvider>
 			<BrowserRouter>
 				<div className="App">
-					<Header auth={auth} user={user} />
-					<Main user={user} />
+					<Main user={user} setUser={setUser} />
 				</div>
 			</BrowserRouter>
 		</ChakraProvider>

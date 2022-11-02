@@ -19,6 +19,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 					borderRight="2px solid #1B4965"
 					borderLeft="2px solid #1B4965"
 					flex="1 1 auto"
+					bgColor="white"
 				>
 					<MessageList roomNumber={roomNumber} />
 				</Box>
@@ -30,7 +31,7 @@ export default function ChatRoom({ roomNumber, setVideoOn }) {
 					borderBottomRadius="10px"
 					border="2px solid #1B4965"
 					w="100%"
-					backgroundColor="#62b6cb"
+					backgroundColor="#006680"
 				>
 					<SubmitChatButton roomNumber={roomNumber} />
 				</Flex>
