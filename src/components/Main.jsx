@@ -9,12 +9,13 @@ import UserList from "./UserList"
 import ChatPage from "./ChatPage"
 import Home from "./Home"
 import Call from "./Call"
+import Header from "./Header"
 import { useEffect, useState } from "react"
 import { Box } from "@chakra-ui/react"
 import { onValue, ref } from "firebase/database"
-import { RealTimeDB } from "../App"
+import { auth, RealTimeDB } from "../App"
 
-export default function Main({ user }) {
+export default function Main({ user, setUser }) {
 	const [videoOn, setVideoOn] = useState(null)
 	const [roomNumber, setRoomNumber] = useState("")
 	const [incomingCall, setIncomingCall] = useState("")
@@ -31,39 +32,46 @@ export default function Main({ user }) {
 		})
 	}, [user])
 	return (
-		<Box w="100%" h="100%">
-			{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
-			<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
-				<Routes>
-					<Route path="/" element={<Home user={user} />} />
-					<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/userSettings" element={<UserSettings />} />
-					<Route path="/account" element={<Account user={user} />} />
-					<Route path="/Users" element={<UserList />} />
-				</Routes>
+		<>
+			<Header auth={auth} user={user} setUser={setUser} videoOn={videoOn} />
+			<Box w="100%" h="100%">
+				{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
+				<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
+					<Routes>
+						<Route path="/" element={<Home user={user} />} />
+						<Route path="/login" element={<Login />} />
+						{user ? (
+							<>
+								<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
+								<Route path="/register" element={<Register />} />
+								<Route path="/userSettings" element={<UserSettings />} />
+								<Route path="/account" element={<Account user={user} />} />
+								<Route path="/Users" element={<UserList />} />
+							</>
+						) : null}
+					</Routes>
+				</Box>
+				<>
+					{videoOn ? (
+						<Box
+							position="fixed"
+							w={videoOn === "full" ? "100%" : "10%"}
+							h={videoOn === "full" ? "100%" : "20%"}
+							top={videoOn === "full" ? "36px" : "unset"}
+							bottom={videoOn === "full" ? "unset" : "6px"}
+							left={videoOn === "full" ? "0" : "6px"}
+						>
+							<Videos roomNumber={roomNumber} videoOn={videoOn} setVideoOn={setVideoOn} />
+						</Box>
+					) : null}
+				</>
+				<>
+					{incomingCall !== "" && incomingCall !== "joined" ? (
+						<Call setIncomingCall={setIncomingCall} incomingCall={incomingCall} setVideoOn={setVideoOn} />
+					) : null}
+				</>
 			</Box>
-			<>
-				{videoOn ? (
-					<Box
-						position="fixed"
-						w={videoOn === "full" ? "100%" : "10%"}
-						h={videoOn === "full" ? "100%" : "20%"}
-						top={videoOn === "full" ? "36px" : "unset"}
-						bottom={videoOn === "full" ? "unset" : "6px"}
-						left={videoOn === "full" ? "0" : "6px"}
-					>
-						<Videos roomNumber={roomNumber} videoOn={videoOn} setVideoOn={setVideoOn} />
-					</Box>
-				) : null}
-			</>
-			<>
-				{incomingCall !== "" && incomingCall !== "joined" ? (
-					<Call setIncomingCall={setIncomingCall} incomingCall={incomingCall} setVideoOn={setVideoOn} />
-				) : null}
-			</>
-		</Box>
+		</>
 	)
 }
 
