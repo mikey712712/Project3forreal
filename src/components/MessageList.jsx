@@ -3,7 +3,7 @@ import { onValue, ref } from "firebase/database"
 import { RealTimeDB } from "../App"
 import { useEffect, useState } from "react"
 import { auth } from "../App"
-import { Box, Flex, Text } from "@chakra-ui/react"
+import { Box, Flex, Heading, Text } from "@chakra-ui/react"
 export default function MessageList({ roomNumber }) {
 	let messagesToRender = []
 	const link = `chat/${roomNumber}`
@@ -35,7 +35,13 @@ export default function MessageList({ roomNumber }) {
 	// console.log("messages", messagesToRender)
 	return (
 		<Box className="MessageList" bgColor="white">
-			{messagesToRender}
+			{messagesToRender ? (
+				messagesToRender
+			) : (
+				<Heading position="relative" top="50%" left="50%">
+					Loading...
+				</Heading>
+			)}
 		</Box>
 	)
 }
