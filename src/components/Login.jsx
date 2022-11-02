@@ -15,7 +15,7 @@ import {
 	InputRightElement,
 } from "@chakra-ui/react"
 import { FaUserAlt, FaLock } from "react-icons/fa"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithEmailAndPassword, browserSessionPersistence, setPersistence } from "firebase/auth"
 import { auth } from "../App"
 import { Navigate, useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
@@ -34,18 +34,20 @@ export default function Login() {
 	const onSignup = (event) => {
 		event.preventDefault()
 		setFormValue(fields)
-		signInWithEmailAndPassword(auth, fields.email, fields.password)
-			.then((userCredential) => {
-				// Signed in
-				const user = userCredential.user
-				console.log("signedIn", user)
-				navigate("/")
-			})
-			.catch((error) => {
-				const errorCode = error.code
-				const errorMessage = error.message
-				console.log(errorCode, errorMessage)
-			})
+		setPersistence(auth, browserSessionPersistence).then(() => {
+			signInWithEmailAndPassword(auth, fields.email, fields.password)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user
+					console.log("signedIn", user)
+					navigate("/")
+				})
+				.catch((error) => {
+					const errorCode = error.code
+					const errorMessage = error.message
+					console.log(errorCode, errorMessage)
+				})
+		})
 	}
 
 	return (
