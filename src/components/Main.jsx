@@ -11,6 +11,8 @@ import Home from "./Home"
 import Call from "./Call"
 import { useEffect, useState } from "react"
 import { Box } from "@chakra-ui/react"
+import { onValue, ref } from "firebase/database"
+import { RealTimeDB } from "../App"
 
 export default function Main({ user }) {
 	const [videoOn, setVideoOn] = useState(null)
@@ -18,7 +20,7 @@ export default function Main({ user }) {
 	const [incomingCall, setIncomingCall] = useState("")
 	useEffect(() => {
 		return onValue(
-			ref(RealTimeDB, "IncomingCalls/" + user),
+			ref(RealTimeDB, "IncomingCalls/" + user?.uid),
 			(snapshot) => {
 				if (snapshot.exists()) {
 					// Notify the caller they cant call
