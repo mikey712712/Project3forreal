@@ -84,3 +84,20 @@ export function createNewChatRoom(user1, user2) {
 	set(ref(RealTimeDB, `Rooms/${newChatRoomRef.key}`), [user1, user2])
 	return newChatRoomRef.key
 }
+
+export function createCallRequest(roomNumber, user) {
+	onValue(
+		ref(RealTimeDB, "IncomingCalls/" + user),
+		(snapshot) => {
+			if (snapshot.exists()) {
+				// Notify the caller they cant call
+			} else {
+				set(ref(RealTimeDB, `IncomingCalls/${user}`), `${roomNumber}`)
+				setTimeout(() => {
+					remove(ref(RealTimeDB, `IncomingCalls/${user}`))
+				}, 30000)
+			}
+		},
+		{ onlyOnce: true }
+	)
+}
