@@ -203,7 +203,7 @@ export default function Contacts({ user, setRoomNumber }) {
 			borderTop="2px solid #1B4965"
 			borderRightRadius="10px"
 		>
-			<Text fontSize="1.6em" color="white" paddingLeft="10px">
+			<Text fontWeight="500" fontSize="1.6em" color="white" padding="4px 0 4px 10px">
 				Contacts {currentFriendsList.length}
 			</Text>
 			{renderedFriendRequests}
