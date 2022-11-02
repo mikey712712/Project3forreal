@@ -98,15 +98,16 @@ export async function createRoom(newRoomId) {
 }
 
 export function joinRoom() {
-	document.querySelector("#createBtn").disabled = true
-	document.querySelector("#joinBtn").disabled = true
-
+	// document.querySelector("#createBtn").disabled = true
+	// document.querySelector("#joinBtn").disabled = true
 	// roomDialog.open()
 }
 
 export async function joinRoomById(roomId) {
+	console.log(roomId)
 	const roomsRef = collection(db, "rooms")
-	const roomSnapshot = await getDoc(roomsRef, `${roomId}`)
+	const roomRef = doc(roomsRef, `${roomId}`)
+	const roomSnapshot = await getDoc(roomRef)
 	console.log("Got room:", roomSnapshot.exists())
 
 	if (roomSnapshot.exists) {
@@ -176,10 +177,10 @@ export async function openUserMedia() {
 	document.querySelector("#remoteVideo").srcObject = remoteStream
 
 	console.log("Stream:", document.querySelector("#localVideo").srcObject)
-	document.querySelector("#cameraBtn").disabled = true
-	document.querySelector("#joinBtn").disabled = false
-	document.querySelector("#createBtn").disabled = false
-	document.querySelector("#hangupBtn").disabled = false
+	// document.querySelector("#cameraBtn").disabled = true
+	// document.querySelector("#joinBtn").disabled = false
+	// document.querySelector("#createBtn").disabled = false
+	// document.querySelector("#hangupBtn").disabled = false
 }
 
 export async function hangUp() {
@@ -198,10 +199,10 @@ export async function hangUp() {
 
 	document.querySelector("#localVideo").srcObject = null
 	document.querySelector("#remoteVideo").srcObject = null
-	document.querySelector("#cameraBtn").disabled = false
-	document.querySelector("#joinBtn").disabled = true
-	document.querySelector("#createBtn").disabled = true
-	document.querySelector("#hangupBtn").disabled = true
+	// document.querySelector("#cameraBtn").disabled = false
+	// document.querySelector("#joinBtn").disabled = true
+	// document.querySelector("#createBtn").disabled = true
+	// document.querySelector("#hangupBtn").disabled = true
 	document.querySelector("#currentRoom").innerText = ""
 
 	// Delete room on hangup

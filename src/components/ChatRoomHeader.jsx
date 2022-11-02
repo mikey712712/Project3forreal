@@ -31,10 +31,10 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 			<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
 			<Button
 				onClick={() => {
-					setVideoOn("full")
-					setTimeout(() => openUserMedia(), 0)
-					setTimeout(() => createRoom(roomNumber), 200)
-					setTimeout(() => createCallRequest(roomNumber, targetUser.uid), 200)
+					setTimeout(() => setVideoOn("full"), 0)
+					setTimeout(() => openUserMedia(), 100)
+					setTimeout(() => createRoom(roomNumber), 300)
+					setTimeout(() => createCallRequest(roomNumber, targetUser.uid), 400)
 				}}
 				float="right"
 			>
