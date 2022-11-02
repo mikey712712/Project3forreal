@@ -1,5 +1,5 @@
 import { db } from "../App"
-import { collection, doc, setDoc, addDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore"
+import { collection, doc, setDoc, addDoc, getDoc, updateDoc, onSnapshot, deleteDoc, getDocs, query } from "firebase/firestore"
 
 const configuration = {
 	iceServers: [
@@ -20,11 +20,12 @@ export function init() {
 	roomDialog = document.querySelector("#room-dialog")
 }
 
-export async function createRoom() {
+export async function createRoom(newRoomId) {
+	roomId = newRoomId
 	document.querySelector("#createBtn").disabled = true
 	document.querySelector("#joinBtn").disabled = true
 	const roomsRef = collection(db, "rooms")
-	const roomRef = doc(roomsRef)
+	const roomRef = doc(roomsRef, `${roomId}`)
 
 	console.log("Create PeerConnection with configuration: ", configuration)
 	peerConnection = new RTCPeerConnection(configuration)
@@ -60,7 +61,6 @@ export async function createRoom() {
 		},
 	}
 	await setDoc(roomRef, roomWithOffer)
-	roomId = roomRef.id
 	console.log(`New room created with SDP offer. Room ID: ${roomRef.id}`)
 	document.querySelector("#currentRoom").innerText = `Current room is ${roomRef.id} - You are the caller!`
 	// Code for creating a room above
@@ -182,7 +182,7 @@ export async function openUserMedia() {
 	document.querySelector("#hangupBtn").disabled = false
 }
 
-export async function hangUp(e) {
+export async function hangUp() {
 	const tracks = document.querySelector("#localVideo").srcObject.getTracks()
 	tracks.forEach((track) => {
 		track.stop()
@@ -207,15 +207,20 @@ export async function hangUp(e) {
 	// Delete room on hangup
 	if (roomId) {
 		const roomRef = doc(db, "rooms", `${roomId}`)
-		const calleeCandidates = collection(roomRef, "calleeCandidates")
-		calleeCandidates.forEach(async (candidate) => {
-			await candidate.ref.delete()
+		const calleeCandidates = query(collection(roomRef, "calleeCandidates"))
+		const calleeQuerySnapshot = await getDocs(calleeCandidates)
+		console.log("calee", calleeCandidates)
+		calleeQuerySnapshot.forEach(async (doc) => {
+			// doc.data() is never undefined for query doc snapshots
+			await deleteDoc(doc)
 		})
-		const callerCandidates = collection(roomRef, "callerCandidates")
-		callerCandidates.forEach(async (candidate) => {
-			await candidate.ref.delete()
+		const callerCandidates = query(collection(roomRef, "callerCandidates"))
+		const callerQuerySnapshot = await getDocs(callerCandidates)
+		callerQuerySnapshot.forEach(async (doc) => {
+			// doc.data() is never undefined for query doc snapshots
+			await deleteDoc(doc)
 		})
-		await roomRef.delete()
+		await deleteDoc(roomRef)
 	}
 
 	document.location.reload(true)
