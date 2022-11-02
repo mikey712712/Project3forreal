@@ -10,7 +10,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
 
 import { getAuth, onAuthStateChanged } from "firebase/auth"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import Main from "./components/Main"
 const firebaseConfig = {
@@ -30,14 +30,24 @@ export const auth = getAuth(firebaseApp)
 
 function App() {
 	const [user, setUser] = useState(null)
+	useEffect(() => {
+		const handleTabClose = (event) => {
+			event.preventDefault()
+			remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
+		}
 
+		window.addEventListener("beforeunload", handleTabClose)
+
+		return () => {
+			window.removeEventListener("beforeunload", handleTabClose)
+		}
+	}, [])
 	onAuthStateChanged(auth, (currUser) => {
 		if (currUser) {
 			set(ref(RealTimeDB, "OnlineStatus/" + currUser.uid), "I am here")
 			setUser(currUser)
 			// console.log("userSignedIN", currUser)
 		} else {
-			remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
 			setUser(null)
 			// console.log("loggedout")
 		}
