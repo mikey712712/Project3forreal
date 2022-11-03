@@ -6,7 +6,7 @@ import { RiUserFollowLine, RiUserLine, RiRadioButtonLine } from "react-icons/ri"
 import { FiCircle } from "react-icons/fi"
 export function StatusTag({ uid }) {
 	const [online, setOnline] = useState(false)
-	console.log("theuid", uid)
+	// console.log("theuid", uid)
 	useEffect(() => {
 		return onValue(ref(RealTimeDB, "OnlineStatus/" + uid), (snapshot) => {
 			const data = snapshot.val()

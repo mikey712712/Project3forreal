@@ -89,11 +89,11 @@ export function joinRoom() {
 }
 
 export async function joinRoomById(roomId) {
-	console.log(roomId)
+	// console.log(roomId)
 	const roomsRef = collection(db, "rooms")
 	const roomRef = doc(roomsRef, `${roomId}`)
 	const roomSnapshot = await getDoc(roomRef)
-	console.log("Got room:", roomSnapshot.exists())
+	// console.log("Got room:", roomSnapshot.exists())
 
 	if (roomSnapshot.exists) {
 		console.log("Create PeerConnection with configuration: ", configuration)
@@ -110,7 +110,7 @@ export async function joinRoomById(roomId) {
 				console.log("Got final candidate!")
 				return
 			}
-			console.log("Got candidate: ", event.candidate)
+			// console.log("Got candidate: ", event.candidate)
 			await addDoc(calleeCandidatesCollection, event.candidate.toJSON())
 		})
 		// Code for collecting ICE candidates above
@@ -118,17 +118,17 @@ export async function joinRoomById(roomId) {
 		peerConnection.addEventListener("track", (event) => {
 			console.log("Got remote track:", event.streams[0])
 			event.streams[0].getTracks().forEach((track) => {
-				console.log("Add a track to the remoteStream:", track)
+				// console.log("Add a track to the remoteStream:", track)
 				remoteStream.addTrack(track)
 			})
 		})
 
 		// Code for creating SDP answer below
 		const offer = roomSnapshot.data().offer
-		console.log("Got offer:", offer)
+		// console.log("Got offer:", offer)
 		await peerConnection.setRemoteDescription(new RTCSessionDescription(offer))
 		const answer = await peerConnection.createAnswer()
-		console.log("Created answer:", answer)
+		// console.log("Created answer:", answer)
 		await peerConnection.setLocalDescription(answer)
 
 		const roomWithAnswer = {
@@ -145,7 +145,7 @@ export async function joinRoomById(roomId) {
 			snapshot.docChanges().forEach(async (change) => {
 				if (change.type === "added") {
 					let data = change.doc.data()
-					console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`)
+					// console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`)
 					await peerConnection.addIceCandidate(new RTCIceCandidate(data))
 				}
 			})
@@ -161,7 +161,7 @@ export async function openUserMedia() {
 	remoteStream = new MediaStream()
 	document.querySelector("#remoteVideo").srcObject = remoteStream
 
-	console.log("Stream:", document.querySelector("#localVideo").srcObject)
+	// console.log("Stream:", document.querySelector("#localVideo").srcObject)
 	// document.querySelector("#cameraBtn").disabled = true
 	// document.querySelector("#joinBtn").disabled = false
 	// document.querySelector("#createBtn").disabled = false
@@ -195,7 +195,7 @@ export async function hangUp() {
 		const roomRef = doc(db, "rooms", `${roomId}`)
 		const calleeCandidates = query(collection(roomRef, "calleeCandidates"))
 		const calleeQuerySnapshot = await getDocs(calleeCandidates)
-		console.log("calee", calleeCandidates)
+		// console.log("calee", calleeCandidates)
 		calleeQuerySnapshot.forEach(async (doc) => {
 			// doc.data() is never undefined for query doc snapshots
 			await deleteDoc(doc)
@@ -212,18 +212,18 @@ export async function hangUp() {
 
 export function registerPeerConnectionListeners() {
 	peerConnection.addEventListener("icegatheringstatechange", () => {
-		console.log(`ICE gathering state changed: ${peerConnection.iceGatheringState}`)
+		// console.log(`ICE gathering state changed: ${peerConnection.iceGatheringState}`)
 	})
 
 	peerConnection.addEventListener("connectionstatechange", () => {
-		console.log(`Connection state change: ${peerConnection.connectionState}`)
+		// console.log(`Connection state change: ${peerConnection.connectionState}`)
 	})
 
 	peerConnection.addEventListener("signalingstatechange", () => {
-		console.log(`Signaling state change: ${peerConnection.signalingState}`)
+		// console.log(`Signaling state change: ${peerConnection.signalingState}`)
 	})
 
 	peerConnection.addEventListener("iceconnectionstatechange ", () => {
-		console.log(`ICE connection state change: ${peerConnection.iceConnectionState}`)
+		// console.log(`ICE connection state change: ${peerConnection.iceConnectionState}`)
 	})
 }
