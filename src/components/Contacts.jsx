@@ -5,10 +5,8 @@ import { useState, useEffect } from "react"
 import { auth, RealTimeDB } from "../App"
 import Contact from "./Contact"
 export default function Contacts({ user, setRoomNumber }) {
-	// console.log("inContacts", user?.uid)
 	const [currentFriendsList, setCurrentFriendsList] = useState([])
 	const [friendRequests, setCurrentFriendRequests] = useState([])
-	const [contactsOpen, setContactsOpen] = useState(true)
 	let newFriendsList = []
 
 	const handleOnClick = async (uid, me) => {
