@@ -31,6 +31,7 @@ export default function Main({ user, setUser }) {
 				}
 			} else {
 				setIncomingCall("")
+				setIsPlaying(false)
 			}
 		})
 	}, [user])

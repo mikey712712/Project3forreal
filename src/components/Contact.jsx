@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { RealTimeDB } from "../App"
 import { createNewChatRoom, writeChatMessage } from "../functions/FirebaseRTDB"
 import { StatusTag } from "./StatusTag"
+import { useState } from "react"
 
 export default function Contact({ photoURL, displayName, uid, me, setRoomNumber }) {
 	const navigate = useNavigate()
@@ -54,6 +55,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			console.log("match found")
 			// console.log(match)
 			setRoomNumber(match)
+
 			// writeChatMessage("mikey1", "hi", match)
 		}
 	}
