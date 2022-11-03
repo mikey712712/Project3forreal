@@ -19,6 +19,7 @@ export default function Call({ setIncomingCall, incomingCall, setVideoOn, setIsP
 							colorScheme="blue"
 							mr={3}
 							onClick={async () => {
+								setIsPlaying(false)
 								setIncomingCall("")
 								await remove(ref(RealTimeDB, `IncomingCalls/${auth.currentUser.uid}`))
 								onClose()
