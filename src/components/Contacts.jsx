@@ -151,6 +151,7 @@ export default function Contacts({ user, setRoomNumber }) {
 		return (
 			<Flex
 				bgColor="rgba(255,255,255,0.8)"
+				filter="bri"
 				alignItems="center"
 				borderRadius="6px"
 				border={"1px solid rgba(0,0,0,0.2)"}
@@ -164,12 +165,13 @@ export default function Contacts({ user, setRoomNumber }) {
 				<Text fontWeight="500" h="fit-content">
 					<strong>{req.displayName}</strong> has sent a friend request
 				</Text>
-				<Button fontSize="0.8em" h="fit-content" p="5px" onClick={() => handleOnClick(req.uid, user?.uid)}>
+				<Button alignSelf="flex-start" fontSize="0.8em" h="fit-content" marginLeft="5px" p="5px" onClick={() => handleOnClick(req.uid, user?.uid)}>
 					Accept
 				</Button>
 			</Flex>
 		)
 	}
+	console.log(auth.currentUser)
 
 	let renderedFriendRequests = friendRequests.map((req, index) => {
 		return <FriendRequest key={index} req={req} />
