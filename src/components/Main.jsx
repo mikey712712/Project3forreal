@@ -41,9 +41,10 @@ export default function Main({ user, setUser }) {
 						{user ? (
 							<>
 								<Route path="/" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
-								<Route path="/userSettings" element={<UserSettings />} />
-								<Route path="/account" element={<Account user={user} />} />
-								<Route path="/Users" element={<UserList />} />
+								<Route path="/settings" element={<UserSettings />} />
+								<Route path="/account" element={<Account />} />
+								<Route path="/users" element={<UserList />} />
+								<Route path="/users/:userId" element={<Account />} />
 							</>
 						) : (
 							<>
