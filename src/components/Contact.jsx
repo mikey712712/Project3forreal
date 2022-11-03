@@ -3,6 +3,7 @@ import { ref, onValue, set, push } from "firebase/database"
 import { useNavigate } from "react-router-dom"
 import { RealTimeDB } from "../App"
 import { createNewChatRoom, writeChatMessage } from "../functions/FirebaseRTDB"
+import { StatusTag } from "./StatusTag"
 
 export default function Contact({ photoURL, displayName, uid, me, setRoomNumber }) {
 	const navigate = useNavigate()
@@ -59,6 +60,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 	return (
 		<Flex
 			alignItems="center"
+			justify="space-between"
 			cursor="pointer"
 			borderRadius="6px"
 			border={"1px solid rgba(0,0,0,0.2)"}
@@ -71,11 +73,14 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			boxSizing="border-box"
 			onClick={openAndOrCreateChat}
 		>
-			<Avatar marginRight="10px" border={"1px solid rgba(0,0,0,0.1)"} src={photoURL} />
+			<Flex alignItems="center">
+				<Avatar marginRight="10px" border={"1px solid rgba(0,0,0,0.1)"} src={photoURL} />
 
-			<Text fontWeight="600" h="fit-content">
-				{displayName}
-			</Text>
+				<Text fontWeight="600" h="fit-content">
+					{displayName}
+				</Text>
+			</Flex>
+			<StatusTag uid={uid}> </StatusTag>
 		</Flex>
 	)
 }
