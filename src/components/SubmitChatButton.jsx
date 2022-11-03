@@ -15,14 +15,11 @@ export default function SubmitChatButton({ roomNumber }) {
 
 	const [formValue, setFormValue] = useState("")
 	const sendMessage = async (e) => {
-		console.log(e)
 		e.preventDefault()
-		// console.log(user)
 		writeChatMessage(user.uid, formValue, `${roomNumber}`)
 		setFormValue("")
 	}
 	const handleKeyPress = (event) => {
-		console.log(event.key)
 		if (event.key === "Enter") {
 			sendMessage(event)
 		}

@@ -47,7 +47,7 @@ export default function UserList() {
 	})
 
 	return (
-		<Box h="600px" overflow="scroll">
+		<Box h="100%" overflow="scroll">
 			{renderedUserList}
 		</Box>
 	)

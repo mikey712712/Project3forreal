@@ -38,17 +38,20 @@ export default function Main({ user, setUser }) {
 				{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
 				<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
 					<Routes>
-						<Route path="/" element={<Home user={user} />} />
-						<Route path="/login" element={<Login />} />
 						{user ? (
 							<>
-								<Route path="/chat" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
-								<Route path="/register" element={<Register />} />
+								<Route path="/" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
 								<Route path="/userSettings" element={<UserSettings />} />
 								<Route path="/account" element={<Account user={user} />} />
 								<Route path="/Users" element={<UserList />} />
 							</>
-						) : null}
+						) : (
+							<>
+								<Route path="/" element={<Home user={user} />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/register" element={<Register />} />
+							</>
+						)}
 					</Routes>
 				</Box>
 				<>
