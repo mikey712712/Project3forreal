@@ -1,9 +1,12 @@
 import { Avatar, Badge, Button, Center, Flex, Heading, Image, Link, Stack, Text, useColorModeValue } from "@chakra-ui/react"
 import { createFriendRequest } from "../functions/FirebaseRTDB"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { RealTimeDB } from "../App"
+import { onValue, ref } from "firebase/database"
 export default function UserHorizontalCard({ photoURL, displayName, uid, isAFriend, myUid, myDisplayName }) {
 	const [friendRequestDisabled, setFriendRequestDisabled] = useState(false)
+	const [pendingRequest, setPendingRequest] = useState(false)
 	const navigate = useNavigate()
 	const handleFriendRequest = (event) => {
 		event.preventDefault()
@@ -14,7 +17,40 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 	const handleUserProfile = () => {
 		navigate(`/users/${uid}`)
 	}
-
+	useEffect(() => {
+		const requestRef = ref(RealTimeDB, "Requests/" + uid)
+		const checkForDuplicateWrapper = async () => {
+			const checkForDuplicateRequest = new Promise((resolve, reject) => {
+				onValue(
+					requestRef,
+					(snapshot) => {
+						const data = snapshot.val()
+						console.log(data)
+						if (snapshot.exists()) {
+							for (let property in data) {
+								// console.log("datapropshit", data[property].uid)
+								if (data[property].uid === myUid) {
+									resolve(true)
+									console.log("matched")
+								}
+							}
+							resolve(false)
+						}
+						resolve(false)
+					},
+					{ onlyOnce: true }
+				)
+			})
+			const alreadyRequested = await checkForDuplicateRequest
+			if (!alreadyRequested) {
+				setFriendRequestDisabled(false)
+			} else {
+				setFriendRequestDisabled(true)
+				setPendingRequest(true)
+			}
+		}
+		checkForDuplicateWrapper()
+	}, [])
 	return (
 		<Center onClick={handleUserProfile} cursor="pointer" textAlign={"center"} py={"10px"} w="35%">
 			<Stack
@@ -55,6 +91,25 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 							}}
 						>
 							Request Friend
+						</Button>
+					) : null}
+					{pendingRequest ? (
+						<Button
+							onClick={(event) => event.stopPropagation()}
+							fontSize={"sm"}
+							rounded={"full"}
+							bg={"gray.400"}
+							color={"white"}
+							w="fit-content"
+							boxShadow={"0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"}
+							_hover={{
+								bg: "blue.500",
+							}}
+							_focus={{
+								bg: "blue.500",
+							}}
+						>
+							Pending Request
 						</Button>
 					) : null}
 				</Stack>
