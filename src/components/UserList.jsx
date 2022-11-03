@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Flex } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { RealTimeDB, auth } from "../App"
 import { ref, onValue } from "firebase/database"
@@ -37,7 +37,7 @@ export default function UserList() {
 			<UserHorizontalCard
 				uid={user.uid}
 				key={user.uid}
-				profileURL={user.profileURL}
+				photoURL={user.photoURL}
 				displayName={user.displayName}
 				isAFriend={isAFriend}
 				myUid={currentUser.uid}
@@ -47,8 +47,19 @@ export default function UserList() {
 	})
 
 	return (
-		<Box h="100%" overflow="scroll">
-			{renderedUserList}
-		</Box>
+		<Flex borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
+			<Flex
+				boxSizing="border-box"
+				p="0 0 50px 0"
+				alignItems="flex-start"
+				justifyContent="flex-start"
+				flexFlow="row wrap"
+				overflow="scroll"
+				h="fit-content"
+				m="0 auto"
+			>
+				{renderedUserList}
+			</Flex>
+		</Flex>
 	)
 }
