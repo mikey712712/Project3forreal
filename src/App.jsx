@@ -1,11 +1,8 @@
 import "./App.css"
-// COMPONENTS
-import Header from "./components/Header"
 // FUNCTION/LIBRARY IMPORTS
-import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { getDatabase, onValue, set, ref, remove, onDisconnect } from "firebase/database"
+import { getDatabase, set, ref, onDisconnect } from "firebase/database"
 import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
 import { getStorage } from "firebase/storage"
@@ -45,7 +42,6 @@ function App() {
 			}
 		})
 	}, [])
-	init()
 
 	return (
 		<ChakraProvider>

@@ -16,17 +16,10 @@ let remoteStream = null
 let roomDialog = null
 let roomId = null
 
-export function init() {
-	roomDialog = document.querySelector("#room-dialog")
-}
-
 export async function createRoom(newRoomId) {
-	// document.querySelector("#createBtn").disabled = true
-	// document.querySelector("#joinBtn").disabled = true
 	const roomsRef = collection(db, "rooms")
 	const roomRef = doc(roomsRef, `${newRoomId}`)
 
-	console.log("Create PeerConnection with configuration: ", configuration)
 	peerConnection = new RTCPeerConnection(configuration)
 
 	registerPeerConnectionListeners()
@@ -40,10 +33,8 @@ export async function createRoom(newRoomId) {
 
 	peerConnection.addEventListener("icecandidate", async (event) => {
 		if (!event.candidate) {
-			console.log("Got final candidate!")
 			return
 		}
-		console.log("Got candidate: ", event.candidate)
 		await addDoc(callerCandidatesCollection, event.candidate.toJSON())
 	})
 	// Code for collecting ICE candidates above
@@ -51,7 +42,6 @@ export async function createRoom(newRoomId) {
 	// Code for creating a room below
 	const offer = await peerConnection.createOffer()
 	await peerConnection.setLocalDescription(offer)
-	console.log("Created offer:", offer)
 
 	const roomWithOffer = {
 		offer: {
@@ -61,14 +51,11 @@ export async function createRoom(newRoomId) {
 	}
 	await setDoc(roomRef, roomWithOffer)
 	roomId = roomRef.id
-	console.log(`New room created with SDP offer. Room ID: ${roomRef.id}`)
-	document.querySelector("#currentRoom").innerText = `Current room is ${roomRef.id} - You are the caller!`
 	// Code for creating a room above
 
 	peerConnection.addEventListener("track", (event) => {
 		console.log("Got remote track:", event.streams[0])
 		event.streams[0].getTracks().forEach((track) => {
-			console.log("Add a track to the remoteStream:", track)
 			remoteStream.addTrack(track)
 		})
 	})
@@ -77,7 +64,6 @@ export async function createRoom(newRoomId) {
 	onSnapshot(roomRef, async (snapshot) => {
 		const data = snapshot.data()
 		if (!peerConnection.currentRemoteDescription && data && data.answer) {
-			console.log("Got remote description: ", data.answer)
 			const rtcSessionDescription = new RTCSessionDescription(data.answer)
 			await peerConnection.setRemoteDescription(rtcSessionDescription)
 		}
@@ -89,7 +75,6 @@ export async function createRoom(newRoomId) {
 		snapshot.docChanges().forEach(async (change) => {
 			if (change.type === "added") {
 				let data = change.doc.data()
-				console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`)
 				await peerConnection.addIceCandidate(new RTCIceCandidate(data))
 			}
 		})
@@ -223,8 +208,6 @@ export async function hangUp() {
 		})
 		await deleteDoc(roomRef)
 	}
-
-	document.location.reload(true)
 }
 
 export function registerPeerConnectionListeners() {
@@ -244,5 +227,3 @@ export function registerPeerConnectionListeners() {
 		console.log(`ICE connection state change: ${peerConnection.iceConnectionState}`)
 	})
 }
-
-init()

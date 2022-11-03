@@ -53,7 +53,7 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 		checkForDuplicateWrapper()
 	}, [])
 	return (
-		<Center onClick={handleUserProfile} cursor="pointer" textAlign={"center"} py={"10px"} w="30%">
+		<Center onClick={handleUserProfile} cursor="pointer" textAlign={"center"} py={"10px"} w="30%" m={"10px"}>
 			<Stack
 				borderWidth="1px"
 				borderRadius="lg"
@@ -63,7 +63,7 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 				direction={{ base: "column", md: "row" }}
 				bgColor={"white"}
 				transition="0.4s"
-				_hover={{ filter: "brightness(95%)" }}
+				_hover={{ filter: "brightness(93%)" }}
 				boxShadow={"2xl"}
 				padding={"10px"}
 			>
