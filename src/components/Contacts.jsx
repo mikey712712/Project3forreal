@@ -107,8 +107,6 @@ export default function Contacts({ user, setRoomNumber }) {
 				let contactList = []
 				for (let prop in data) {
 					let friendsArray = data[prop].friends
-					console.log(data[prop])
-					console.log(data)
 					if (friendsArray.length > 0) {
 						newFriendsList = [...friendsArray]
 						onValue(ref(RealTimeDB, "Users"), (snapshot) => {

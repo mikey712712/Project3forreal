@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { ref, onValue } from "firebase/database"
 import { createRoom, openUserMedia } from "../functions/FirebaseRTC"
 import { createCallRequest } from "../functions/FirebaseRTDB"
+import { IoIosCall } from "react-icons/io"
 
 export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	const link = `Rooms/${roomNumber}`
@@ -40,8 +41,14 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 					createCallRequest(roomNumber, targetUser.uid)
 				}}
 				float="right"
+				fontSize="1.2em"
+				bgColor="#1B4965"
+				color="white"
+				p="5px"
+				h="fit-content"
+				w="fit-content"
 			>
-				Call
+				<IoIosCall />
 			</Button>
 		</Flex>
 	)
