@@ -3,7 +3,7 @@ import { ref, remove } from "firebase/database"
 import { Link, useNavigate } from "react-router-dom"
 import { auth, RealTimeDB } from "../App"
 import { hangUp } from "../functions/FirebaseRTC"
-import { signOut, getAuth } from "firebase/auth"
+import { signOut } from "firebase/auth"
 
 export default function Header({ user, videoOn, setUser }) {
 	const navigate = useNavigate()
@@ -12,6 +12,7 @@ export default function Header({ user, videoOn, setUser }) {
 		setUser(null)
 		signOut(auth)
 		navigate("/login")
+		hangUp()
 	}
 
 	return (
@@ -29,13 +30,13 @@ export default function Header({ user, videoOn, setUser }) {
 			zIndex="100"
 			borderBottom="1px solid rgba(0,0,0,0.5)"
 		>
-			<Link to="/">
-				<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
-					Home
-				</Text>
-			</Link>
 			{user ? (
 				<>
+					<Link to="/">
+						<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+							Home
+						</Text>
+					</Link>
 					<Link to="/users">
 						<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
 							Contacts
@@ -64,11 +65,18 @@ export default function Header({ user, videoOn, setUser }) {
 					</Text>
 				</a>
 			) : (
-				<Link to="/login">
-					<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
-						Login
-					</Text>
-				</Link>
+				<>
+					<Link to="/register">
+						<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+							Register
+						</Text>
+					</Link>
+					<Link to="/login">
+						<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+							Login
+						</Text>
+					</Link>
+				</>
 			)}
 		</Flex>
 	)
