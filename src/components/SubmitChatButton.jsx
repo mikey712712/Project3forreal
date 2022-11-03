@@ -16,14 +16,17 @@ export default function SubmitChatButton({ roomNumber }) {
 	const [formValue, setFormValue] = useState("")
 	const sendMessage = async (e) => {
 		e.preventDefault()
-		writeChatMessage(user.uid, formValue, `${roomNumber}`)
+		if (formValue !== "") {
+			writeChatMessage(user.uid, formValue, `${roomNumber}`)
+		}
 		setFormValue("")
 	}
 	const handleKeyPress = (event) => {
-		if (event.key === "Enter") {
+		if (event.key === "Enter" && formValue !== "") {
 			sendMessage(event)
 		}
 	}
+
 	return (
 		<form className="msg" onSubmit={sendMessage}>
 			<Flex w="100%">
@@ -34,7 +37,11 @@ export default function SubmitChatButton({ roomNumber }) {
 					onChange={(e) => setFormValue(e.target.value)}
 					w="100%"
 					rows="5"
-					onKeyUp={handleKeyPress}
+					onKeyUp={(event) => {
+						if (event.key === "Enter") {
+							sendMessage(event)
+						}
+					}}
 				></Textarea>
 				<Button h="30px" m="0 0 0 5px" bgColor="rgba(255,255,255,0.8)" color="#266E80" type="submit">
 					Chat
