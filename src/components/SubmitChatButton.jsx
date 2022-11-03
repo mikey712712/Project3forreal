@@ -3,6 +3,7 @@ import { writeChatMessage } from "../functions/FirebaseRTDB"
 import { auth } from "../App"
 import { onAuthStateChanged } from "firebase/auth"
 import { Button, Input, Flex, Textarea } from "@chakra-ui/react"
+import InputEmoji from "react-input-emoji"
 export default function SubmitChatButton({ roomNumber }) {
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
@@ -14,8 +15,7 @@ export default function SubmitChatButton({ roomNumber }) {
 	const user = auth.currentUser
 
 	const [formValue, setFormValue] = useState("")
-	const sendMessage = async (e) => {
-		e.preventDefault()
+	const sendMessage = async () => {
 		if (formValue !== "") {
 			writeChatMessage(user.uid, formValue, `${roomNumber}`)
 		}
@@ -23,24 +23,16 @@ export default function SubmitChatButton({ roomNumber }) {
 	}
 
 	return (
-		<form className="msg" onSubmit={sendMessage}>
+		<form
+			className="msg"
+			onSubmit={(event) => {
+				event.preventDefault()
+				sendMessage()
+			}}
+		>
 			<Flex w="100%">
-				<Textarea
-					backgroundColor={"white"}
-					value={formValue}
-					placeholder="Type a message"
-					onKeyDown={(event) => {
-						if (event.key === "Enter") {
-							event.preventDefault()
-							if (formValue.length > 0) {
-								sendMessage(event)
-							}
-						}
-					}}
-					onChange={(e) => setFormValue(e.target.value)}
-					w="100%"
-					rows="5"
-				></Textarea>
+				<InputEmoji value={formValue} placeholder="Type a message" onChange={setFormValue} onEnter={sendMessage} />
+
 				<Button h="30px" m="0 0 0 5px" bgColor="rgba(255,255,255,0.8)" color="#266E80" type="submit">
 					Chat
 				</Button>
