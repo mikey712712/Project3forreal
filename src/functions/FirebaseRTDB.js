@@ -115,14 +115,14 @@ export function createNewChatRoom(user1, user2) {
 export function createCallRequest(roomNumber, user) {
 	onValue(
 		ref(RealTimeDB, "IncomingCalls/" + user),
-		(snapshot) => {
+		async (snapshot) => {
 			if (snapshot.exists()) {
 				// Notify the caller they cant call
 			} else {
-				setTimeout(() => set(ref(RealTimeDB, `IncomingCalls/${user}`), `${roomNumber}`), 0)
-				setTimeout(() => {
+				await set(ref(RealTimeDB, `IncomingCalls/${user}`), `${roomNumber}`)
+				setTimeout(async () => {
 					console.log("timout")
-					remove(ref(RealTimeDB, `IncomingCalls/${user}`))
+					await remove(ref(RealTimeDB, `IncomingCalls/${user}`))
 				}, 10000)
 			}
 		},
