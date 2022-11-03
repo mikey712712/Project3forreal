@@ -50,13 +50,14 @@ export default function UserList() {
 		<Flex borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
 			<Flex
 				boxSizing="border-box"
-				p="0 0 50px 0"
+				p="0 20px 50px 20px"
 				alignItems="flex-start"
 				justifyContent="flex-start"
 				flexFlow="row wrap"
 				overflow="scroll"
 				h="fit-content"
 				m="0 auto"
+				gap="20px"
 			>
 				{renderedUserList}
 			</Flex>
