@@ -53,3 +53,15 @@ export function updateProfilePicture(uid, file) {
 		}
 	)
 }
+
+export function uploadPhotoURL(photoURL) {
+	const userRef = ref(RealTimeDB, `Users/${auth.currentUser.uid}`)
+	onValue(
+		userRef,
+		async (snapshot) => {
+			const data = snapshot.val()
+			await set(ref(RealTimeDB, `Users/${auth.currentUser.uid}/${Object.keys(data)[0]}/photoURL`), photoURL)
+		},
+		{ onlyOnce: true }
+	)
+}
