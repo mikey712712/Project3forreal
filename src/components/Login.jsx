@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
 	Flex,
 	Heading,
@@ -21,8 +21,13 @@ import { Navigate, useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
-export default function Login() {
+export default function Login({ user }) {
 	const navigate = useNavigate()
+	useEffect(() => {
+		if (user) {
+			navigate("/")
+		}
+	}, [user])
 	const [showPassword, setShowPassword] = useState(false)
 	const [formValue, setFormValue] = useState({})
 	const [fields, setFields] = useState({})
@@ -38,8 +43,8 @@ export default function Login() {
 			signInWithEmailAndPassword(auth, fields.email, fields.password)
 				.then((userCredential) => {
 					// Signed in
-					const user = userCredential.user
-					console.log("signedIn", user)
+					const newUser = userCredential.user
+					console.log("signedIn", newUser)
 					navigate("/")
 				})
 				.catch((error) => {
@@ -53,8 +58,10 @@ export default function Login() {
 	return (
 		<Flex flexDirection="column" width="100wh" height="100vh" backgroundColor="gray.200" justifyContent="center" alignItems="center">
 			<Stack flexDir="column" mb="2" justifyContent="center" alignItems="center">
-				<Avatar bg="teal.500" />
-				<Heading color="teal.400">Welcome</Heading>
+				<Avatar bg="#0083a3" />
+				<Heading fontSize="1.7em" color="#0083a3">
+					Welcome to QuickChat
+				</Heading>
 				<Box minW={{ base: "90%", md: "468px" }}>
 					<form onSubmit={onSignup}>
 						<Stack spacing={4} p="1rem" backgroundColor="whiteAlpha.900" boxShadow="md">
@@ -78,7 +85,7 @@ export default function Login() {
 									<Link>forgot password?</Link>
 								</FormHelperText>
 							</FormControl>
-							<Button borderRadius={0} type="submit" variant="solid" colorScheme="teal" width="full">
+							<Button borderRadius={0} color="white" type="submit" variant="solid" bgColor="#0083a3" width="full">
 								Login
 							</Button>
 						</Stack>
