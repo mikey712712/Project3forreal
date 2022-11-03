@@ -61,9 +61,9 @@ export default function Main({ user, setUser }) {
 							position="fixed"
 							w={videoOn === "full" ? "100%" : "10%"}
 							h={videoOn === "full" ? "100%" : "20%"}
-							top={videoOn === "full" ? "36px" : "unset"}
 							bottom={videoOn === "full" ? "unset" : "6px"}
 							left={videoOn === "full" ? "0" : "6px"}
+							zIndex="400"
 						>
 							<Videos roomNumber={roomNumber} videoOn={videoOn} setVideoOn={setVideoOn} />
 						</Box>

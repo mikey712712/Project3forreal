@@ -112,7 +112,7 @@ export function createNewChatRoom(user1, user2) {
 	return newChatRoomRef.key
 }
 
-export function createCallRequest(roomNumber, user) {
+export async function createCallRequest(roomNumber, user) {
 	onValue(
 		ref(RealTimeDB, "IncomingCalls/" + user),
 		async (snapshot) => {

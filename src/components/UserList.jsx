@@ -47,20 +47,21 @@ export default function UserList() {
 	})
 
 	return (
-		<Flex boxSizing="border-box" borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
-			<Flex
-				boxSizing="border-box"
-				p="0 20px 50px 20px"
-				alignItems="flex-start"
-				justifyContent="flex-start"
-				flexFlow="row wrap"
-				overflow="scroll"
-				h="fit-content"
-				m="0 auto"
-				gap="20px"
-			>
-				{renderedUserList}
-			</Flex>
+		<Flex borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
+			<Box w="100%" h="100%" m="0 auto">
+				<Flex
+					boxSizing="border-box"
+					p="0 20px 50px 10px"
+					alignItems="flex-start"
+					justifyContent="space-between"
+					flexFlow="row wrap"
+					overflow="scroll"
+					h="fit-content"
+					m="0 auto"
+				>
+					{renderedUserList}
+				</Flex>
+			</Box>
 		</Flex>
 	)
 }
