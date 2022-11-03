@@ -5,11 +5,13 @@ import { ref, onValue } from "firebase/database"
 import { createRoom, openUserMedia } from "../functions/FirebaseRTC"
 import { createCallRequest } from "../functions/FirebaseRTDB"
 import { IoIosCall } from "react-icons/io"
+import { useNavigate } from "react-router-dom"
 
 export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	const link = `Rooms/${roomNumber}`
 	const [targetUser, setTargetUser] = useState("")
 	const user = auth.currentUser
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const query = ref(RealTimeDB, link)
@@ -29,8 +31,14 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 	}, [roomNumber])
 	return (
 		<Flex bgColor="white" justify="space-between" alignItems="center" borderTopRadius="10px" border="2px solid #1B4965" w="100%" h="fit-content" p="10px">
-			<Flex alignItems="center">
-				<Avatar m="0 5px 0 0" />
+			<Flex
+				cursor="pointer"
+				onClick={() => {
+					navigate(`users/${targetUser.uid}`)
+				}}
+				alignItems="center"
+			>
+				<Avatar m="0 5px 0 0" src={targetUser.photoURL} />
 				<Heading fontSize="1.7em">{targetUser.displayName}</Heading>
 			</Flex>
 			<Button
