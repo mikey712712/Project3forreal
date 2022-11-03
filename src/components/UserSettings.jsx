@@ -19,7 +19,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa"
 import { updateProfile } from "firebase/auth"
 import { auth } from "../App"
 import { useNavigate } from "react-router-dom"
-import { updateProfilePicture } from "../functions/FirebaseStorage"
+import { updateProfilePicture, uploadPhotoURL } from "../functions/FirebaseStorage"
 import { getStorage, uploadBytes, ref } from "firebase/storage"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
@@ -42,19 +42,34 @@ export default function UserSettings() {
 		setFormValue(fields)
 		if (selectedFile) {
 			updateProfilePicture(auth.currentUser.uid, selectedFile)
+			updateProfile(auth.currentUser, {
+				displayName: fields.displayName,
+			})
+				.then(() => {
+					// Profile Updated
+					console.log("profile updated (UPLOAD)")
+				})
+				.catch((error) => {
+					const errorCode = error.code
+					const errorMessage = error.message
+					console.log(errorCode, errorMessage)
+				})
+		} else {
+			updateProfile(auth.currentUser, {
+				displayName: fields.displayName,
+				photoURL: fields.photoURL,
+			})
+				.then(() => {
+					// Profile Updated
+					console.log("profile updated (URL)")
+				})
+				.catch((error) => {
+					const errorCode = error.code
+					const errorMessage = error.message
+					console.log(errorCode, errorMessage)
+				})
+			uploadPhotoURL(fields.photoURL)
 		}
-		updateProfile(auth.currentUser, {
-			displayName: fields.displayName,
-		})
-			.then(() => {
-				// Profile Updated
-				console.log("profile updated")
-			})
-			.catch((error) => {
-				const errorCode = error.code
-				const errorMessage = error.message
-				console.log(errorCode, errorMessage)
-			})
 	}
 
 	const onChangeFileUpload = (event) => {
