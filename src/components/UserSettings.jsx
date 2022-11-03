@@ -20,6 +20,7 @@ import { updateProfile } from "firebase/auth"
 import { auth } from "../App"
 import { useNavigate } from "react-router-dom"
 import { updateProfilePicture } from "../functions/FirebaseStorage"
+import { getStorage, uploadBytes, ref } from "firebase/storage"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
@@ -36,17 +37,14 @@ export default function UserSettings() {
 		const { name, value } = event.target
 		setFields({ ...fields, [name]: value })
 	}
-	const onProfileUpdate = (event) => {
+	const onProfileUpdate = async (event) => {
 		event.preventDefault()
 		setFormValue(fields)
-		let downloadUrl = ""
 		if (selectedFile) {
-			downloadUrl = updateProfile(auth.currentUser.uid, selectedFile)
+			updateProfilePicture(auth.currentUser.uid, selectedFile)
 		}
-		console.log(downloadUrl)
 		updateProfile(auth.currentUser, {
 			displayName: fields.displayName,
-			photoURL: downloadUrl !== "" ? downloadUrl : fields.photoURL,
 		})
 			.then(() => {
 				// Profile Updated
@@ -60,7 +58,8 @@ export default function UserSettings() {
 	}
 
 	const onChangeFileUpload = (event) => {
-		setSelectedFile(event.target.files[0])
+		console.log(event.target.files["0"])
+		setSelectedFile(event.target.files["0"])
 		setIsFilePicked(true)
 	}
 
@@ -78,7 +77,7 @@ export default function UserSettings() {
 						<InputGroup>
 							<InputLeftElement pointerEvents="none" color="gray.300" children={<CFaLock color="gray.300" />} />
 							<Input type="text" name="photoURL" placeholder="Your Photo Link Here" onChange={onType} />
-							<Input type="file" name="photoUpload" onChange={onChangeFileUpload} />
+							<Input type="file" accept="image/*" name="photoUpload" onChange={onChangeFileUpload} />
 						</InputGroup>
 					</FormControl>
 					<Button borderRadius={0} type="submit" variant="solid" colorScheme="teal" width="full">
