@@ -8,7 +8,7 @@ import { getFirestore } from "firebase/firestore"
 import { getDatabase, onValue, set, ref, remove } from "firebase/database"
 import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
-
+import { getStorage } from "firebase/storage"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { useEffect, useState } from "react"
 
@@ -27,6 +27,7 @@ const firebaseApp = initializeApp(firebaseConfig)
 export const db = getFirestore(firebaseApp)
 export const RealTimeDB = getDatabase(firebaseApp)
 export const auth = getAuth(firebaseApp)
+export const storage = getStorage(firebaseApp)
 
 function App() {
 	const [user, setUser] = useState(null)

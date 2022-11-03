@@ -19,6 +19,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa"
 import { updateProfile } from "firebase/auth"
 import { auth } from "../App"
 import { useNavigate } from "react-router-dom"
+import { updateProfilePicture } from "../functions/FirebaseStorage"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
@@ -28,6 +29,9 @@ export default function UserSettings() {
 	const [formValue, setFormValue] = useState({})
 	const [fields, setFields] = useState({})
 	const handleShowClick = () => setShowPassword(!showPassword)
+	const [selectedFile, setSelectedFile] = useState()
+	const [isFilePicked, setIsFilePicked] = useState(false)
+
 	const onType = (event) => {
 		const { name, value } = event.target
 		setFields({ ...fields, [name]: value })
@@ -35,9 +39,14 @@ export default function UserSettings() {
 	const onProfileUpdate = (event) => {
 		event.preventDefault()
 		setFormValue(fields)
+		let downloadUrl = ""
+		if (selectedFile) {
+			downloadUrl = updateProfile(auth.currentUser.uid, selectedFile)
+		}
+		console.log(downloadUrl)
 		updateProfile(auth.currentUser, {
 			displayName: fields.displayName,
-			photoURL: fields.photoURL,
+			photoURL: downloadUrl !== "" ? downloadUrl : fields.photoURL,
 		})
 			.then(() => {
 				// Profile Updated
@@ -48,6 +57,11 @@ export default function UserSettings() {
 				const errorMessage = error.message
 				console.log(errorCode, errorMessage)
 			})
+	}
+
+	const onChangeFileUpload = (event) => {
+		setSelectedFile(event.target.files[0])
+		setIsFilePicked(true)
 	}
 
 	return (
@@ -64,6 +78,7 @@ export default function UserSettings() {
 						<InputGroup>
 							<InputLeftElement pointerEvents="none" color="gray.300" children={<CFaLock color="gray.300" />} />
 							<Input type="text" name="photoURL" placeholder="Your Photo Link Here" onChange={onType} />
+							<Input type="file" name="photoUpload" onChange={onChangeFileUpload} />
 						</InputGroup>
 					</FormControl>
 					<Button borderRadius={0} type="submit" variant="solid" colorScheme="teal" width="full">
