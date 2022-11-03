@@ -7,8 +7,8 @@ import { signOut, getAuth } from "firebase/auth"
 
 export default function Header({ user, videoOn, setUser }) {
 	const navigate = useNavigate()
-	const handleLogout = () => {
-		remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
+	const handleLogout = async () => {
+		await remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
 		setUser(null)
 		signOut(auth)
 		navigate("/login")
