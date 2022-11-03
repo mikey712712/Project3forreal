@@ -32,22 +32,24 @@ export const storage = getStorage(firebaseApp)
 function App() {
 	const [user, setUser] = useState(null)
 	useEffect(() => {
-		const handleTabClose = (event) => {
+		const handleTabClose = async (event) => {
 			event.preventDefault()
-			remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
+			await remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
+			return (event.returnValue = "Are you sure you want to exit?")
 		}
 
-		window.addEventListener("beforeunload", handleTabClose)
-
+		window.addEventListener("onunload", handleTabClose)
 		return () => {
-			window.removeEventListener("beforeunload", handleTabClose)
+			window.removeEventListener("onunload", handleTabClose)
 		}
 	}, [])
+
 	onAuthStateChanged(auth, (currUser) => {
 		if (currUser) {
 			set(ref(RealTimeDB, "OnlineStatus/" + currUser.uid), "I am here")
 			setUser(currUser)
 		} else {
+			remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
 			if (user !== null) {
 				setUser(null)
 			}
