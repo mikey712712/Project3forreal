@@ -7,7 +7,6 @@ import Account from "./Account"
 import Videos from "./Videos"
 import UserList from "./UserList"
 import ChatPage from "./ChatPage"
-import Home from "./Home"
 import Call from "./Call"
 import Header from "./Header"
 import { useEffect, useState } from "react"
@@ -36,25 +35,15 @@ export default function Main({ user, setUser }) {
 			<Header auth={auth} user={user} setUser={setUser} videoOn={videoOn} />
 			<Box w="100%" h="100%">
 				{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
-				<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
-					<Routes>
-						{user ? (
-							<>
-								<Route path="/" element={<ChatPage setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
-								<Route path="/settings" element={<UserSettings />} />
-								<Route path="/account" element={<Account />} />
-								<Route path="/users" element={<UserList />} />
-								<Route path="/users/:userId" element={<Account />} />
-							</>
-						) : (
-							<>
-								<Route path="/" element={<Home user={user} />} />
-								<Route path="/login" element={<Login />} />
-								<Route path="/register" element={<Register />} />
-							</>
-						)}
-					</Routes>
-				</Box>
+				<Routes>
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/settings" element={<UserSettings user={user} />} />
+					<Route path="/account" element={<Account user={user} />} />
+					<Route path="/users" element={<UserList user={user} />} />
+					<Route path="/users/:userId" element={<Account user={user} />} />
+					<Route path="/" element={<ChatPage user={user} setVideoOn={setVideoOn} roomNumber={roomNumber} />} />
+				</Routes>
 				<>
 					{videoOn ? (
 						<Box
