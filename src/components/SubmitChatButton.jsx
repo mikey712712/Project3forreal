@@ -30,11 +30,10 @@ export default function SubmitChatButton({ roomNumber }) {
 				sendMessage()
 			}}
 		>
-			<Flex w="100%">
-				<InputEmoji value={formValue} placeholder="Type a message" onChange={setFormValue} onEnter={sendMessage} />
-
-				<Button h="30px" m="0 0 0 5px" bgColor="rgba(255,255,255,0.8)" color="#266E80" type="submit">
-					Chat
+			<Flex alignItems="center" w="100%">
+				<InputEmoji value={formValue} theme={"light"} placeholder="Type a message" onChange={setFormValue} onEnter={sendMessage} />
+				<Button h="30px" m="0 0 2px 0" bgColor="rgba(255,255,255,0.8)" color="#266E80" type="submit">
+					Send
 				</Button>
 			</Flex>
 		</form>
