@@ -46,12 +46,10 @@ function App() {
 		if (currUser) {
 			set(ref(RealTimeDB, "OnlineStatus/" + currUser.uid), "I am here")
 			setUser(currUser)
-			// console.log("userSignedIN", currUser)
 		} else {
 			if (user !== null) {
 				setUser(null)
 			}
-			// console.log("loggedout")
 		}
 	})
 	init()
