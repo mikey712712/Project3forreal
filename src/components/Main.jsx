@@ -18,18 +18,28 @@ export default function Main({ user, setUser }) {
 	const [videoOn, setVideoOn] = useState(null)
 	const [roomNumber, setRoomNumber] = useState("")
 	const [incomingCall, setIncomingCall] = useState("")
+	const [isPlaying, setIsPlaying] = useState(false)
+	const callSound = new Audio("../audio/callTone.mp3")
 	useEffect(() => {
 		return onValue(ref(RealTimeDB, "IncomingCalls/" + user?.uid), (snapshot) => {
 			if (snapshot.exists()) {
 				// Notify the caller they cant call
 				if (incomingCall !== "joined") {
+					setIsPlaying(true)
 					setIncomingCall(snapshot.val())
+					console.log("audio", callSound.readyState)
 				}
 			} else {
 				setIncomingCall("")
 			}
 		})
 	}, [user])
+
+	useEffect(() => {
+		isPlaying ? callSound.play() : callSound.pause()
+		return () => callSound.pause()
+	}, [isPlaying])
+
 	return (
 		<>
 			<Header auth={auth} user={user} setUser={setUser} videoOn={videoOn} />
@@ -60,7 +70,13 @@ export default function Main({ user, setUser }) {
 				</>
 				<>
 					{incomingCall !== "" && incomingCall !== "joined" ? (
-						<Call setIncomingCall={setIncomingCall} incomingCall={incomingCall} setVideoOn={setVideoOn} />
+						<Call
+							setIncomingCall={setIncomingCall}
+							incomingCall={incomingCall}
+							setVideoOn={setVideoOn}
+							setIsPlaying={setIsPlaying}
+							isPlaying={isPlaying}
+						/>
 					) : null}
 				</>
 			</Box>
