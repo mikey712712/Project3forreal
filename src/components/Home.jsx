@@ -7,7 +7,7 @@ export default function Home({ user }) {
 	} else {
 		return (
 			<Box w="100%" textAlign="center">
-				<Heading>Welcome</Heading>
+				<Heading>Welcome to QuickChat</Heading>
 			</Box>
 		)
 	}
