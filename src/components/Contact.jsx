@@ -68,7 +68,8 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			boxSizing="border-box"
 			onClick={openAndOrCreateChat}
 		>
-			<Avatar marginRight="10px" />
+			{photoURL ? <Avatar src={photoURL} /> : <Avatar marginRight="10px" />}
+
 			<Text fontWeight="600" h="fit-content">
 				{displayName}
 			</Text>
