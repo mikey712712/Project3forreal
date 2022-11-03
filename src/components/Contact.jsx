@@ -1,10 +1,13 @@
 import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react"
 import { ref, onValue, set, push } from "firebase/database"
+import { useNavigate } from "react-router-dom"
 import { RealTimeDB } from "../App"
 import { createNewChatRoom, writeChatMessage } from "../functions/FirebaseRTDB"
 
 export default function Contact({ photoURL, displayName, uid, me, setRoomNumber }) {
+	const navigate = useNavigate()
 	const openAndOrCreateChat = () => {
+		navigate("/")
 		let myRoomsList = []
 		let friendsRoomsList = []
 		let match = ""
@@ -68,7 +71,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			boxSizing="border-box"
 			onClick={openAndOrCreateChat}
 		>
-			{photoURL ? <Avatar src={photoURL} /> : <Avatar marginRight="10px" />}
+			<Avatar marginRight="10px" border={"1px solid rgba(0,0,0,0.1)"} src={photoURL} />
 
 			<Text fontWeight="600" h="fit-content">
 				{displayName}

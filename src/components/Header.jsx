@@ -30,15 +30,21 @@ export default function Header({ user, videoOn, setUser }) {
 			borderBottom="1px solid rgba(0,0,0,0.5)"
 		>
 			<Link to="/">
-				<Text _hover={{ fontWeight: "600" }}>Home</Text>
+				<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+					Home
+				</Text>
 			</Link>
 			{user ? (
 				<>
-					<Link to="/Users">
-						<Text _hover={{ fontWeight: "600" }}>Contacts</Text>
+					<Link to="/users">
+						<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+							Contacts
+						</Text>
 					</Link>
 					<Link to="/account">
-						<Text _hover={{ fontWeight: "600" }}>Account</Text>
+						<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+							Account
+						</Text>
 					</Link>
 				</>
 			) : null}
@@ -51,6 +57,7 @@ export default function Header({ user, videoOn, setUser }) {
 							}
 							handleLogout()
 						}}
+						transition="0.2s"
 						_hover={{ fontWeight: "600" }}
 					>
 						Logout
@@ -58,7 +65,9 @@ export default function Header({ user, videoOn, setUser }) {
 				</a>
 			) : (
 				<Link to="/login">
-					<Text _hover={{ fontWeight: "600" }}>Login</Text>
+					<Text transition="0.2s" _hover={{ fontWeight: "600" }}>
+						Login
+					</Text>
 				</Link>
 			)}
 		</Flex>
