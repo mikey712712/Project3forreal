@@ -23,7 +23,6 @@ export default function MessageList({ roomNumber }) {
 					newMessageList.push({ key: prop, message: data[prop].message, userName: data[prop].username })
 				}
 				console.log(newMessageList)
-				// console.log(newMessageList)
 			}
 			setMessages(newMessageList)
 		})
@@ -32,7 +31,7 @@ export default function MessageList({ roomNumber }) {
 	messagesToRender = messages.map((msg) => {
 		return <Message key={msg.key} message={msg.message} author={msg.userName} mine={msg.userName === user.uid ? "yes" : "no"}></Message>
 	})
-	// console.log("messages", messagesToRender)
+
 	return (
 		<Box className="MessageList" bgColor="white">
 			{messagesToRender ? (
