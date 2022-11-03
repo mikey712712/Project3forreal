@@ -3,7 +3,7 @@ import { ref, remove } from "firebase/database"
 import { auth, RealTimeDB } from "../App"
 import { joinRoomById, openUserMedia } from "../functions/FirebaseRTC"
 
-export default function Call({ setIncomingCall, incomingCall, setVideoOn }) {
+export default function Call({ setIncomingCall, incomingCall, setVideoOn, setIsPlaying }) {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	return (
@@ -29,6 +29,7 @@ export default function Call({ setIncomingCall, incomingCall, setVideoOn }) {
 						<Button
 							variant="ghost"
 							onClick={async () => {
+								setIsPlaying(false)
 								setVideoOn("full")
 								await openUserMedia()
 								await joinRoomById(incomingCall)

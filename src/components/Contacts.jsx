@@ -51,7 +51,7 @@ export default function Contacts({ user, setRoomNumber }) {
 				(snapshot) => {
 					const data = snapshot.val()
 					if (snapshot.exists()) {
-						console.log(data)
+						// console.log(data)
 						resolve(Object.keys(data)[0])
 					}
 				},
@@ -60,7 +60,7 @@ export default function Contacts({ user, setRoomNumber }) {
 		})
 		requesterUserRef = await grabRequesterUserRef
 		const requesterfriendlink = `Users/${uid}/${requesterUserRef}/friends` // friends array
-		console.log(requesterfriendlink)
+		// console.log(requesterfriendlink)
 		const requesterfriendQuery = ref(RealTimeDB, requesterfriendlink)
 		let requesterExistingFriends = []
 		onValue(
@@ -134,10 +134,10 @@ export default function Contacts({ user, setRoomNumber }) {
 			let newRequestList = []
 			if (snapshot.exists()) {
 				for (let prop in data) {
-					console.log(data[prop])
+					// console.log(data[prop])
 					let requestUid = data[prop].uid
 					let requestDisplayName = data[prop].displayName
-					console.log("requid", requestUid)
+					// console.log("requid", requestUid)
 					newRequestList.push({ uid: requestUid, displayName: requestDisplayName })
 				}
 			}
@@ -169,7 +169,7 @@ export default function Contacts({ user, setRoomNumber }) {
 			</Flex>
 		)
 	}
-	console.log(auth.currentUser)
+	// console.log(auth.currentUser)
 
 	let renderedFriendRequests = friendRequests.map((req, index) => {
 		return <FriendRequest key={index} req={req} />
