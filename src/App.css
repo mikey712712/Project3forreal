@@ -29,3 +29,17 @@ video.remoteVideo {
 a {
 	cursor: pointer;
 }
+
+.react-input-emoji--input {
+	height: 80px;
+	text-align: start;
+}
+
+.react-input-emoji--placeholder {
+	height: fit-content;
+	margin: 5px 0;
+}
+
+.react-input-emoji--button--icon {
+	fill: rgba(255, 255, 255, 0.8) !important;
+}
