@@ -21,11 +21,6 @@ export default function SubmitChatButton({ roomNumber }) {
 		}
 		setFormValue("")
 	}
-	const handleKeyPress = (event) => {
-		if (event.key === "Enter" && formValue !== "") {
-			sendMessage(event)
-		}
-	}
 
 	return (
 		<form className="msg" onSubmit={sendMessage}>
@@ -34,14 +29,17 @@ export default function SubmitChatButton({ roomNumber }) {
 					backgroundColor={"white"}
 					value={formValue}
 					placeholder="Type a message"
+					onKeyDown={(event) => {
+						if (event.key === "Enter") {
+							event.preventDefault()
+							if (formValue.length > 0) {
+								sendMessage(event)
+							}
+						}
+					}}
 					onChange={(e) => setFormValue(e.target.value)}
 					w="100%"
 					rows="5"
-					onKeyUp={(event) => {
-						if (event.key === "Enter") {
-							sendMessage(event)
-						}
-					}}
 				></Textarea>
 				<Button h="30px" m="0 0 0 5px" bgColor="rgba(255,255,255,0.8)" color="#266E80" type="submit">
 					Chat

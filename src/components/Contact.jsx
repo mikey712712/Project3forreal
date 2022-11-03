@@ -80,7 +80,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 					{displayName}
 				</Text>
 			</Flex>
-			<StatusTag uid={uid}> </StatusTag>
+			<StatusTag uid={uid}></StatusTag>
 		</Flex>
 	)
 }
