@@ -25,18 +25,45 @@ export function createUserRealTimeDB(uid, displayName, email) {
 	})
 }
 
-export function createFriendRequest(fromUid, toUid, displayName, profileURL) {
+export async function createFriendRequest(fromUid, toUid, displayName, profileURL) {
 	const requestRef = ref(RealTimeDB, "Requests/" + toUid)
-	const newRequestRef = push(requestRef)
+	//query this to check if fromUid is in there
 
-	set(newRequestRef, {
-		uid: fromUid,
-		createdAt: serverTimestamp(),
-		displayName: displayName,
-		profileURL: profileURL === undefined ? "" : profileURL,
+	const checkForDuplicateRequest = new Promise((resolve, reject) => {
+		onValue(
+			requestRef,
+			(snapshot) => {
+				const data = snapshot.val()
+				console.log(data)
+				if (snapshot.exists()) {
+					for (let property in data) {
+						// console.log("datapropshit", data[property].uid)
+						if (data[property].uid === fromUid) {
+							resolve(true)
+							console.log("matched")
+						}
+					}
+					resolve(false)
+				}
+				resolve(false)
+			},
+			{ onlyOnce: true }
+		)
 	})
+	const alreadyRequested = await checkForDuplicateRequest
 
-	console.log("sent a request")
+	if (!alreadyRequested) {
+		const newRequestRef = push(requestRef)
+
+		set(newRequestRef, {
+			uid: fromUid,
+			createdAt: serverTimestamp(),
+			displayName: displayName,
+			profileURL: profileURL === undefined ? "" : profileURL,
+		})
+
+		console.log("sent a request")
+	}
 }
 
 export function createNewChatRoom(user1, user2) {
