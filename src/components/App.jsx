@@ -11,13 +11,13 @@ import { useEffect, useState } from "react"
 
 import Main from "./components/Main"
 const firebaseConfig = {
-	***REMOVED***
-	***REMOVED***
-	***REMOVED***
-	***REMOVED***
-	***REMOVED***
-	***REMOVED***
-	***REMOVED***
+	apiKey: "AIzaSyCHBoIUdJzDREqZYtpdv3do6YzfEJ8aJM4",
+	authDomain: "project-3---the-boys.firebaseapp.com",
+	projectId: "project-3---the-boys",
+	storageBucket: "project-3---the-boys.appspot.com",
+	messagingSenderId: "702523758220",
+	appId: "1:702523758220:web:bfc9b98b6929a472be4da9",
+	databaseURL: "https://project-3---the-boys-default-rtdb.asia-southeast1.firebasedatabase.app/",
 }
 
 const firebaseApp = initializeApp(firebaseConfig)

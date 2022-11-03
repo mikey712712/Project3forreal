@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.3.6",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "dotenv": "^16.0.3",
     "emoji-picker-react": "^4.4.4",
     "firebase": "^9.13.0",
     "firebase-admin": "^11.2.0",
