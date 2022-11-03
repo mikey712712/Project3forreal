@@ -21,11 +21,6 @@ export default function SubmitChatButton({ roomNumber }) {
 		}
 		setFormValue("")
 	}
-	const handleKeyPress = (event) => {
-		if (event.key === "Enter" && formValue !== "") {
-			sendMessage(event)
-		}
-	}
 
 	return (
 		<form
