@@ -60,7 +60,7 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 				minH="170px"
 				height="fit-content"
 				direction={{ base: "column", md: "row" }}
-				bg={"white"}
+				bgColor={"white"}
 				transition="0.4s"
 				_hover={{ filter: "brightness(95%)" }}
 				boxShadow={"2xl"}
@@ -100,16 +100,11 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 							onClick={(event) => event.stopPropagation()}
 							fontSize={"sm"}
 							rounded={"full"}
-							bg={"gray.400"}
+							bg={"gray.500"}
 							color={"white"}
 							w="fit-content"
-							boxShadow={"0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"}
-							_hover={{
-								bg: "blue.500",
-							}}
-							_focus={{
-								bg: "blue.500",
-							}}
+							cursor="default"
+							_hover={{ filter: "brightness(100%)" }}
 						>
 							Pending Request
 						</Button>

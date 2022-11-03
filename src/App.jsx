@@ -5,7 +5,7 @@ import Header from "./components/Header"
 import { init } from "./functions/FirebaseRTC"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { getDatabase, onValue, set, ref, remove } from "firebase/database"
+import { getDatabase, onValue, set, ref, remove, onDisconnect } from "firebase/database"
 import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
 import { getStorage } from "firebase/storage"
@@ -32,29 +32,19 @@ export const storage = getStorage(firebaseApp)
 function App() {
 	const [user, setUser] = useState(null)
 	useEffect(() => {
-		const handleTabClose = async (event) => {
-			event.preventDefault()
-			await remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
-			return (event.returnValue = "Are you sure you want to exit?")
-		}
-
-		window.addEventListener("onunload", handleTabClose)
-		return () => {
-			window.removeEventListener("onunload", handleTabClose)
-		}
-	}, [])
-
-	onAuthStateChanged(auth, (currUser) => {
-		if (currUser) {
-			set(ref(RealTimeDB, "OnlineStatus/" + currUser.uid), "I am here")
-			setUser(currUser)
-		} else {
-			remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
-			if (user !== null) {
-				setUser(null)
+		onAuthStateChanged(auth, (currUser) => {
+			if (currUser) {
+				set(ref(RealTimeDB, "OnlineStatus/" + currUser.uid), "I am here")
+				onDisconnect(ref(RealTimeDB, "OnlineStatus/" + currUser.uid)).remove()
+				onDisconnect(ref(RealTimeDB, `IncomingCalls/${currUser.uid}`)).remove()
+				setUser(currUser)
+			} else {
+				if (user !== null) {
+					setUser(null)
+				}
 			}
-		}
-	})
+		})
+	}, [])
 	init()
 
 	return (
