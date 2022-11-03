@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
 	Flex,
 	Heading,
@@ -21,8 +21,13 @@ import { Navigate, useNavigate, Link } from "react-router-dom"
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
-export default function Login() {
+export default function Login({ user }) {
 	const navigate = useNavigate()
+	useEffect(() => {
+		if (user) {
+			navigate("/")
+		}
+	}, [user])
 	const [showPassword, setShowPassword] = useState(false)
 	const [formValue, setFormValue] = useState({})
 	const [fields, setFields] = useState({})
@@ -38,8 +43,8 @@ export default function Login() {
 			signInWithEmailAndPassword(auth, fields.email, fields.password)
 				.then((userCredential) => {
 					// Signed in
-					const user = userCredential.user
-					console.log("signedIn", user)
+					const newUser = userCredential.user
+					console.log("signedIn", newUser)
 					navigate("/")
 				})
 				.catch((error) => {

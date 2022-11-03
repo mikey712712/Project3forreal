@@ -36,8 +36,8 @@ export default function Main({ user, setUser }) {
 			<Box w="100%" h="100%">
 				{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
 				<Routes>
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
+					<Route path="/login" element={<Login user={user} />} />
+					<Route path="/register" element={<Register user={user} />} />
 					<Route path="/settings" element={<UserSettings user={user} />} />
 					<Route path="/account" element={<Account user={user} />} />
 					<Route path="/users" element={<UserList user={user} />} />
