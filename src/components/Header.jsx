@@ -32,12 +32,16 @@ export default function Header({ user, videoOn, setUser }) {
 			<Link to="/">
 				<Text _hover={{ fontWeight: "600" }}>Home</Text>
 			</Link>
-			<Link to="/Users">
-				<Text _hover={{ fontWeight: "600" }}>Contacts</Text>
-			</Link>
-			<Link to="/account">
-				<Text _hover={{ fontWeight: "600" }}>Account</Text>
-			</Link>
+			{user ? (
+				<>
+					<Link to="/Users">
+						<Text _hover={{ fontWeight: "600" }}>Contacts</Text>
+					</Link>
+					<Link to="/account">
+						<Text _hover={{ fontWeight: "600" }}>Account</Text>
+					</Link>
+				</>
+			) : null}
 			{user ? (
 				<a>
 					<Text

@@ -15,7 +15,7 @@ import {
 	InputRightElement,
 } from "@chakra-ui/react"
 import { FaUserAlt, FaLock } from "react-icons/fa"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { createUserRealTimeDB } from "../functions/FirebaseRTDB"
 import { auth, RealTimeDB } from "../App"
 import { Navigate, useNavigate, Link } from "react-router-dom"
@@ -31,23 +31,26 @@ export default function Register() {
 		const { name, value } = event.target
 		setFields({ ...fields, [name]: value })
 	}
-	const onSignup = (event) => {
+	const onSignup = async (event) => {
 		event.preventDefault()
 		setFormValue(fields)
-		createUserWithEmailAndPassword(auth, fields.email, fields.password)
+		await createUserWithEmailAndPassword(auth, fields.email, fields.password)
 			.then((userCredential) => {
 				// Signed in
+
 				const user = userCredential.user
 				// create record in RTDB
 				createUserRealTimeDB(user.uid, fields.displayName, fields.email)
-
-				navigate("/")
 			})
 			.catch((error) => {
 				const errorCode = error.code
 				const errorMessage = error.message
 				console.log(errorCode, errorMessage)
 			})
+		await updateProfile(auth.currentUser, {
+			displayName: fields.displayName,
+		})
+		navigate("/account")
 	}
 
 	return (

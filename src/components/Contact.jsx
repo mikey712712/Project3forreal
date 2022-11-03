@@ -60,9 +60,9 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			borderRadius="6px"
 			border={"1px solid rgba(0,0,0,0.2)"}
 			bgColor="rgba(255,255,255,0.8)"
+			color="#266E80"
 			_hover={{ backgroundColor: "rgba(255,255,255,0.65)" }}
 			transition="0.2s"
-			color="#266E80"
 			m="4px"
 			p="6px"
 			boxSizing="border-box"
