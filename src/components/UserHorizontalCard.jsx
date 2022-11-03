@@ -7,7 +7,8 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 	const navigate = useNavigate()
 	const handleFriendRequest = (event) => {
 		event.preventDefault()
-		createFriendRequest(myUid, uid, myDisplayName, profileURL)
+		event.stopPropagation()
+		createFriendRequest(myUid, uid, myDisplayName, photoURL)
 		setFriendRequestDisabled(true)
 	}
 	const handleUserProfile = () => {
