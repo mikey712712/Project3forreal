@@ -47,7 +47,7 @@ export default function UserList() {
 	})
 
 	return (
-		<Flex borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
+		<Flex boxSizing="border-box" borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
 			<Flex
 				boxSizing="border-box"
 				p="0 0 50px 0"
