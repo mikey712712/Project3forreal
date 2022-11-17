@@ -151,6 +151,7 @@ export default function Contacts({ user, setRoomNumber }) {
 				bgColor="rgba(255,255,255,0.8)"
 				filter="bri"
 				alignItems="center"
+				justify={"space-between"}
 				borderRadius="6px"
 				border={"1px solid rgba(0,0,0,0.2)"}
 				color="#266E80"
@@ -159,10 +160,12 @@ export default function Contacts({ user, setRoomNumber }) {
 				boxSizing="border-box"
 				fontSize="0.8em"
 			>
-				<Avatar marginRight="10px" />
-				<Text fontWeight="500" h="fit-content">
-					<strong>{req.displayName}</strong> has sent a friend request
-				</Text>
+				<Flex alignItems={"center"}>
+					<Avatar marginRight="10px" />
+					<Text fontWeight="500" h="fit-content">
+						<strong>{req.displayName}</strong> has sent a friend request
+					</Text>
+				</Flex>
 				<Button alignSelf="flex-start" fontSize="0.8em" h="fit-content" marginLeft="5px" p="5px" onClick={() => handleOnClick(req.uid, user?.uid)}>
 					Accept
 				</Button>

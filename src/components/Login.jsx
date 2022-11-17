@@ -30,7 +30,10 @@ export default function Login({ user }) {
 	}, [user])
 	const [showPassword, setShowPassword] = useState(false)
 	const [formValue, setFormValue] = useState({})
-	const [fields, setFields] = useState({})
+	const [fields, setFields] = useState({
+		email: "demouser@ga.com",
+		password: "demouser",
+	})
 	const handleShowClick = () => setShowPassword(!showPassword)
 	const onType = (event) => {
 		const { name, value } = event.target
@@ -68,13 +71,19 @@ export default function Login({ user }) {
 							<FormControl>
 								<InputGroup>
 									<InputLeftElement pointerEvents="none" children={<CFaUserAlt color="gray.300" />} />
-									<Input type="email" name="email" placeholder="email address" onChange={onType} />
+									<Input type="email" name="email" placeholder="email address" value={fields.email} onChange={onType} />
 								</InputGroup>
 							</FormControl>
 							<FormControl>
 								<InputGroup>
 									<InputLeftElement pointerEvents="none" color="gray.300" children={<CFaLock color="gray.300" />} />
-									<Input type={showPassword ? "text" : "password"} name="password" placeholder="Password" onChange={onType} />
+									<Input
+										type={showPassword ? "text" : "password"}
+										name="password"
+										placeholder="Password"
+										value={fields.password}
+										onChange={onType}
+									/>
 									<InputRightElement width="4.5rem">
 										<Button h="1.75rem" size="sm" onClick={handleShowClick}>
 											{showPassword ? "Hide" : "Show"}
