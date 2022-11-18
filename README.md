@@ -1,6 +1,6 @@
 # QuickChat
 
-QuickChat is a full-stack single-page web application created over a time span of 4 days through the collaboration of one of my peers and myself. It features video call and text messaging capabilities between users of the app, all friend requests, online statuses, messages, and incoming/outgoing calls are updated and displayed for all current users in real time. The messaging component also supports the sending of images/gifs and features a built in emoji picker.
+QuickChat is a full-stack single-page web application created over a time span of 4 days featuring video call and text messaging capabilities between users of the app. All friend requests, online statuses, messages, and incoming/outgoing calls are updated and displayed for all current users in real time. The messaging component also supports the sending of images/gifs and features a built in emoji picker.
 
 Deployed Site: https://quickchat-video.netlify.app
 
