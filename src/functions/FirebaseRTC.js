@@ -170,7 +170,7 @@ export async function openUserMedia() {
 
 export async function hangUp() {
 	const tracks = document.querySelector("#localVideo")?.srcObject.getTracks()
-	tracks.forEach((track) => {
+	tracks?.forEach((track) => {
 		track.stop()
 	})
 
@@ -182,13 +182,23 @@ export async function hangUp() {
 		peerConnection.close()
 	}
 
-	document.querySelector("#localVideo").srcObject = null
-	document.querySelector("#remoteVideo").srcObject = null
+	const localVideo = document.querySelector("#localVideo")
+	if (localVideo) {
+		localVideo.srcObject = null
+	}
+	const remoteVideo = document.querySelector("#remoteVideo")
+	if (remoteVideo) {
+		remoteVideo.srcObject = null
+	}
+	const currentRoom = document.querySelector("#currentRoom")
+	if (currentRoom) {
+		currentRoom.innerText = ""
+	}
+
 	// document.querySelector("#cameraBtn").disabled = false
 	// document.querySelector("#joinBtn").disabled = true
 	// document.querySelector("#createBtn").disabled = true
 	// document.querySelector("#hangupBtn").disabled = true
-	document.querySelector("#currentRoom").innerText = ""
 
 	// Delete room on hangup
 	if (roomId) {
