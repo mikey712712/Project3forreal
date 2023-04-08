@@ -4,7 +4,7 @@ import { off, ref, onValue, get, child, set, remove } from "firebase/database"
 import { useState, useEffect } from "react"
 import { auth, RealTimeDB } from "../App"
 import Contact from "./Contact"
-export default function Contacts({ user, setRoomNumber }) {
+export default function Contacts({ user, setRoomNumber, roomNumber }) {
 	const [currentFriendsList, setCurrentFriendsList] = useState([])
 	const [friendRequests, setCurrentFriendRequests] = useState([])
 	let newFriendsList = []
@@ -177,15 +177,17 @@ export default function Contacts({ user, setRoomNumber }) {
 	let renderedFriendRequests = friendRequests.map((req, index) => {
 		return <FriendRequest key={index} req={req} />
 	})
-	let renderedContacts = currentFriendsList.map((friend) => {
+	let renderedContacts = currentFriendsList.map((friend, index) => {
 		return (
 			<Contact
+				index={index}
 				key={friend.uid}
 				setRoomNumber={setRoomNumber}
 				uid={friend.uid}
 				photoURL={friend.photoURL}
 				displayName={friend.displayName}
 				me={user.uid}
+				roomNumber={roomNumber}
 			/>
 		)
 	})

@@ -21,7 +21,6 @@ const firebaseApp = initializeApp({
 	databaseURL: import.meta.env.VITE_DATABASEURL,
 	appId: import.meta.env.VITE_APPID,
 })
-console.log(import.meta.env)
 export const db = getFirestore(firebaseApp)
 export const RealTimeDB = getDatabase(firebaseApp)
 export const auth = getAuth(firebaseApp)
