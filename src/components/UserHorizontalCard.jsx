@@ -26,13 +26,13 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 					requestRef,
 					(snapshot) => {
 						const data = snapshot.val()
-						console.log(data)
+						// console.log(data)
 						if (snapshot.exists()) {
 							for (let property in data) {
 								// console.log("datapropshit", data[property].uid)
 								if (data[property].uid === myUid) {
 									resolve(true)
-									console.log("matched")
+									// console.log("matched")
 								}
 							}
 							resolve(false)

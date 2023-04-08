@@ -52,7 +52,7 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber,
 			// console.log(roomReference)
 			setRoomNumber(roomReference)
 		} else {
-			console.log("match found")
+			// console.log("match found")
 			// console.log(match)
 			setRoomNumber(match)
 

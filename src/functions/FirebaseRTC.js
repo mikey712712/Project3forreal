@@ -54,7 +54,7 @@ export async function createRoom(newRoomId) {
 	// Code for creating a room above
 
 	peerConnection.addEventListener("track", (event) => {
-		console.log("Got remote track:", event.streams[0])
+		// console.log("Got remote track:", event.streams[0])
 		event.streams[0].getTracks().forEach((track) => {
 			remoteStream.addTrack(track)
 		})
@@ -96,7 +96,7 @@ export async function joinRoomById(roomId) {
 	// console.log("Got room:", roomSnapshot.exists())
 
 	if (roomSnapshot.exists) {
-		console.log("Create PeerConnection with configuration: ", configuration)
+		// console.log("Create PeerConnection with configuration: ", configuration)
 		peerConnection = new RTCPeerConnection(configuration)
 		registerPeerConnectionListeners()
 		localStream.getTracks().forEach((track) => {
@@ -107,7 +107,7 @@ export async function joinRoomById(roomId) {
 		const calleeCandidatesCollection = collection(roomRef, "calleeCandidates")
 		peerConnection.addEventListener("icecandidate", async (event) => {
 			if (!event.candidate) {
-				console.log("Got final candidate!")
+				// console.log("Got final candidate!")
 				return
 			}
 			// console.log("Got candidate: ", event.candidate)
@@ -116,7 +116,7 @@ export async function joinRoomById(roomId) {
 		// Code for collecting ICE candidates above
 
 		peerConnection.addEventListener("track", (event) => {
-			console.log("Got remote track:", event.streams[0])
+			// console.log("Got remote track:", event.streams[0])
 			event.streams[0].getTracks().forEach((track) => {
 				// console.log("Add a track to the remoteStream:", track)
 				remoteStream.addTrack(track)

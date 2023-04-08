@@ -61,7 +61,7 @@ export default function ChatRoomHeader({ roomNumber, setVideoOn }) {
 					setVideoOn("full")
 					await openUserMedia()
 					await createRoom(roomNumber)
-					console.log("room created")
+					// console.log("room created")
 					await createCallRequest(roomNumber, targetUser.uid)
 				}}
 				float="right"

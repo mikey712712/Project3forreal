@@ -50,7 +50,7 @@ export default function Register({ user }) {
 				.catch((error) => {
 					const errorCode = error.code
 					const errorMessage = error.message
-					console.log(errorCode, errorMessage)
+					// console.log(errorCode, errorMessage)
 				})
 			await updateProfile(auth.currentUser, {
 				displayName: fields.displayName,
