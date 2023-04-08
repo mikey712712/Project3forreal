@@ -27,7 +27,7 @@ export default function Main({ user, setUser }) {
 				if (incomingCall !== "joined") {
 					setIsPlaying(true)
 					setIncomingCall(snapshot.val())
-					console.log("audio", callSound.readyState)
+					// console.log("audio", callSound.readyState)
 				}
 			} else {
 				setIncomingCall("")

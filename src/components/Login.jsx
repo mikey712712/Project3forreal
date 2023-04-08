@@ -47,13 +47,13 @@ export default function Login({ user }) {
 				.then((userCredential) => {
 					// Signed in
 					const newUser = userCredential.user
-					console.log("signedIn", newUser)
+					// console.log("signedIn", newUser)
 					navigate("/")
 				})
 				.catch((error) => {
 					const errorCode = error.code
 					const errorMessage = error.message
-					console.log(errorCode, errorMessage)
+					// console.log(errorCode, errorMessage)
 				})
 		})
 	}
