@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom"
 import { RealTimeDB } from "../App"
 import { createNewChatRoom, writeChatMessage } from "../functions/FirebaseRTDB"
 import { StatusTag } from "./StatusTag"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function Contact({ photoURL, displayName, uid, me, setRoomNumber }) {
+export default function Contact({ photoURL, displayName, uid, me, setRoomNumber, index, roomNumber }) {
 	const navigate = useNavigate()
 	const openAndOrCreateChat = () => {
 		navigate("/")
@@ -59,6 +59,12 @@ export default function Contact({ photoURL, displayName, uid, me, setRoomNumber 
 			// writeChatMessage("mikey1", "hi", match)
 		}
 	}
+	useEffect(() => {
+		if (index === 0 && roomNumber === "") {
+			openAndOrCreateChat()
+		}
+	}, [])
+
 	return (
 		<Flex
 			alignItems="center"

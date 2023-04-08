@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Flex, Heading } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { RealTimeDB, auth } from "../App"
 import { ref, onValue } from "firebase/database"
@@ -37,37 +37,74 @@ export default function UserList({ user }) {
 				}
 			})
 		}, [])
-		let renderedUserList = currentUserList.map((user) => {
-			let isAFriend = currentUser.friends.includes(user.uid) ? "yes" : "no"
-			console.log(user, "is a friend?", isAFriend)
-			return (
-				<UserHorizontalCard
-					uid={user.uid}
-					key={user.uid}
-					photoURL={user.photoURL}
-					displayName={user.displayName}
-					isAFriend={isAFriend}
-					myUid={currentUser.uid}
-					myDisplayName={currentUser.displayName}
-				/>
-			)
-		})
+		let renderedUserListFriends = currentUserList
+			.filter((user) => {
+				return currentUser.friends.includes(user.uid)
+			})
+			.map((user) => {
+				let isAFriend = currentUser.friends.includes(user.uid) ? "yes" : "no"
+				return (
+					<UserHorizontalCard
+						uid={user.uid}
+						key={user.uid}
+						photoURL={user.photoURL}
+						displayName={user.displayName}
+						isAFriend={isAFriend}
+						myUid={currentUser.uid}
+						myDisplayName={currentUser.displayName}
+					/>
+				)
+			})
+		let renderedUserListNotFriends = currentUserList
+			.filter((user) => {
+				return !currentUser.friends.includes(user.uid)
+			})
+			.map((user) => {
+				let isAFriend = currentUser.friends.includes(user.uid) ? "yes" : "no"
+				return (
+					<UserHorizontalCard
+						uid={user.uid}
+						key={user.uid}
+						photoURL={user.photoURL}
+						displayName={user.displayName}
+						isAFriend={isAFriend}
+						myUid={currentUser.uid}
+						myDisplayName={currentUser.displayName}
+					/>
+				)
+			})
 
 		return (
 			<Box bgColor="unset" position="fixed" top="4vh" left="17%" w="83%" h="96vh">
 				<Flex borderRadius="6px" border={"1px solid rgba(0,0,0,0.2)"} bgColor="rgba(255,255,255,0.8)" h="100%" m="10px">
-					<Box w="100%" h="100%" m="0 auto">
+					<Box w="100%" h="100%" m="0 auto" overflowY="scroll">
+						<Heading fontSize={"3xl"} pl="20px" pt="20px" m="0">
+							Friends
+						</Heading>
 						<Flex
 							boxSizing="border-box"
-							p="0 20px 50px 10px"
+							p="0 20px 10px 10px"
 							alignItems="flex-start"
 							justifyContent="space-between"
 							flexFlow="row wrap"
-							overflow="scroll"
 							h="fit-content"
 							m="0 auto"
 						>
-							{renderedUserList}
+							{renderedUserListFriends}
+						</Flex>
+						<Heading fontSize={"3xl"} pl="20px" pt="20px" m="0">
+							Suggested
+						</Heading>
+						<Flex
+							boxSizing="border-box"
+							p="0 20px 30px 10px"
+							alignItems="flex-start"
+							justifyContent="space-between"
+							flexFlow="row wrap"
+							h="fit-content"
+							m="0 auto"
+						>
+							{renderedUserListNotFriends}
 						</Flex>
 					</Box>
 				</Flex>

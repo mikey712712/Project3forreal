@@ -5,7 +5,7 @@ import { auth, RealTimeDB } from "../App"
 import { hangUp } from "../functions/FirebaseRTC"
 import { signOut } from "firebase/auth"
 
-export default function Header({ user, videoOn, setUser }) {
+export default function Header({ user, videoOn, setUser, setRoomNumber }) {
 	const navigate = useNavigate()
 	const handleLogout = async () => {
 		await remove(ref(RealTimeDB, "OnlineStatus/" + user.uid))
@@ -13,6 +13,7 @@ export default function Header({ user, videoOn, setUser }) {
 		signOut(auth)
 		navigate("/login")
 		hangUp()
+		setRoomNumber("")
 	}
 
 	return (
