@@ -34,13 +34,13 @@ export async function createFriendRequest(fromUid, toUid, displayName, profileUR
 			requestRef,
 			(snapshot) => {
 				const data = snapshot.val()
-				console.log(data)
+				// console.log(data)
 				if (snapshot.exists()) {
 					for (let property in data) {
 						// console.log("datapropshit", data[property].uid)
 						if (data[property].uid === fromUid) {
 							resolve(true)
-							console.log("matched")
+							// console.log("matched")
 						}
 					}
 					resolve(false)
@@ -62,7 +62,7 @@ export async function createFriendRequest(fromUid, toUid, displayName, profileUR
 			profileURL: profileURL === undefined ? "" : profileURL,
 		})
 
-		console.log("sent a request")
+		// console.log("sent a request")
 	}
 }
 
@@ -121,7 +121,7 @@ export async function createCallRequest(roomNumber, user) {
 			} else {
 				await set(ref(RealTimeDB, `IncomingCalls/${user}`), `${roomNumber}`)
 				setTimeout(async () => {
-					console.log("timout")
+					// console.log("timout")
 					await remove(ref(RealTimeDB, `IncomingCalls/${user}`))
 				}, 10000)
 			}

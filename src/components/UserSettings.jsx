@@ -32,12 +32,12 @@ export default function UserSettings({ user }) {
 				})
 					.then(() => {
 						// Profile Updated
-						console.log("profile updated (UPLOAD)")
+						// console.log("profile updated (UPLOAD)")
 					})
 					.catch((error) => {
 						const errorCode = error.code
 						const errorMessage = error.message
-						console.log(errorCode, errorMessage)
+						// console.log(errorCode, errorMessage)
 					})
 			} else {
 				updateProfile(auth.currentUser, {
@@ -46,19 +46,19 @@ export default function UserSettings({ user }) {
 				})
 					.then(() => {
 						// Profile Updated
-						console.log("profile updated (URL)")
+						// console.log("profile updated (URL)")
 					})
 					.catch((error) => {
 						const errorCode = error.code
 						const errorMessage = error.message
-						console.log(errorCode, errorMessage)
+						// console.log(errorCode, errorMessage)
 					})
 				uploadPhotoURL(fields.photoURL)
 			}
 		}
 
 		const onChangeFileUpload = (event) => {
-			console.log(event.target.files["0"])
+			// console.log(event.target.files["0"])
 			setSelectedFile(event.target.files["0"])
 			setIsFilePicked(true)
 		}
