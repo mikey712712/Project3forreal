@@ -5,7 +5,7 @@ import { joinRoomById } from "../functions/FirebaseRTC"
 export default function Dialog() {
 	const [idField, setIdField] = useState("")
 	const handleClick = async () => {
-		console.log("Join room: ", idField)
+		// console.log("Join room: ", idField)
 		document.querySelector("#currentRoom").innerText = `Current room is ${idField} - You are the callee!`
 		await joinRoomById(idField)
 	}

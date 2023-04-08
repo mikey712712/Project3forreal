@@ -13,9 +13,9 @@ export default function Message({ message, author, mine }) {
 	const check = checkForImage(message)
 
 	if (check === false) {
-		console.log("no image")
+		// console.log("no image")
 	} else {
-		console.log("image")
+		// console.log("image")
 	}
 	if (mine === "yes" && check !== false) {
 		return (

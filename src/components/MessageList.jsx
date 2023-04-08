@@ -22,7 +22,7 @@ export default function MessageList({ roomNumber }) {
 				for (let prop in data) {
 					newMessageList.push({ key: prop, message: data[prop].message, userName: data[prop].username })
 				}
-				console.log(newMessageList)
+				// console.log(newMessageList)
 			}
 			setMessages(newMessageList)
 		})
