@@ -54,7 +54,7 @@ export async function createRoom(newRoomId) {
 	// Code for creating a room above
 
 	peerConnection.addEventListener("track", (event) => {
-		console.log("Got remote track:", event.streams[0])
+		// console.log("Got remote track:", event.streams[0])
 		event.streams[0].getTracks().forEach((track) => {
 			remoteStream.addTrack(track)
 		})
@@ -96,7 +96,7 @@ export async function joinRoomById(roomId) {
 	// console.log("Got room:", roomSnapshot.exists())
 
 	if (roomSnapshot.exists) {
-		console.log("Create PeerConnection with configuration: ", configuration)
+		// console.log("Create PeerConnection with configuration: ", configuration)
 		peerConnection = new RTCPeerConnection(configuration)
 		registerPeerConnectionListeners()
 		localStream.getTracks().forEach((track) => {
@@ -107,7 +107,7 @@ export async function joinRoomById(roomId) {
 		const calleeCandidatesCollection = collection(roomRef, "calleeCandidates")
 		peerConnection.addEventListener("icecandidate", async (event) => {
 			if (!event.candidate) {
-				console.log("Got final candidate!")
+				// console.log("Got final candidate!")
 				return
 			}
 			// console.log("Got candidate: ", event.candidate)
@@ -116,7 +116,7 @@ export async function joinRoomById(roomId) {
 		// Code for collecting ICE candidates above
 
 		peerConnection.addEventListener("track", (event) => {
-			console.log("Got remote track:", event.streams[0])
+			// console.log("Got remote track:", event.streams[0])
 			event.streams[0].getTracks().forEach((track) => {
 				// console.log("Add a track to the remoteStream:", track)
 				remoteStream.addTrack(track)
@@ -170,7 +170,7 @@ export async function openUserMedia() {
 
 export async function hangUp() {
 	const tracks = document.querySelector("#localVideo")?.srcObject.getTracks()
-	tracks.forEach((track) => {
+	tracks?.forEach((track) => {
 		track.stop()
 	})
 
@@ -182,13 +182,23 @@ export async function hangUp() {
 		peerConnection.close()
 	}
 
-	document.querySelector("#localVideo").srcObject = null
-	document.querySelector("#remoteVideo").srcObject = null
+	const localVideo = document.querySelector("#localVideo")
+	if (localVideo) {
+		localVideo.srcObject = null
+	}
+	const remoteVideo = document.querySelector("#remoteVideo")
+	if (remoteVideo) {
+		remoteVideo.srcObject = null
+	}
+	const currentRoom = document.querySelector("#currentRoom")
+	if (currentRoom) {
+		currentRoom.innerText = ""
+	}
+
 	// document.querySelector("#cameraBtn").disabled = false
 	// document.querySelector("#joinBtn").disabled = true
 	// document.querySelector("#createBtn").disabled = true
 	// document.querySelector("#hangupBtn").disabled = true
-	document.querySelector("#currentRoom").innerText = ""
 
 	// Delete room on hangup
 	if (roomId) {

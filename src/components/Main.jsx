@@ -27,7 +27,7 @@ export default function Main({ user, setUser }) {
 				if (incomingCall !== "joined") {
 					setIsPlaying(true)
 					setIncomingCall(snapshot.val())
-					console.log("audio", callSound.readyState)
+					// console.log("audio", callSound.readyState)
 				}
 			} else {
 				setIncomingCall("")
@@ -43,9 +43,9 @@ export default function Main({ user, setUser }) {
 
 	return (
 		<>
-			<Header auth={auth} user={user} setUser={setUser} videoOn={videoOn} />
+			<Header setRoomNumber={setRoomNumber} auth={auth} user={user} setUser={setUser} videoOn={videoOn} />
 			<Box w="100%" h="100%">
-				{user ? <Contacts user={user} setRoomNumber={setRoomNumber} /> : null}
+				{user ? <Contacts user={user} setRoomNumber={setRoomNumber} roomNumber={roomNumber} /> : null}
 				<Routes>
 					<Route path="/login" element={<Login user={user} />} />
 					<Route path="/register" element={<Register user={user} />} />

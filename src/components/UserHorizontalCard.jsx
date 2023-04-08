@@ -26,13 +26,13 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 					requestRef,
 					(snapshot) => {
 						const data = snapshot.val()
-						console.log(data)
+						// console.log(data)
 						if (snapshot.exists()) {
 							for (let property in data) {
 								// console.log("datapropshit", data[property].uid)
 								if (data[property].uid === myUid) {
 									resolve(true)
-									console.log("matched")
+									// console.log("matched")
 								}
 							}
 							resolve(false)
@@ -53,27 +53,28 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 		checkForDuplicateWrapper()
 	}, [])
 	return (
-		<Center onClick={handleUserProfile} cursor="pointer" textAlign={"center"} py={"10px"} w="30%" m={"10px"}>
+		<Center onClick={handleUserProfile} cursor="pointer" textAlign={"center"} p={"10px 0 0 0"} w="30%" m={"0 10px 10px 10px"}>
 			<Stack
 				borderWidth="1px"
 				borderRadius="lg"
 				w="25vw"
-				minH="170px"
+				minH="130px"
 				height="fit-content"
 				direction={{ base: "column", md: "row" }}
 				bgColor={"white"}
 				transition="0.4s"
 				_hover={{ filter: "brightness(93%)" }}
 				boxShadow={"2xl"}
-				padding={"10px"}
+				p="10px"
+				position="relative"
 			>
-				<Avatar m="0 0 0 20px" alignSelf="center" w="80px" h="80px" border={"1px solid rgba(0,0,0,0.1)"} src={photoURL} />
+				<Avatar alignSelf="center" w="80px" h="80px" ml="15px" border={"1px solid rgba(0,0,0,0.1)"} src={photoURL} />
 
-				<Stack flex={1} flexDirection="column" justifyContent="center" alignItems="center" p={1} pt={2}>
+				<Stack flex={1} flexDirection="column" justifyContent={isAFriend === "yes" ? "center" : "flex-start"} pt="10px" alignItems="center">
 					<Heading fontSize={"2xl"} fontFamily={"body"}>
 						{displayName}
 					</Heading>
-					<Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
+					<Text fontWeight={600} color={"gray.500"} fontSize="0.7em" mb={4}>
 						{uid}
 					</Text>
 					<Text textAlign={"center"} color={useColorModeValue("gray.700", "gray.400")} px={3}></Text>
@@ -83,8 +84,12 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 							fontSize={"sm"}
 							rounded={"full"}
 							bg={"blue.400"}
+							position="absolute"
+							bottom="15px"
 							color={"white"}
+							h="fit-content"
 							w="fit-content"
+							py="5px"
 							boxShadow={"0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"}
 							_hover={{
 								bg: "blue.500",
@@ -100,9 +105,13 @@ export default function UserHorizontalCard({ photoURL, displayName, uid, isAFrie
 						<Button
 							onClick={(event) => event.stopPropagation()}
 							fontSize={"sm"}
+							position="absolute"
+							bottom="15px"
 							rounded={"full"}
 							bg={"gray.500"}
 							color={"white"}
+							py="5px"
+							h="fit-content"
 							w="fit-content"
 							cursor="default"
 							_hover={{ filter: "brightness(100%)" }}
